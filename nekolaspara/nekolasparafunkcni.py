@@ -1,3 +1,4 @@
+from asyncio import sleep
 import pygame, sys
 import time
 import pygame
@@ -15,13 +16,58 @@ pygame.display.set_caption("Nekolaspara")
 BG = pygame.image.load("asety/m.png")
 S1 = pygame.image.load("asety/s1.png")
 S2 =pygame.image.load("asety/s2.png")
+S3 =pygame.image.load("asety/krab1.png")
+S4 =pygame.image.load("asety/krab2.png")
 
-
+"""""
+tutorijal pro kreteni
+VSUDE KDE JE ZAVYNAC JE PROSTE TAM JAKO DEJ TO NO JAKO NOVY CISLO NEBO JA NEVIM NAZEF
+nejdrif udelat novy d@
+potom 
+def pbd@():
+    font =  pygame.font.Font("asety/fontus.ttf", 32)
+    dia1 = font.render(d(tvojecislo),True,"Black")
+    SCREEN.blit(dia1,(275,790))
+a pak
+def s1d@():
+    while True:
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
+        SCREEN.fill("black")
+        SCREEN.blit(S2, (0, -3))                                                                                     TO JE POZADI ASI??
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
+                            text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")    TO ZŮSTANE STEJNÍ
+        DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="Green")
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),
+                            text_input="@", font=get_font(30), base_color="White", hovering_color="White")      TO JE MÉNO
+        DALSI_BUTTON= Button(image=pygame.image.load("asety/dalsi.png"), pos=(1500, 900), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="White")      TO JE JAKO DALSI
+        imp = pygame.image.load('@').convert()                                                                OBRAZEK POSTAVY TO ZMEN VOLE
+        SCREEN.blit(imp, (1000, 300))
+        DALSI_BUTTON.update(SCREEN)
+        PLAY_BACK.changeColor(PLAY_MOUSE_POS)
+        PLAY_BACK.update(SCREEN)
+        DOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        MOKNO_BUTTON.update(SCREEN)
+        pbd@()                                                                                                TO ZMEN TAKI
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
+                    main_menu()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
+                    s1d@()                                                                                     TO TAKY LINA SVINE
+        pygame.display.update()
+"""
 #Hudba
-pygame.mixer.music.load("songus/songusamongus.mp3")
-pygame.mixer.music.load("songus/songusamogusdruhus.mp3")
-pygame.mixer.music.play(-1)
-pygame.mixer.music.queue("songus/songusamogusdruhus.mp3")
+#pygame.mixer.music.load("songus/songusamongus.mp3")
+#pygame.mixer.music.load("songus/songusamogusdruhus.mp3")
+#pygame.mixer.music.play(-1)
+#pygame.mixer.music.queue("songus/songusamogusdruhus.mp3")
 #animace textu 
 def animacefunkcni():
     font =  pygame.font.Font("asety/fontus.ttf", 40)
@@ -230,27 +276,19 @@ def play():
     
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        pygame.mixer.music.stop()
-        pygame.mixer.music.load("songus/usti.mp3")
-        pygame.mixer.music.play(loops=-1)
+        #pygame.mixer.music.stop()
+        #pygame.mixer.music.load("songus/usti.mp3")
+        #pygame.mixer.music.play(loops=-1)
         SCREEN.fill("black")
-        SCREEN.blit(S1, (0, 0))
+        SCREEN.blit(S1, (0, -3))
 
-        PLAY_BACK = Button(image=None, pos=(1650, 200), 
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
                             text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")
-        DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
-                            text_input="", font=get_font(30), base_color="White", hovering_color="Green")
-        MOKNO_BUTTON= Button(image=None, pos=(425, 725), 
-                            text_input="Pan Bílý", font=get_font(30), base_color="White", hovering_color="White")
         DALSI_BUTTON= Button(image=pygame.image.load("asety/dalsi.png"), pos=(1500, 900), 
                             text_input="", font=get_font(30), base_color="White", hovering_color="White")
         DALSI_BUTTON.update(SCREEN)
         PLAY_BACK.changeColor(PLAY_MOUSE_POS)
         PLAY_BACK.update(SCREEN)
-        DOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
-        DOKNO_BUTTON.update(SCREEN)
-        MOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
-        MOKNO_BUTTON.update(SCREEN)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -280,7 +318,7 @@ def s1d1():
         SCREEN.fill("black")
         SCREEN.blit(S1, (0, -3))
 
-        PLAY_BACK = Button(image=None, pos=(1650, 200), 
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
                             text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")
         DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
                             text_input="", font=get_font(30), base_color="White", hovering_color="Green")
@@ -313,9 +351,9 @@ def s1d2():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
 
         SCREEN.fill("black")
-        SCREEN.blit(S2, (0, -3))
+        SCREEN.blit(S1, (0, -3))
 
-        PLAY_BACK = Button(image=None, pos=(1650, 200), 
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
                             text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")
         DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
                             text_input="", font=get_font(30), base_color="White", hovering_color="Green")
@@ -348,9 +386,9 @@ def s1d3():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
 
         SCREEN.fill("black")
-        SCREEN.blit(S2, (0, -3))
+        SCREEN.blit(S1, (0, -3))
 
-        PLAY_BACK = Button(image=None, pos=(1650, 200), 
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
                             text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")
         DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"),pos=(780, 500), 
                             text_input="", font=get_font(30), base_color="White", hovering_color="Green")
@@ -381,14 +419,14 @@ def s1d4():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
 
         SCREEN.fill("black")
-        SCREEN.blit(S2, (0, -3))
+        SCREEN.blit(S3, (0, -3))
 
-        PLAY_BACK = Button(image=None, pos=(1650, 200), 
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
                             text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")
         DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
                             text_input="", font=get_font(30), base_color="White", hovering_color="Green")
         MOKNO_BUTTON= Button(image=None, pos=(425, 725),
-                            text_input="Pan Bílý", font=get_font(30), base_color="White", hovering_color="White")
+                            text_input="", font=get_font(30), base_color="White", hovering_color="White")
         DALSI_BUTTON= Button(image=pygame.image.load("asety/dalsi.png"), pos=(1500, 900), 
                             text_input="", font=get_font(30), base_color="White", hovering_color="White")
         DALSI_BUTTON.update(SCREEN)
@@ -414,26 +452,15 @@ def s1d5():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
 
-        SCREEN.fill("black")
-        SCREEN.blit(S2, (0, -3))
+        SCREEN.blit(S4, (0, -3))
 
-        PLAY_BACK = Button(image=None, pos=(1650, 200), 
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
                             text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")
-        DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
-                            text_input="", font=get_font(30), base_color="White", hovering_color="Green")
-        MOKNO_BUTTON= Button(image=None, pos=(425, 725),
-                            text_input="", font=get_font(30), base_color="White", hovering_color="White")
         DALSI_BUTTON= Button(image=pygame.image.load("asety/dalsi.png"), pos=(1500, 900), 
                             text_input="", font=get_font(30), base_color="White", hovering_color="White")
-        imp = pygame.image.load('asety/ja.png').convert()
-        SCREEN.blit(imp, (1000, 300))
         DALSI_BUTTON.update(SCREEN)
         PLAY_BACK.changeColor(PLAY_MOUSE_POS)
         PLAY_BACK.update(SCREEN)
-        DOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
-        DOKNO_BUTTON.update(SCREEN)
-        MOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
-        MOKNO_BUTTON.update(SCREEN)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -450,11 +477,11 @@ def s1d6():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
 
         SCREEN.fill("black")
-        SCREEN.blit(S2, (0, -3))
-        pygame.mixer.music.stop()
-        pygame.mixer.music.load("songus/songusamongus.mp3")
-        pygame.mixer.music.play(loops=-1)
-        PLAY_BACK = Button(image=None, pos=(1650, 200), 
+        SCREEN.blit(S4, (0, -3))
+        #pygame.mixer.music.stop()
+        #pygame.mixer.music.load("songus/songusamongus.mp3")
+        #pygame.mixer.music.play(loops=-1)
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
                             text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")
         DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
                             text_input="", font=get_font(30), base_color="White", hovering_color="Green")
@@ -463,7 +490,7 @@ def s1d6():
         DALSI_BUTTON= Button(image=pygame.image.load("asety/dalsi.png"), pos=(1500, 900), 
                             text_input="", font=get_font(30), base_color="White", hovering_color="White")
         imp = pygame.image.load('asety/ja.png').convert()
-        SCREEN.blit(imp, (1000, 300))
+        SCREEN.blit(imp, (700,200))
         DALSI_BUTTON.update(SCREEN)
         PLAY_BACK.changeColor(PLAY_MOUSE_POS)
         PLAY_BACK.update(SCREEN)
@@ -490,7 +517,7 @@ def s1d7():
         SCREEN.fill("black")
         SCREEN.blit(S2, (0, -3))
 
-        PLAY_BACK = Button(image=None, pos=(1650, 200), 
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
                             text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")
         DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"),pos=(780, 500), 
                             text_input="", font=get_font(30), base_color="White", hovering_color="Green")
@@ -528,7 +555,7 @@ def s1d8():
         SCREEN.blit(S2, (0, -3))
         dia1 = font.render(d9,False,"Black")
         SCREEN.blit(dia1,(275,790))
-        PLAY_BACK = Button(image=None, pos=(1650, 200), 
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
                             text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")
         DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
                             text_input="", font=get_font(30), base_color="White", hovering_color="Green")
@@ -565,7 +592,7 @@ def s1d9():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         SCREEN.fill("black")
         SCREEN.blit(S2, (0, -3))
-        PLAY_BACK = Button(image=None, pos=(1650, 200), 
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
                             text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")
         DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
                             text_input="", font=get_font(30), base_color="White", hovering_color="Green")
@@ -602,7 +629,7 @@ def s1d10():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         SCREEN.fill("black")
         SCREEN.blit(S2, (0, -3))
-        PLAY_BACK = Button(image=None, pos=(1650, 200), 
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
                             text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")
         DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
                             text_input="", font=get_font(30), base_color="White", hovering_color="Green")
@@ -639,7 +666,7 @@ def s1d11():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         SCREEN.fill("black")
         SCREEN.blit(S2, (0, -3))
-        PLAY_BACK = Button(image=None, pos=(1650, 200), 
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
                             text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")
         DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
                             text_input="", font=get_font(30), base_color="White", hovering_color="Green")
@@ -676,7 +703,7 @@ def s1d12():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         SCREEN.fill("black")
         SCREEN.blit(S2, (0, -3))
-        PLAY_BACK = Button(image=None, pos=(1650, 200), 
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
                             text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")
         DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
                             text_input="", font=get_font(30), base_color="White", hovering_color="Green")
@@ -713,7 +740,7 @@ def s1d13():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         SCREEN.fill("black")
         SCREEN.blit(S2, (0, -3))
-        PLAY_BACK = Button(image=None, pos=(1650, 200), 
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
                             text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")
         DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
                             text_input="", font=get_font(30), base_color="White", hovering_color="Green")
@@ -750,7 +777,7 @@ def s1d14():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         SCREEN.fill("black")
         SCREEN.blit(S2, (0, -3))
-        PLAY_BACK = Button(image=None, pos=(1650, 200), 
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
                             text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")
         DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
                             text_input="", font=get_font(30), base_color="White", hovering_color="Green")
@@ -787,7 +814,7 @@ def s1d15():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         SCREEN.fill("black")
         SCREEN.blit(S2, (0, -3))
-        PLAY_BACK = Button(image=None, pos=(1650, 200), 
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
                             text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")
         DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
                             text_input="", font=get_font(30), base_color="White", hovering_color="Green")
@@ -824,7 +851,7 @@ def s1d16():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         SCREEN.fill("black")
         SCREEN.blit(S2, (0, -3))
-        PLAY_BACK = Button(image=None, pos=(1650, 200), 
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
                             text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")
         DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
                             text_input="", font=get_font(30), base_color="White", hovering_color="Green")
@@ -862,7 +889,7 @@ def s1d17():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         SCREEN.fill("black")
         SCREEN.blit(S2, (0, -3))
-        PLAY_BACK = Button(image=None, pos=(1650, 200), 
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
                             text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")
         DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
                             text_input="", font=get_font(30), base_color="White", hovering_color="Green")
@@ -899,7 +926,7 @@ def s1d18():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         SCREEN.fill("black")
         SCREEN.blit(S2, (0, -3))
-        PLAY_BACK = Button(image=None, pos=(1650, 200), 
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
                             text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")
         DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
                             text_input="", font=get_font(30), base_color="White", hovering_color="Green")
@@ -936,7 +963,7 @@ def s1d19():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         SCREEN.fill("black")
         SCREEN.blit(S2, (0, -3))
-        PLAY_BACK = Button(image=None, pos=(1650, 200), 
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
                             text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")
         DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
                             text_input="", font=get_font(30), base_color="White", hovering_color="Green")
@@ -973,7 +1000,7 @@ def s1d20():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         SCREEN.fill("black")
         SCREEN.blit(S2, (0, -3))
-        PLAY_BACK = Button(image=None, pos=(1650, 200), 
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
                             text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")
         DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
                             text_input="", font=get_font(30), base_color="White", hovering_color="Green")
@@ -1010,7 +1037,7 @@ def s1d21():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         SCREEN.fill("black")
         SCREEN.blit(S2, (0, -3))
-        PLAY_BACK = Button(image=None, pos=(1650, 200), 
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
                             text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")
         DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
                             text_input="", font=get_font(30), base_color="White", hovering_color="Green")
@@ -1092,18 +1119,18 @@ def options():
 
 def main_menu():
     while True:
-        SCREEN.blit(BG, (-3, 0))
+        SCREEN.blit(BG, (0, 0))
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
         MENU_TEXT = get_font(100).render("", True, "#732c06")
         MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
 
-        PLAY_BUTTON = Button(image=pygame.image.load("asety/startus.png"), pos=(1800, 300), 
-                            text_input="Nová hra", font=get_font(75), base_color="#732c06", hovering_color="White")
-        OPTIONS_BUTTON = Button(image=pygame.image.load("asety/nastus.png"), pos=(1800, 500), 
-                            text_input="Nastavení", font=get_font(75), base_color="#732c06", hovering_color="White")
-        QUIT_BUTTON = Button(image=pygame.image.load("asety/koncus.png"), pos=(1800, 700), 
-                            text_input="konec", font=get_font(75), base_color="#732c06", hovering_color="White")
+        PLAY_BUTTON = Button(image=pygame.image.load("asety/startus.png"), pos=(1750, 300), 
+                            text_input="Nová hra", font=get_font(50), base_color="#732c06", hovering_color="White")
+        OPTIONS_BUTTON = Button(image=pygame.image.load("asety/nastus.png"), pos=(1750, 500), 
+                            text_input="Nastavení", font=get_font(50), base_color="#732c06", hovering_color="White")
+        QUIT_BUTTON = Button(image=pygame.image.load("asety/koncus.png"), pos=(1750, 700), 
+                            text_input="Konec", font=get_font(50), base_color="#732c06", hovering_color="White")
 
 
         SCREEN.blit(MENU_TEXT, MENU_RECT)
