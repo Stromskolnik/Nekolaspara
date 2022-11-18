@@ -12,10 +12,7 @@ def hh():
     pygame.mixer.music.set_volume(1)
 def nh():
     pygame.mixer.music.set_volume(0)
-pygame.mixer.music.load("songus/songusamongus.mp3")
-pygame.mixer.music.load("songus/songusamogusdruhus.mp3")
-pygame.mixer.music.play(-1)
-pygame.mixer.music.queue("songus/songusamogusdruhus.mp3")
+
 pygame.display.set_caption("Nekolaspara")
 #POZADÍ
 BG = pygame.image.load("asety/m.png")
@@ -26,6 +23,7 @@ bg4 =pygame.image.load("pozadi/krab2.png")
 bg5 =pygame.image.load("pozadi/varnavecer.png")
 bg6 =pygame.image.load("pozadi/vecer.png")
 bg7 =pygame.image.load("pozadi/namesti.png")
+ls1=pygame.image.load("asety/ls1.png")
 """""
 def s():
     while True:
@@ -56,7 +54,7 @@ def s():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s()                                                                                    
         pygame.display.update()
@@ -154,8 +152,9 @@ d42="A jestli redukce není stereospecifická, jak můžeme vyrobit"
 d42b="enantiospecifický čístý produkt?"
 d43="Však stereospecifičnost neovlivňuje enantiospecifičnost."
 d44="Dobře můžu ti věřit, tak se dejme do práce."
+d44b="Naštěstí jsem si vzal náhradní oblek."
 #varnavecer
-d45="Šlo ti to skvěle, víš toho víc než.. Ale jak poznáme jak moc" #Pb
+d45="Šlo ti to skvěle Nekolasi. Ale jak poznáme jak moc" #Pb
 d45b="je to čistý?"                                                #Pb
 d46="Nebojte znám na to specialistu. Zítra se za ním můžeme vydat."#N
 d47="Dneska to stačilo."                                           #N
@@ -167,13 +166,29 @@ d51="Tak jo, karavan můžete nechat tady, a jít se vyspat do hotelu"#N
 d52="Klíčky si nechám u sebe. Jestli tu zítra něco nebude je konec."#PB
 d53="Nemějte obavy"                                                #N
 #bgvecer
-d54="Nejsem si furt jistý jestli mu mám věřit, zničehonic se objeví."
+d54="Nejsem si furt jistý jestli mu mám věřit, zničehonic se objeví"
 d54b="a chce se mnou vařit."
 d55="Hej kámo nemáš pár korun na pučení?"                              #??
 d56="Hmph jenom další žebrák."
-d57="Hej mluvim s tebou, nemáš drobný?"
-d58="A co by jsi s nima udělal? Koupíš si za to jen chlast. Za moje peníze."#Pb
+d57="Hej mluvim s tebou, nemáš drobný?"                             #??
+d58="A co by jsi s nima dělal? Koupíš si za to jen drogy. Za moje peníze."#Pb
 d59="Tak jdi do prdele."                                            #??
+#dalsivezeden
+d60="Furt nevím jestli jsem mu měl svěřit moje auto."               
+d61="No snad nic nerozbil nebo neukradl."
+#unsajd
+d62="Dobré ráno pane Bílý, jste připraven vydělat pořádný prachy?"  #N
+d63="Máš připravenou naší várku?"                                   #PB
+d64="Jo, můžeme jít prodávat."                                      #Pb
+d65="Jak daleko je ten kupující? Je z jiného města?"                #pb
+d66="Ne bydlí tady, jenom chvíle cesty."                            #n
+#outside?
+
+
+
+
+
+
 
 #fotni
 def t1():
@@ -405,6 +420,10 @@ def t44():
     font =  pygame.font.Font("asety/fontus.ttf", 32)
     dia1 = font.render(d44,True,"Black")
     SCREEN.blit(dia1,(275,790))
+def t44b():
+    font =  pygame.font.Font("asety/fontus.ttf", 32)
+    dia1 = font.render(d44b,True,"Black")
+    SCREEN.blit(dia1,(275,830))
 def t45():
     font =  pygame.font.Font("asety/fontus.ttf", 32)
     dia1 = font.render(d45,True,"Black")
@@ -432,7 +451,7 @@ def t49():
 def t49b():
     font =  pygame.font.Font("asety/fontus.ttf", 32)
     dia1 = font.render(d49b,True,"Black")
-    SCREEN.blit(dia1,(275,790))
+    SCREEN.blit(dia1,(275,830))
 def t50():
     font =  pygame.font.Font("asety/fontus.ttf", 32)
     dia1 = font.render(d50,True,"Black")
@@ -453,6 +472,10 @@ def t54():
     font =  pygame.font.Font("asety/fontus.ttf", 32)
     dia1 = font.render(d54,True,"Black")
     SCREEN.blit(dia1,(275,790))
+def t54b():
+    font =  pygame.font.Font("asety/fontus.ttf", 32)
+    dia1 = font.render(d54b,True,"Black")
+    SCREEN.blit(dia1,(275,830))
 def t55():
     font =  pygame.font.Font("asety/fontus.ttf", 32)
     dia1 = font.render(d55,True,"Black")
@@ -473,7 +496,26 @@ def t59():
     font =  pygame.font.Font("asety/fontus.ttf", 32)
     dia1 = font.render(d59,True,"Black")
     SCREEN.blit(dia1,(275,790))
-
+def t60():
+    font =  pygame.font.Font("asety/fontus.ttf", 32)
+    dia1 = font.render(d60,True,"Black")
+    SCREEN.blit(dia1,(275,790))
+def t61():
+    font =  pygame.font.Font("asety/fontus.ttf", 32)
+    dia1 = font.render(d61,True,"Black")
+    SCREEN.blit(dia1,(275,790))
+def t62():
+    font =  pygame.font.Font("asety/fontus.ttf", 32)
+    dia1 = font.render(d62,True,"Black")
+    SCREEN.blit(dia1,(275,790))
+def t63():
+    font =  pygame.font.Font("asety/fontus.ttf", 32)
+    dia1 = font.render(d63,True,"Black")
+    SCREEN.blit(dia1,(275,790))
+def t64():
+    font =  pygame.font.Font("asety/fontus.ttf", 32)
+    dia1 = font.render(d64,True,"Black")
+    SCREEN.blit(dia1,(275,790))
 
 
 
@@ -565,7 +607,7 @@ def s1():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s2()                                                                                    
         pygame.display.update()
@@ -596,7 +638,7 @@ def s2():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s3()                                                                                    
         pygame.display.update()
@@ -627,7 +669,7 @@ def s3():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s4()                                                                                    
         pygame.display.update()
@@ -661,7 +703,7 @@ def s4():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s5()                                                                                    
         pygame.display.update()
@@ -693,7 +735,7 @@ def s5():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s6()                                                                                    
         pygame.display.update()
@@ -725,7 +767,7 @@ def s6():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     skr()                                                                                    
         pygame.display.update()
@@ -782,7 +824,7 @@ def s7():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s8()                                                                                    
         pygame.display.update()
@@ -815,7 +857,7 @@ def s8():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s9()                                                                                    
         pygame.display.update()
@@ -848,7 +890,7 @@ def s9():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s10()                                                                                    
         pygame.display.update()
@@ -881,7 +923,7 @@ def s10():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s11()                                                                                    
         pygame.display.update()
@@ -914,7 +956,7 @@ def s11():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s12()                                                                                    
         pygame.display.update()
@@ -947,7 +989,7 @@ def s12():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s13()                                                                                    
         pygame.display.update()
@@ -980,7 +1022,7 @@ def s13():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s14()                                                                                    
         pygame.display.update()
@@ -1013,7 +1055,7 @@ def s14():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s15()                                                                                    
         pygame.display.update()
@@ -1046,7 +1088,7 @@ def s15():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s16()                                                                                    
         pygame.display.update()
@@ -1079,7 +1121,7 @@ def s16():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s17()                                                                                    
         pygame.display.update()
@@ -1112,7 +1154,7 @@ def s17():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s18()                                                                                    
         pygame.display.update()
@@ -1145,7 +1187,7 @@ def s18():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s19()                                                                                    
         pygame.display.update()
@@ -1178,7 +1220,7 @@ def s19():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s20()                                                                                    
         pygame.display.update()
@@ -1211,7 +1253,7 @@ def s20():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s21()                                                                                    
         pygame.display.update()
@@ -1244,7 +1286,7 @@ def s21():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s22()                                                                                    
         pygame.display.update()
@@ -1277,7 +1319,7 @@ def s22():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s23()                                                                                    
         pygame.display.update()
@@ -1310,7 +1352,7 @@ def s23():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s24()                                                                                    
         pygame.display.update()
@@ -1343,7 +1385,7 @@ def s24():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s25()                                                                                    
         pygame.display.update()
@@ -1376,7 +1418,7 @@ def s25():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s26()                                                                                    
         pygame.display.update()
@@ -1409,7 +1451,7 @@ def s26():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s27()                                                                                    
         pygame.display.update()
@@ -1442,7 +1484,7 @@ def s27():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s28()                                                                                    
         pygame.display.update()
@@ -1475,7 +1517,7 @@ def s28():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s29()                                                                                    
         pygame.display.update()
@@ -1509,7 +1551,7 @@ def s29():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s30()                                                                                    
         pygame.display.update()
@@ -1542,7 +1584,7 @@ def s30():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s31()                                                                                    
         pygame.display.update()
@@ -1576,7 +1618,7 @@ def s31():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s32()                                                                                    
         pygame.display.update()
@@ -1609,7 +1651,7 @@ def s32():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s33()                                                                                    
         pygame.display.update()
@@ -1642,7 +1684,7 @@ def s33():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s34()                                                                                    
         pygame.display.update()
@@ -1675,7 +1717,7 @@ def s34():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s36()                                                                                    
         pygame.display.update()
@@ -1709,7 +1751,7 @@ def s36():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s37()                                                                                    
         pygame.display.update()
@@ -1742,7 +1784,7 @@ def s37():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s38()                                                                                    
         pygame.display.update()
@@ -1775,7 +1817,7 @@ def s38():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s39()                                                                                    
         pygame.display.update()
@@ -1808,7 +1850,7 @@ def s39():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s40()                                                                                    
         pygame.display.update()
@@ -1841,7 +1883,7 @@ def s40():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s41()                                                                                    
         pygame.display.update()
@@ -1874,7 +1916,7 @@ def s41():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s42()                                                                                    
         pygame.display.update()
@@ -1908,7 +1950,7 @@ def s42():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s43()                                                                                    
         pygame.display.update()
@@ -1941,7 +1983,7 @@ def s43():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     s44()                                                                                    
         pygame.display.update()
@@ -1967,43 +2009,45 @@ def s44():
         DOKNO_BUTTON.update(SCREEN)
         MOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
         MOKNO_BUTTON.update(SCREEN)
-        t44()                                                                                                
+        t44()
+        t44b()                                                                                                
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
                     intro()                                                                                    
         pygame.display.update()
 
 def intro():
-    pygame.mixer.music.stop()    
-    file_name = "vid/intro.mp4"
-    window_name = "window"
-    interframe_wait_ms = 30
+    while True:
+        pygame.mixer.music.stop()    
+        file_name = "vid/intro.mp4"
+        window_name = "window"
+        interframe_wait_ms = 30
 
-    cap = cv2.VideoCapture(file_name)
-    if not cap.isOpened():
+        cap = cv2.VideoCapture(file_name)
+        if not cap.isOpened():
 
-        exit()
+            exit()
 
-    cv2.namedWindow(window_name, cv2.WND_PROP_FULLSCREEN)
-    cv2.setWindowProperty(window_name, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+        cv2.namedWindow(window_name, cv2.WND_PROP_FULLSCREEN)
+        cv2.setWindowProperty(window_name, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 
-    while (True):
-        ret, frame = cap.read()
-        if not ret:
-            break
-        cv2.imshow(window_name, frame)
-        if cv2.waitKey(interframe_wait_ms) & 0x7F == ord("q"):
-            break
+        while (True):
+            ret, frame = cap.read()
+            if not ret:
+                break
+            cv2.imshow(window_name, frame)
+            if cv2.waitKey(interframe_wait_ms) & 0x7F == ord("q"):
+                break
 
-    cap.release()
-    cv2.destroyAllWindows()
-    s45()
+        cap.release()
+        cv2.destroyAllWindows()
+        s45()
 def s45():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
@@ -2018,7 +2062,7 @@ def s45():
         DALSI_BUTTON= Button(image=pygame.image.load("asety/dalsi.png"), pos=(960, 540), 
                             text_input="", font=get_font(30), base_color="White", hovering_color="White")     
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                           #postava  
-        SCREEN.blit(imp, (1000, 300))
+        SCREEN.blit(imp, (700, 200))
         DALSI_BUTTON.update(SCREEN)
         PLAY_BACK.changeColor(PLAY_MOUSE_POS)
         PLAY_BACK.update(SCREEN)
@@ -2034,15 +2078,557 @@ def s45():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
+                    POMOC()
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
-                    s45()                                                                                    
+                    s46()                                                                                    
         pygame.display.update()
- 
+def s46():
+    while True:
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
+        SCREEN.fill("black")
+        SCREEN.blit(bg5, (0, -3))                                                                                #pozadi
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
+                            text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")   
+        DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="Green")
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),
+                            text_input="Nekolas", font=get_font(30), base_color="White", hovering_color="White")     #jmeno
+        DALSI_BUTTON= Button(image=pygame.image.load("asety/dalsi.png"), pos=(960, 540), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="White")     
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                           #postava  
+        SCREEN.blit(imp, (700, 200))
+        DALSI_BUTTON.update(SCREEN)
+        PLAY_BACK.changeColor(PLAY_MOUSE_POS)
+        PLAY_BACK.update(SCREEN)
+        DOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        MOKNO_BUTTON.update(SCREEN)
+        t46()                                                                                               
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
+                    POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
+                    s47()                                                                                    
+        pygame.display.update()
+def s47():
+    while True:
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
+        SCREEN.fill("black")
+        SCREEN.blit(bg5, (0, -3))                                                                                #pozadi
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
+                            text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")   
+        DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="Green")
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),
+                            text_input="Nekolas", font=get_font(30), base_color="White", hovering_color="White")     #jmeno
+        DALSI_BUTTON= Button(image=pygame.image.load("asety/dalsi.png"), pos=(960, 540), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="White")     
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                           #postava  
+        SCREEN.blit(imp, (700, 200))
+        DALSI_BUTTON.update(SCREEN)
+        PLAY_BACK.changeColor(PLAY_MOUSE_POS)
+        PLAY_BACK.update(SCREEN)
+        DOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        MOKNO_BUTTON.update(SCREEN)
+        t47()                                                                                               
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
+                    POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
+                    s48()                                                                                    
+        pygame.display.update()
+def s48():
+    while True:
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
+        SCREEN.fill("black")
+        SCREEN.blit(bg5, (0, -3))                                                                                #pozadi
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
+                            text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")   
+        DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="Green")
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),
+                            text_input="Pan Bílý", font=get_font(30), base_color="White", hovering_color="White")     #jmeno
+        DALSI_BUTTON= Button(image=pygame.image.load("asety/dalsi.png"), pos=(960, 540), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="White")     
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                           #postava  
+        SCREEN.blit(imp, (700, 200))
+        DALSI_BUTTON.update(SCREEN)
+        PLAY_BACK.changeColor(PLAY_MOUSE_POS)
+        PLAY_BACK.update(SCREEN)
+        DOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        MOKNO_BUTTON.update(SCREEN)
+        t48()                                                                                               
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
+                    POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
+                    s49()                                                                                    
+        pygame.display.update()
+def s49():
+    while True:
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
+        SCREEN.fill("black")
+        SCREEN.blit(bg5, (0, -3))                                                                                #pozadi
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
+                            text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")   
+        DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="Green")
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),
+                            text_input="Nekolas", font=get_font(30), base_color="White", hovering_color="White")     #jmeno
+        DALSI_BUTTON= Button(image=pygame.image.load("asety/dalsi.png"), pos=(960, 540), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="White")     
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                           #postava  
+        SCREEN.blit(imp, (700, 200))
+        DALSI_BUTTON.update(SCREEN)
+        PLAY_BACK.changeColor(PLAY_MOUSE_POS)
+        PLAY_BACK.update(SCREEN)
+        DOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        MOKNO_BUTTON.update(SCREEN)
+        t49() 
+        t49b()                                                                                               
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
+                    POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
+                    s50()                                                                                    
+        pygame.display.update()
+def s50():
+    while True:
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
+        SCREEN.fill("black")
+        SCREEN.blit(bg5, (0, -3))                                                                                #pozadi
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
+                            text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")   
+        DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="Green")
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),
+                            text_input="Pan Bílý", font=get_font(30), base_color="White", hovering_color="White")     #jmeno
+        DALSI_BUTTON= Button(image=pygame.image.load("asety/dalsi.png"), pos=(960, 540), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="White")     
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                           #postava  
+        SCREEN.blit(imp, (700, 200))
+        DALSI_BUTTON.update(SCREEN)
+        PLAY_BACK.changeColor(PLAY_MOUSE_POS)
+        PLAY_BACK.update(SCREEN)
+        DOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        MOKNO_BUTTON.update(SCREEN)
+        t50()                                                                                                
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
+                    POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
+                    s51()                                                                                    
+        pygame.display.update()
+def s51():
+    while True:
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
+        SCREEN.fill("black")
+        SCREEN.blit(bg5, (0, -3))                                                                                #pozadi
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
+                            text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")   
+        DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="Green")
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),
+                            text_input="Nekolas", font=get_font(30), base_color="White", hovering_color="White")     #jmeno
+        DALSI_BUTTON= Button(image=pygame.image.load("asety/dalsi.png"), pos=(960, 540), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="White")     
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                           #postava  
+        SCREEN.blit(imp, (700, 200))
+        DALSI_BUTTON.update(SCREEN)
+        PLAY_BACK.changeColor(PLAY_MOUSE_POS)
+        PLAY_BACK.update(SCREEN)
+        DOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        MOKNO_BUTTON.update(SCREEN)
+        t51()                                                                                                
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
+                    POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
+                    s52()                                                                                    
+        pygame.display.update()
+def s52():
+    while True:
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
+        SCREEN.fill("black")
+        SCREEN.blit(bg5, (0, -3))                                                                                #pozadi
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
+                            text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")   
+        DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="Green")
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),
+                            text_input="Pan Bílý", font=get_font(30), base_color="White", hovering_color="White")     #jmeno
+        DALSI_BUTTON= Button(image=pygame.image.load("asety/dalsi.png"), pos=(960, 540), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="White")     
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                           #postava  
+        SCREEN.blit(imp, (700, 200))
+        DALSI_BUTTON.update(SCREEN)
+        PLAY_BACK.changeColor(PLAY_MOUSE_POS)
+        PLAY_BACK.update(SCREEN)
+        DOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        MOKNO_BUTTON.update(SCREEN)
+        t52()                                                                                                
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
+                    POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
+                    s53()                                                                                    
+        pygame.display.update()
+def s53():
+    while True:
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
+        SCREEN.fill("black")
+        SCREEN.blit(bg5, (0, -3))                                                                                #pozadi
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
+                            text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")   
+        DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="Green")
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),
+                            text_input="Nekolas", font=get_font(30), base_color="White", hovering_color="White")     #jmeno
+        DALSI_BUTTON= Button(image=pygame.image.load("asety/dalsi.png"), pos=(960, 540), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="White")     
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                           #postava  
+        SCREEN.blit(imp, (700, 200))
+        DALSI_BUTTON.update(SCREEN)
+        PLAY_BACK.changeColor(PLAY_MOUSE_POS)
+        PLAY_BACK.update(SCREEN)
+        DOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        MOKNO_BUTTON.update(SCREEN)
+        t53()                                                                                                
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
+                    POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
+                    svec()                                                                                    
+        pygame.display.update()
+def svec():
+    while True:
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
+        SCREEN.fill("black")
+        SCREEN.blit(bg6, (0, -3))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
 
-
-
-
+            s54()
+        pygame.display.update()
+        sleep(3)
+def s54():
+    while True:
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
+        SCREEN.fill("black")
+        SCREEN.blit(bg6, (0, -3))                                                                                #pozadi
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
+                            text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")   
+        DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="Green")
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),
+                            text_input="", font=get_font(30), base_color="White", hovering_color="White")     #jmeno
+        DALSI_BUTTON= Button(image=pygame.image.load("asety/dalsi.png"), pos=(960, 540), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="White")     
+        DALSI_BUTTON.update(SCREEN)
+        PLAY_BACK.changeColor(PLAY_MOUSE_POS)
+        PLAY_BACK.update(SCREEN)
+        DOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        MOKNO_BUTTON.update(SCREEN)
+        t54() 
+        t54b()                                                                                               
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
+                    POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
+                    s55()                                                                                    
+        pygame.display.update()
+def s55():
+    while True:
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
+        SCREEN.fill("black")
+        SCREEN.blit(bg6, (0, -3))                                                                                #pozadi
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
+                            text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")   
+        DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="Green")
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),
+                            text_input="???", font=get_font(30), base_color="White", hovering_color="White")     #jmeno
+        DALSI_BUTTON= Button(image=pygame.image.load("asety/dalsi.png"), pos=(960, 540), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="White")     
+        imp = pygame.image.load('postavy/neznam.png').convert()                                                           #postava  
+        SCREEN.blit(imp, (700, 200))
+        DALSI_BUTTON.update(SCREEN)
+        PLAY_BACK.changeColor(PLAY_MOUSE_POS)
+        PLAY_BACK.update(SCREEN)
+        DOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        MOKNO_BUTTON.update(SCREEN)
+        t55()                                                                                                
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
+                    POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
+                    s56()                                                                                    
+        pygame.display.update()
+def s56():
+    while True:
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
+        SCREEN.fill("black")
+        SCREEN.blit(bg6, (0, -3))                                                                                #pozadi
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
+                            text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")   
+        DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="Green")
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),
+                            text_input="", font=get_font(30), base_color="White", hovering_color="White")     #jmeno
+        DALSI_BUTTON= Button(image=pygame.image.load("asety/dalsi.png"), pos=(960, 540), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="White")     
+        DALSI_BUTTON.update(SCREEN)
+        PLAY_BACK.changeColor(PLAY_MOUSE_POS)
+        PLAY_BACK.update(SCREEN)
+        DOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        MOKNO_BUTTON.update(SCREEN)
+        t56()                                                                                                
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
+                    POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
+                    s57()                                                                                    
+        pygame.display.update()
+def s57():
+    while True:
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
+        SCREEN.fill("black")
+        SCREEN.blit(bg6, (0, -3))                                                                                #pozadi
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
+                            text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")   
+        DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="Green")
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),
+                            text_input="???", font=get_font(30), base_color="White", hovering_color="White")     #jmeno
+        DALSI_BUTTON= Button(image=pygame.image.load("asety/dalsi.png"), pos=(960, 540), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="White")     
+        imp = pygame.image.load('postavy/neznam.png').convert()                                                           #postava  
+        SCREEN.blit(imp, (700, 200))
+        DALSI_BUTTON.update(SCREEN)
+        PLAY_BACK.changeColor(PLAY_MOUSE_POS)
+        PLAY_BACK.update(SCREEN)
+        DOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        MOKNO_BUTTON.update(SCREEN)
+        t57()                                                                                                
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
+                    POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
+                    s58()                                                                                    
+        pygame.display.update()
+def s58():
+    while True:
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
+        SCREEN.fill("black")
+        SCREEN.blit(bg6, (0, -3))                                                                                #pozadi
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
+                            text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")   
+        DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="Green")
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),
+                            text_input="Pan Bílý", font=get_font(30), base_color="White", hovering_color="White")     #jmeno
+        DALSI_BUTTON= Button(image=pygame.image.load("asety/dalsi.png"), pos=(960, 540), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="White")     
+        imp = pygame.image.load('postavy/neznam.png').convert()                                                           #postava  
+        SCREEN.blit(imp, (700, 200))
+        DALSI_BUTTON.update(SCREEN)
+        PLAY_BACK.changeColor(PLAY_MOUSE_POS)
+        PLAY_BACK.update(SCREEN)
+        DOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        MOKNO_BUTTON.update(SCREEN)
+        t58()                                                                                                
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
+                    POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
+                    s59()                                                                                    
+        pygame.display.update()
+def s59():
+    while True:
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
+        SCREEN.fill("black")
+        SCREEN.blit(bg6, (0, -3))                                                                                #pozadi
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
+                            text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")   
+        DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="Green")
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),
+                            text_input="???", font=get_font(30), base_color="White", hovering_color="White")     #jmeno
+        DALSI_BUTTON= Button(image=pygame.image.load("asety/dalsi.png"), pos=(960, 540), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="White")     
+        imp = pygame.image.load('postavy/neznam.png').convert()                                                           #postava  
+        SCREEN.blit(imp, (700, 200))
+        DALSI_BUTTON.update(SCREEN)
+        PLAY_BACK.changeColor(PLAY_MOUSE_POS)
+        PLAY_BACK.update(SCREEN)
+        DOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        MOKNO_BUTTON.update(SCREEN)
+        t59()                                                                                                
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
+                    POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
+                    sls1()                                                                                    
+        pygame.display.update()
+def sls1():
+    while True:
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
+        SCREEN.fill("black")
+        SCREEN.blit(ls1, (0, -3))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            s60()
+        pygame.display.update()
+        sleep(5)
+def s60():
+    while True:
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
+        SCREEN.fill("black")
+        SCREEN.blit(bg1, (0, -3))                                                                                #pozadi
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
+                            text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")   
+        DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="Green")
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),
+                            text_input="", font=get_font(30), base_color="White", hovering_color="White")     #jmeno
+        DALSI_BUTTON= Button(image=pygame.image.load("asety/dalsi.png"), pos=(960, 540), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="White")     
+        DALSI_BUTTON.update(SCREEN)
+        PLAY_BACK.changeColor(PLAY_MOUSE_POS)
+        PLAY_BACK.update(SCREEN)
+        DOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        MOKNO_BUTTON.update(SCREEN)
+        t60()                                                                                                
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
+                    POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
+                    s61()                                                                                    
+        pygame.display.update()
+def s61():
+    while True:
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
+        SCREEN.fill("black")
+        SCREEN.blit(bg1, (0, -3))                                                                                #pozadi
+        PLAY_BACK = Button(image=None, pos=(1750, 50), 
+                            text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")   
+        DOKNO_BUTTON = Button(image=pygame.image.load("asety/mdva.png"), pos=(780, 500), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="Green")
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),
+                            text_input="", font=get_font(30), base_color="White", hovering_color="White")     #jmeno
+        DALSI_BUTTON= Button(image=pygame.image.load("asety/dalsi.png"), pos=(960, 540), 
+                            text_input="", font=get_font(30), base_color="White", hovering_color="White")     
+        DALSI_BUTTON.update(SCREEN)
+        PLAY_BACK.changeColor(PLAY_MOUSE_POS)
+        PLAY_BACK.update(SCREEN)
+        DOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTON.changeColor(PLAY_MOUSE_POS)
+        MOKNO_BUTTON.update(SCREEN)
+        t61()                                                                                                
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
+                    POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
+                    s61()                                                                                    
+        pygame.display.update()
 
 
 
@@ -2051,91 +2637,96 @@ def s45():
 
 
 def ses():
+    pygame.mixer.music.stop()
     pygame.mixer.music.load("songus/finger.mp3")
     pygame.mixer.music.play(loops=0)
-    main_menu()
 
 
 
 
-def options():
-    while True:
-        OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
-        
-        SCREEN.fill("white")
-        OPTIONS_TEXT = get_font(45).render("Nastav si radši mámu", True, "Black")
-        OPTIONS_RECT = OPTIONS_TEXT.get_rect(center=(640, 260))
-        SCREEN.blit(OPTIONS_TEXT, OPTIONS_RECT)
 
-        OPTIONS_BACK = Button(image=None, pos=(640, 460), 
-                            text_input="BACK", font=get_font(75), base_color="Black", hovering_color="Green")
+def POMOC():
+    pygame.mixer.music.load("songus/songusamogusdruhus.mp3")
+    pygame.mixer.music.play(loops=-1)
+    def main_menu():
+        while True:
+            SCREEN.blit(BG, (0, 0))
+            MENU_MOUSE_POS = pygame.mouse.get_pos()
+            MENU_TEXT = get_font(100).render("", True, "#732c06")
+            MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
 
-        ROZ_BUTTON = Button(image=pygame.image.load("asety/nh.png"), pos=(640, 660), 
-                            text_input=None, font=get_font(75), base_color="Black", hovering_color="Green")
-                        
-        HH_BUTTON = Button(image=pygame.image.load("asety/hh.png"), pos=(1040, 660),
-                            text_input=None, font=get_font(75), base_color="Black", hovering_color="Green")
-        HH_BUTTON.update(SCREEN)
+            PLAY_BUTTON = Button(image=pygame.image.load("asety/startus.png"), pos=(1750, 300), 
+                                text_input="Nová hra", font=get_font(50), base_color="#732c06", hovering_color="White")
+            OPTIONS_BUTTON = Button(image=pygame.image.load("asety/nastus.png"), pos=(1750, 500), 
+                                text_input="Nastavení", font=get_font(50), base_color="#732c06", hovering_color="White")
+            QUIT_BUTTON = Button(image=pygame.image.load("asety/koncus.png"), pos=(1750, 700), 
+                                text_input="Konec", font=get_font(50), base_color="#732c06", hovering_color="White")
+            SES_BUTTON = Button(image=pygame.image.load("asety/ses.png"), pos=(715, 153), 
+                                text_input="", font=get_font(50), base_color="#732c06", hovering_color="White")
+            SKIP_BUTTON = Button(image=pygame.image.load("asety/ses.png"), pos=(5, 5), 
+                                text_input="", font=get_font(50), base_color="#732c06", hovering_color="White")
 
-        ROZ_BUTTON.changeColor(OPTIONS_MOUSE_POS)
-        ROZ_BUTTON.update(SCREEN)           
+
+            SCREEN.blit(MENU_TEXT, MENU_RECT)
+            def options():
+                while True:
+                    OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
                     
-        OPTIONS_BACK.changeColor(OPTIONS_MOUSE_POS)
-        OPTIONS_BACK.update(SCREEN)
+                    SCREEN.fill("white")
+                    OPTIONS_TEXT = get_font(45).render("Nastav si radši mámu", True, "Black")
+                    OPTIONS_RECT = OPTIONS_TEXT.get_rect(center=(640, 260))
+                    SCREEN.blit(OPTIONS_TEXT, OPTIONS_RECT)
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if OPTIONS_BACK.checkForInput(OPTIONS_MOUSE_POS):
-                    main_menu()
-                if ROZ_BUTTON.checkForInput(OPTIONS_MOUSE_POS):
-                    nh()
-                if HH_BUTTON.checkForInput(OPTIONS_MOUSE_POS):
-                    hh()
+                    OPTIONS_BACK = Button(image=None, pos=(640, 460), 
+                                        text_input="BACK", font=get_font(75), base_color="Black", hovering_color="Green")
 
-        pygame.display.update()
+                    ROZ_BUTTON = Button(image=pygame.image.load("asety/nh.png"), pos=(640, 660), 
+                                        text_input=None, font=get_font(75), base_color="Black", hovering_color="Green")
+                                    
+                    HH_BUTTON = Button(image=pygame.image.load("asety/hh.png"), pos=(1040, 660),
+                                        text_input=None, font=get_font(75), base_color="Black", hovering_color="Green")
+                    HH_BUTTON.update(SCREEN)
 
+                    ROZ_BUTTON.changeColor(OPTIONS_MOUSE_POS)
+                    ROZ_BUTTON.update(SCREEN)           
+                                
+                    OPTIONS_BACK.changeColor(OPTIONS_MOUSE_POS)
+                    OPTIONS_BACK.update(SCREEN)
 
-def main_menu():
-    while True:
-        SCREEN.blit(BG, (0, 0))
-        MENU_MOUSE_POS = pygame.mouse.get_pos()
-        MENU_TEXT = get_font(100).render("", True, "#732c06")
-        MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            pygame.quit()
+                            sys.exit()
+                        if event.type == pygame.MOUSEBUTTONDOWN:
+                            if OPTIONS_BACK.checkForInput(OPTIONS_MOUSE_POS):
+                                main_menu()
+                            if ROZ_BUTTON.checkForInput(OPTIONS_MOUSE_POS):
+                                nh()
+                            if HH_BUTTON.checkForInput(OPTIONS_MOUSE_POS):
+                                hh()
 
-        PLAY_BUTTON = Button(image=pygame.image.load("asety/startus.png"), pos=(1750, 300), 
-                            text_input="Nová hra", font=get_font(50), base_color="#732c06", hovering_color="White")
-        OPTIONS_BUTTON = Button(image=pygame.image.load("asety/nastus.png"), pos=(1750, 500), 
-                            text_input="Nastavení", font=get_font(50), base_color="#732c06", hovering_color="White")
-        QUIT_BUTTON = Button(image=pygame.image.load("asety/koncus.png"), pos=(1750, 700), 
-                            text_input="Konec", font=get_font(50), base_color="#732c06", hovering_color="White")
-        SES_BUTTON = Button(image=pygame.image.load("asety/ses.png"), pos=(715, 153), 
-                            text_input="", font=get_font(50), base_color="#732c06", hovering_color="White")
-
-
-        SCREEN.blit(MENU_TEXT, MENU_RECT)
-
-        for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON, SES_BUTTON]:
-            button.changeColor(MENU_MOUSE_POS)
-            button.update(SCREEN)
-        
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    play()
-                if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    options()
-                if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    pygame.display.update()
+            for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON, SES_BUTTON]:
+                button.changeColor(MENU_MOUSE_POS)
+                button.update(SCREEN)
+            
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-                if SES_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    ses()
-
-        pygame.display.update()
-
-main_menu()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
+                        play()
+                    if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
+                        options()
+                    if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
+                        pygame.quit()
+                        sys.exit()
+                    if SES_BUTTON.checkForInput(MENU_MOUSE_POS):
+                        ses()
+                    if SKIP_BUTTON.checkForInput(MENU_MOUSE_POS):
+                        pygame.mixer.music.stop()
+                        s60()
+            pygame.display.update()
+    main_menu()
+POMOC()
