@@ -4272,11 +4272,11 @@ def busak():
         SCREEN.blit(bg9, (0, -3))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK;DOKNO_BUTTON
-        VYB_BUTTONB =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(320, 600), 
+        VYB_BUTTONB =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(420, 600), 
                                         text_input="BILLA", font=get_font(50), base_color="White", hovering_color="#4e61de")
-        VYB_BUTTONT =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(840, 600), 
+        VYB_BUTTONT =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(940, 600), 
                                         text_input="Tyršák", font=get_font(50), base_color="White", hovering_color="#4e61de")
-        VYB_BUTTONK =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(1360, 600), 
+        VYB_BUTTONK =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(1460, 600), 
                                         text_input="Kostel", font=get_font(50), base_color="White", hovering_color="#4e61de")
         VYB_BUTTONB.changeColor(PLAY_MOUSE_POS)
         VYB_BUTTONT.changeColor(PLAY_MOUSE_POS)
@@ -4310,11 +4310,11 @@ def tyrsak():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK
         DOKNO_BUTTON
-        VYB_BUTTONG =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(320, 600), 
+        VYB_BUTTONG =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(420, 600), 
                                         text_input="Gympl", font=get_font(50), base_color="White", hovering_color="#4e61de")
-        VYB_BUTTONS =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(840, 600), 
+        VYB_BUTTONS =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(940, 600), 
                                         text_input="Autobusák", font=get_font(50), base_color="White", hovering_color="#4e61de")
-        VYB_BUTTONP =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(1360, 600), 
+        VYB_BUTTONP =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(1460, 600), 
                                         text_input="Pramen", font=get_font(50), base_color="White", hovering_color="#4e61de")
         VYB_BUTTONG.changeColor(PLAY_MOUSE_POS)
         VYB_BUTTONP.changeColor(PLAY_MOUSE_POS)
@@ -4348,12 +4348,12 @@ def gympl():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK
         DOKNO_BUTTON
-        VYB_BUTTONM =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(320, 600), 
+        VYB_BUTTONM =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(420, 600), 
                                         text_input="Město", font=get_font(50), base_color="White", hovering_color="#4e61de")
         VYB_BUTTONM.changeColor(PLAY_MOUSE_POS)
         VYB_BUTTONM.update(SCREEN)
-        VYB_BUTTONT =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(1360, 600), 
-                                        text_input="Město", font=get_font(50), base_color="White", hovering_color="#4e61de")
+        VYB_BUTTONT =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(1460, 600), 
+                                        text_input="Tyršák", font=get_font(50), base_color="White", hovering_color="#4e61de")
         VYB_BUTTONT.changeColor(PLAY_MOUSE_POS)
         VYB_BUTTONT.update(SCREEN)
         DOKNO_BUTTON.update(SCREEN)
@@ -4384,7 +4384,7 @@ def kostel():
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
             PLAY_BACK
             DOKNO_BUTTON
-            VYB_BUTTONA =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(840, 600), 
+            VYB_BUTTONA =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(940, 600), 
                                             text_input="Amerika", font=get_font(50), base_color="White", hovering_color="#4e61de")
             VYB_BUTTONA.changeColor(PLAY_MOUSE_POS)
             VYB_BUTTONA.update(SCREEN)
@@ -4411,11 +4411,11 @@ def mesto():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK
         DOKNO_BUTTON
-        VYB_BUTTONZ =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(320, 600), 
+        VYB_BUTTONZ =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(420, 600), 
                                         text_input="Základka", font=get_font(50), base_color="White", hovering_color="#4e61de")
-        VYB_BUTTONPO =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(840, 600), 
+        VYB_BUTTONPO =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(940, 600), 
                                         text_input="Podšance", font=get_font(50), base_color="White", hovering_color="#4e61de")
-        VYB_BUTTONG =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(1360, 600), 
+        VYB_BUTTONG =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(1460, 600), 
                                         text_input="Gympl", font=get_font(50), base_color="White", hovering_color="#4e61de")
         VYB_BUTTONG.changeColor(PLAY_MOUSE_POS)
         VYB_BUTTONZ.changeColor(PLAY_MOUSE_POS)
@@ -4428,8 +4428,8 @@ def mesto():
         PLAY_BACK.update(SCREEN)
         dia1 = font.render(m1,True,"Black");SCREEN.blit(dia1,(275,790))
         dia2 = font.render(m2,True,"Black");SCREEN.blit(dia2,(275,830))
-        dia3=font.render(m3,True,"Black");SCREEN.blit(dia3,(275,830))
-        dia4=font.render(m4,True,"Black");SCREEN.blit(dia4,(275,870))
+        dia3=font.render(m3,True,"Black");SCREEN.blit(dia3,(275,870))
+        dia4=font.render(m4,True,"Black");SCREEN.blit(dia4,(275,910))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -4450,11 +4450,11 @@ def billa():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK
         DOKNO_BUTTON
-        VYB_BUTTONM =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(320, 600), 
+        VYB_BUTTONM =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(420, 600), 
                                         text_input="Město", font=get_font(50), base_color="White", hovering_color="#4e61de")
-        VYB_BUTTONK =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(1360, 600), 
+        VYB_BUTTONK =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(1460, 600), 
                                         text_input="Kostel", font=get_font(50), base_color="White", hovering_color="#4e61de")
-        VYB_BUTTONA =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(840, 600), 
+        VYB_BUTTONA =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(940, 600), 
                                         text_input="Autobusák", font=get_font(50), base_color="White", hovering_color="#4e61de")
         VYB_BUTTONM.changeColor(PLAY_MOUSE_POS)
         VYB_BUTTONK.changeColor(PLAY_MOUSE_POS)
@@ -4488,9 +4488,9 @@ def pramen():
         PLAY_BACK
         DOKNO_BUTTON= Button(image=pygame.image.load("asety/mtri.png"), pos=(780, 500), 
                             text_input="", font=get_font(30), base_color="White", hovering_color="Green")
-        VYB_BUTTONZP =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(320, 600), 
+        VYB_BUTTONZP =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(420, 600), 
                                         text_input="Zpět", font=get_font(50), base_color="White", hovering_color="#4e61de")
-        VYB_BUTTONAP =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(1360, 600), 
+        VYB_BUTTONAP =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(1460, 600), 
                                         text_input="Napít se", font=get_font(50), base_color="White", hovering_color="#4e61de")
         VYB_BUTTONZP.changeColor(PLAY_MOUSE_POS)
         VYB_BUTTONAP.changeColor(PLAY_MOUSE_POS)
@@ -4522,9 +4522,9 @@ def amerika():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK
         DOKNO_BUTTON
-        VYB_BUTTONAL =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(320, 600), 
+        VYB_BUTTONAL =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(420, 600), 
                                         text_input="Levá", font=get_font(50), base_color="White", hovering_color="#4e61de")
-        VYB_BUTTONAP =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(1360, 600), 
+        VYB_BUTTONAP =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(1460, 600), 
                                         text_input="Pravá", font=get_font(50), base_color="White", hovering_color="#4e61de")
         VYB_BUTTONAL.changeColor(PLAY_MOUSE_POS)
         VYB_BUTTONAP.changeColor(PLAY_MOUSE_POS)
@@ -4555,9 +4555,9 @@ def zakladka():
         PLAY_BACK
         DOKNO_BUTTON= Button(image=pygame.image.load("asety/mtri.png"), pos=(780, 500), 
                             text_input="", font=get_font(30), base_color="White", hovering_color="Green")
-        VYB_BUTTONKOP =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(320, 600), 
+        VYB_BUTTONKOP =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(420, 600), 
                                         text_input="Kopeček", font=get_font(50), base_color="White", hovering_color="#4e61de")
-        VYB_BUTTONPA =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(1360, 600), 
+        VYB_BUTTONPA =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(1460, 600), 
                                         text_input="Park", font=get_font(50), base_color="White", hovering_color="#4e61de")
         VYB_BUTTONKOP.changeColor(PLAY_MOUSE_POS)
         VYB_BUTTONKOP.update(SCREEN)
@@ -4589,7 +4589,7 @@ def kopecek():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK
         DOKNO_BUTTON
-        VYB_BUTTONS =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(840, 600), 
+        VYB_BUTTONS =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(940, 600), 
                                         text_input="Sakon", font=get_font(50), base_color="White", hovering_color="#4e61de")
         VYB_BUTTONS.changeColor(PLAY_MOUSE_POS)
         VYB_BUTTONS.update(SCREEN)
@@ -4616,11 +4616,11 @@ def podsance():
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
             PLAY_BACK
             DOKNO_BUTTON
-            VYB_BUTTONG =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(320, 600), 
+            VYB_BUTTONG =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(420, 600), 
                                             text_input="Park", font=get_font(50), base_color="White", hovering_color="#4e61de")
-            VYB_BUTTONS =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(840, 600), 
+            VYB_BUTTONS =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(940, 600), 
                                             text_input="Město", font=get_font(50), base_color="White", hovering_color="#4e61de")
-            VYB_BUTTONP =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(1360, 600), 
+            VYB_BUTTONP =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(1460, 600), 
                                             text_input="Amerika", font=get_font(50), base_color="White", hovering_color="#4e61de")
             VYB_BUTTONG.changeColor(PLAY_MOUSE_POS)
             VYB_BUTTONP.changeColor(PLAY_MOUSE_POS)
@@ -4633,8 +4633,8 @@ def podsance():
             PLAY_BACK.update(SCREEN)
             dia1 = font.render(po1,True,"Black");SCREEN.blit(dia1,(275,790))
             dia2 = font.render(po2,True,"Black");SCREEN.blit(dia2,(275,830))
-            dia3=font.render(po3,True,"Black");SCREEN.blit(dia3,(275,830))
-            dia4=font.render(po4,True,"Black");SCREEN.blit(dia4,(275,870))
+            dia3=font.render(po3,True,"Black");SCREEN.blit(dia3,(275,870))
+            dia4=font.render(po4,True,"Black");SCREEN.blit(dia4,(275,910))
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -4655,11 +4655,11 @@ def park():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK
         DOKNO_BUTTON
-        VYB_BUTTONPO =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(320, 600), 
+        VYB_BUTTONPO =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(420, 600), 
                                         text_input="Podšance", font=get_font(50), base_color="White", hovering_color="#4e61de")
-        VYB_BUTTONM =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(1360, 600), 
+        VYB_BUTTONM =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(1460, 600), 
                                         text_input="Město", font=get_font(50), base_color="White", hovering_color="#4e61de")
-        VYB_BUTTONZ =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(840, 600), 
+        VYB_BUTTONZ =Button(image=pygame.image.load("asety/vyberbutton.png"), pos=(940, 600), 
                                         text_input="Základka", font=get_font(50), base_color="White", hovering_color="#4e61de")
         VYB_BUTTONPO.changeColor(PLAY_MOUSE_POS)
         VYB_BUTTONM.changeColor(PLAY_MOUSE_POS)
@@ -5589,7 +5589,6 @@ def POMOC():
                 def options():
                     while True:
                         OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
-                        
                         SCREEN.fill("white")
                         OPTIONS_TEXT = get_font(45).render("Nastav si radši mámu", True, "Black")
                         OPTIONS_RECT = OPTIONS_TEXT.get_rect(center=(640, 260))
