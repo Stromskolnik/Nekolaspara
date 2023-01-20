@@ -4836,7 +4836,7 @@ def s144():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONS;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                           #postava  
-        SCREEN.blit(imp1, ((Width/100)*52.083,(Height/100)*18.518))
+        SCREEN.blit(imp1, ((Width/100)*32.8125,(Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*13.88))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                           #postava  
@@ -4863,7 +4863,7 @@ def s145():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONS;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                           #postava  
-        SCREEN.blit(imp1, ((Width/100)*52.083,(Height/100)*18.518))
+        SCREEN.blit(imp1, ((Width/100)*32.8125,(Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*13.88))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                           #postava  
@@ -4890,7 +4890,7 @@ def s146():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                           #postava  
-        SCREEN.blit(imp1, ((Width/100)*52.083,(Height/100)*18.518))
+        SCREEN.blit(imp1, ((Width/100)*32.8125,(Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                           #postava  
@@ -4917,7 +4917,7 @@ def s147():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONC;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                           #postava  
-        SCREEN.blit(imp1, ((Width/100)*52.083,(Height/100)*18.518))
+        SCREEN.blit(imp1, ((Width/100)*32.8125,(Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                           #postava  
@@ -4971,7 +4971,7 @@ def s149():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONS;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                           #postava  
-        SCREEN.blit(imp1, ((Width/100)*52.083,(Height/100)*18.518))
+        SCREEN.blit(imp1, ((Width/100)*32.8125,(Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*13.88))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                           #postava  
@@ -4998,7 +4998,7 @@ def s150():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONK;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                           #postava  
-        SCREEN.blit(imp1, ((Width/100)*52.083,(Height/100)*18.518))
+        SCREEN.blit(imp1, ((Width/100)*32.8125,(Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                           #postava  
@@ -5025,7 +5025,7 @@ def s151():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONS;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                           #postava  
-        SCREEN.blit(imp1, ((Width/100)*52.083,(Height/100)*18.518))
+        SCREEN.blit(imp1, ((Width/100)*32.8125,(Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*13.88))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                           #postava  
@@ -5052,7 +5052,7 @@ def s152():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONC;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                           #postava  
-        SCREEN.blit(imp1, ((Width/100)*52.083,(Height/100)*18.518))
+        SCREEN.blit(imp1, ((Width/100)*32.8125,(Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                           #postava  
@@ -5133,7 +5133,7 @@ def s155():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONS;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                           #postava  
-        SCREEN.blit(imp1, ((Width/100)*52.083,(Height/100)*18.518))
+        SCREEN.blit(imp1, ((Width/100)*32.8125,(Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*13.88))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                           #postava  
@@ -5160,7 +5160,7 @@ def s156():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONC;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                           #postava  
-        SCREEN.blit(imp1, ((Width/100)*52.083,(Height/100)*18.518))
+        SCREEN.blit(imp1, ((Width/100)*32.8125,(Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                           #postava  
@@ -5187,7 +5187,7 @@ def s157():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                           #postava  
-        SCREEN.blit(imp1, ((Width/100)*52.083,(Height/100)*18.518))
+        SCREEN.blit(imp1, ((Width/100)*32.8125,(Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                           #postava  
@@ -5214,7 +5214,7 @@ def s158():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONK;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                           #postava  
-        SCREEN.blit(imp1, ((Width/100)*52.083,(Height/100)*18.518))
+        SCREEN.blit(imp1, ((Width/100)*32.8125,(Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                           #postava  
@@ -5242,7 +5242,7 @@ def s159():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONK;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                           #postava  
-        SCREEN.blit(imp1, ((Width/100)*52.083,(Height/100)*18.518))
+        SCREEN.blit(imp1, ((Width/100)*32.8125,(Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                           #postava  
@@ -5296,7 +5296,7 @@ def s161():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                           #postava  
-        SCREEN.blit(imp1, ((Width/100)*52.083,(Height/100)*18.518))
+        SCREEN.blit(imp1, ((Width/100)*32.8125,(Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                           #postava  
@@ -5323,7 +5323,7 @@ def s162():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONK;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                           #postava  
-        SCREEN.blit(imp1, ((Width/100)*52.083,(Height/100)*18.518))
+        SCREEN.blit(imp1, ((Width/100)*32.8125,(Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                           #postava  
@@ -5350,7 +5350,7 @@ def s163():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                           #postava  
-        SCREEN.blit(imp1, ((Width/100)*52.083,(Height/100)*18.518))
+        SCREEN.blit(imp1, ((Width/100)*32.8125,(Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                           #postava  
@@ -5404,7 +5404,7 @@ def s165():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONC;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                           #postava  
-        SCREEN.blit(imp1, ((Width/100)*52.083,(Height/100)*18.518))
+        SCREEN.blit(imp1, ((Width/100)*32.8125,(Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                           #postava  
@@ -5458,7 +5458,7 @@ def s167():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                           #postava  
-        SCREEN.blit(imp1, ((Width/100)*52.083,(Height/100)*18.518))
+        SCREEN.blit(imp1, ((Width/100)*32.8125,(Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                           #postava  
@@ -5512,7 +5512,7 @@ def s169():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                           #postava  
-        SCREEN.blit(imp1, ((Width/100)*52.083,(Height/100)*18.518))
+        SCREEN.blit(imp1, ((Width/100)*32.8125,(Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                           #postava  
@@ -5539,7 +5539,7 @@ def s170():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONS;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                           #postava  
-        SCREEN.blit(imp1, ((Width/100)*52.083,(Height/100)*18.518))
+        SCREEN.blit(imp1, ((Width/100)*32.8125,(Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*13.88))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                           #postava  
