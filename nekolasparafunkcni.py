@@ -2,17 +2,26 @@ from time import sleep
 import pygame, sys
 import time
 import pygame
-import cv2
-import numpy as np
 import os.path
 import sys
 from texty import *
 from delark import smrdis
-import win32api
-from win32api import GetSystemMetrics
 import random
-Width = GetSystemMetrics(0)
-Height = GetSystemMetrics(1)
+from sys import platform
+from pyvidplayer import Video
+Width = 0
+Height = 0
+if platform == "linux" or platform == "linux2":
+    import Xlib.display # pip install python-xlib
+    display = Xlib.display.Display()
+    screen = display.screen()
+    Width = screen.width_in_pixels
+    Height = screen.height_in_pixels
+elif platform == "win32":
+    import win32api
+    from win32api import GetSystemMetrics
+    Width = GetSystemMetrics(0)
+    Height = GetSystemMetrics(1)
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 pygame.init()
 SCREEN = pygame.display.set_mode((Width, Height))
@@ -20,7 +29,7 @@ SCREEN = pygame.display.set_mode((Width, Height))
 def hh():pygame.mixer.music.set_volume(1)
 def nh():pygame.mixer.music.set_volume(0)
 pygame.display.set_caption("Nekolaspara")
-#POZADÍ
+#POZADÍx
 BG = pygame.image.load("asety/m.png")
 bg1 = pygame.image.load("pozadi/s1.png")
 bg2 =pygame.image.load("pozadi/s2.png")
@@ -45,7 +54,6 @@ bg20=pygame.image.load("pozadi/podsance.png")
 bg21=pygame.image.load("pozadi/park.png")
 bg22=pygame.image.load("pozadi/cednikzoom.png")
 bg23=pygame.image.load("pozadi/ceradice.png")
-ls1=pygame.image.load("asety/ls1.png")
 dokno=pygame.image.load("asety/mdva.png")
 mtri=pygame.image.load("asety/mtri.png")
 mctyri=pygame.image.load("asety/mctyri.png")
@@ -86,7 +94,6 @@ resized_bg25= pygame.transform.scale(bg25,(Width,Height))
 resized_bg26= pygame.transform.scale(bg26,(Width,Height))
 resized_bg27= pygame.transform.scale(bg27,(Width,Height))
 resized_mdva= pygame.transform.scale(dokno,((Width/100)*100,(Height/100)*100))
-resized_ls= pygame.transform.scale(ls1,((Width/100)*100,(Height/100)*100))
 resized_mtri=pygame.transform.scale(mtri,((Width/100)*100,(Height/100)*100))
 resized_mctyri=pygame.transform.scale(mctyri,((Width/100)*100,(Height/100)*100))
 resized_vyberbutton=pygame.transform.scale(vyberbutton,((Width/100)*30,(Height/100)*9.0740740740741))
@@ -186,7 +193,7 @@ def t82():dia1 = font.render(d82,True,"Black");SCREEN.blit(dia1,((Width/100)*14.
 def t83():dia1 = font.render(d83,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))     
 def t84():dia1 = font.render(d84,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))     
 def t85():dia1 = font.render(d85,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))     
-def t86():dia1 = font.render(d86,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))     
+def t86():dia1 = font.render(d86,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))        
 def t87():dia1 = font.render(d87,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))     
 def t88():dia1 = font.render(d88,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))     
 def t89():dia1 = font.render(d89,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))     
@@ -214,7 +221,6 @@ def t111():dia1 = font.render(d111,True,"Black");SCREEN.blit(dia1,((Width/100)*1
 def t111b():dia2 = font.render(d111b,True,"Black");SCREEN.blit(dia2,((Width/100)*14.322916,(Height/100)*76.851851851852))  
 def t112():dia1 = font.render(d112,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))  
 def t112b():dia2 = font.render(d112b,True,"Black");SCREEN.blit(dia2,((Width/100)*14.322916,(Height/100)*76.851851851852)) 
-def t113():dia1 = font.render(d113,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))  
 def t114():dia1 = font.render(d114,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
 def t115():dia1 = font.render(d115,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
 def t116():dia1 = font.render(d116,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
@@ -244,7 +250,8 @@ def t136():dia1 = font.render(d136,True,"Black");SCREEN.blit(dia1,((Width/100)*1
 def t137():dia1 = font.render(d137,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
 def t138():dia1 = font.render(d138,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
 def t139():dia1 = font.render(d139,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
-def t140():dia1 = font.render(d140,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))     
+def t140():dia1 = font.render(d140,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
+clock = pygame.time.Clock()
 class Button():
 	def __init__(self, image, pos, text_input, font, base_color, hovering_color):
 		self.image = image
@@ -272,42 +279,23 @@ class Button():
 def get_font(size):
     return pygame.font.Font("asety/fontus.ttf", size)
 def play():
-    while True:
-        pygame.mixer.music.stop()
-        pygame.mixer.music.load("songus/trailer.wav")
-        pygame.mixer.music.play(loops=0)  
-        file_name = "vid/trailer.mp4"
-        window_name = "window"
-        interframe_wait_ms = 28
-        cap = cv2.VideoCapture(file_name)
-        if not cap.isOpened():
-            exit()
-        cv2.namedWindow(window_name, cv2.WND_PROP_FULLSCREEN)
-        cv2.setWindowProperty(window_name, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
-        while (True):
-            ret, frame = cap.read()
-            if not ret:break
-            cv2.imshow(window_name, frame)
-            if cv2.waitKey(interframe_wait_ms) & 0x7F == ord("q"):break
-        cap.release()
-        cv2.destroyAllWindows()
-        new()
-def new():
     pygame.mixer.music.stop()
-    pygame.mixer.music.load("songus/usti.wav")
-    pygame.mixer.music.play(loops=-1)
+    vid = Video("trailer.mp4")
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        SCREEN.fill("black")
-        SCREEN.blit(bg1, (0, 0))
+        clock.tick(60)
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:pygame.quit();sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
-                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):s1()                                                                                    
+            if event.type ==pygame.MOUSEBUTTONDOWN:
+                vid.close()
+                s1()
+        vid.draw(SCREEN, (0, 0), force_draw=False)
         pygame.display.update()
+        
+
+
 DALSI_BUTTON = Button(image=pygame.image.load("asety/dalsi.png"), pos=((Width/100)*50, (Height/100)*50), text_input="", font=font_meno, base_color="White", hovering_color="White")
 DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+DOKNO_BUTTON2= Button(image=(resized_mtri), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+DOKNO_BUTTON3= Button(image=(resized_mctyri), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
 PLAY_BACK = Button(image=None, pos=((Width/100)*91.14583, (Height/100)*4.629), text_input="Hlavní Menu", font=get_font(40), base_color="White", hovering_color="Green")
 MOKNO_BUTTONPB= Button(image=None, pos=((Width/100)*22.135416, (Height/100)*67.12962962963),text_input="Pan Bílý", font=font_meno, base_color="White", hovering_color="White")
 MOKNO_BUTTONN = Button(image=None, pos=((Width/100)*22.135416, (Height/100)*67.12962962963),text_input="Nekolas", font=font_meno, base_color="White", hovering_color="White")
@@ -331,7 +319,6 @@ def s1():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         SCREEN.fill("black")
         SCREEN.blit(resized_bg1, (0, 0))                                                                                 
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
         MOKNO_BUTTONPB.update(SCREEN)
         t1()                                                                 
@@ -343,7 +330,7 @@ def s1():
         pygame.display.update()
 def s2():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
         MOKNO_BUTTON
         DALSI_BUTTON
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -357,7 +344,7 @@ def s2():
         pygame.display.update()
 def s3():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         MOKNO_BUTTON
         DALSI_BUTTON
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -389,7 +376,7 @@ def s4():
         pygame.display.update()
 def s5():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         MOKNO_BUTTON
         DALSI_BUTTON
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -403,7 +390,7 @@ def s5():
         pygame.display.update()
 def s6():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
         MOKNO_BUTTON
         DALSI_BUTTON
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -456,7 +443,7 @@ def s7():
         pygame.display.update()
 def s8():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
         MOKNO_BUTTONPB
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                         
@@ -472,7 +459,7 @@ def s8():
         pygame.display.update()
 def s9():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
         MOKNO_BUTTONN
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -488,7 +475,7 @@ def s9():
         pygame.display.update()
 def s10():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         MOKNO_BUTTONPB
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -504,7 +491,7 @@ def s10():
         pygame.display.update()
 def s11():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
         MOKNO_BUTTONN
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                           
@@ -520,7 +507,7 @@ def s11():
         pygame.display.update()
 def s12():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
         MOKNO_BUTTONPB
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                          
@@ -536,7 +523,7 @@ def s12():
         pygame.display.update()
 def s13():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         MOKNO_BUTTONN     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -552,7 +539,7 @@ def s13():
         pygame.display.update()
 def s14():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         MOKNO_BUTTONPB     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -569,7 +556,6 @@ def s14():
 def s15():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                               
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083, (Height/100)*27.77))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -583,7 +569,7 @@ def s15():
         pygame.display.update()
 def s16():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         MOKNO_BUTTONN     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -600,7 +586,6 @@ def s16():
 def s17():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                               
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083, (Height/100)*27.77))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -615,7 +600,6 @@ def s17():
 def s18():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                             
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083, (Height/100)*27.77))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -629,7 +613,7 @@ def s18():
         pygame.display.update()
 def s19():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
         MOKNO_BUTTONN     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -646,7 +630,6 @@ def s19():
 def s20():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                           
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083, (Height/100)*27.77))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -661,7 +644,6 @@ def s20():
 def s21():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                             
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083, (Height/100)*27.77))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -675,7 +657,7 @@ def s21():
         pygame.display.update()
 def s22():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         MOKNO_BUTTONN     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -691,7 +673,7 @@ def s22():
         pygame.display.update()
 def s23():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
         MOKNO_BUTTONN     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -707,7 +689,7 @@ def s23():
         pygame.display.update()
 def s24():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
         MOKNO_BUTTONPB     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -724,7 +706,6 @@ def s24():
 def s25():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                           
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083, (Height/100)*27.77))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -738,7 +719,7 @@ def s25():
         pygame.display.update()
 def s26():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
         MOKNO_BUTTONN     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -754,7 +735,7 @@ def s26():
         pygame.display.update()
 def s27():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
         MOKNO_BUTTONN     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -770,7 +751,7 @@ def s27():
         pygame.display.update()
 def s28():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         MOKNO_BUTTONPB     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -786,7 +767,7 @@ def s28():
         pygame.display.update()
 def s29():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         MOKNO_BUTTONN     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -804,7 +785,6 @@ def s29():
 def s30():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                             
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083, (Height/100)*27.77))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -818,7 +798,7 @@ def s30():
         pygame.display.update()
 def s31():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         MOKNO_BUTTONN     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -836,7 +816,6 @@ def s31():
 def s32():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                             
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083, (Height/100)*27.77))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -850,7 +829,7 @@ def s32():
         pygame.display.update()
 def s33():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         MOKNO_BUTTONPB     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -867,7 +846,6 @@ def s33():
 def s34():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                             
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083, (Height/100)*27.77))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -882,7 +860,6 @@ def s34():
 def s36():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                             
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083, (Height/100)*27.77))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -898,7 +875,6 @@ def s36():
 def s37():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                               
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083, (Height/100)*27.77))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -912,7 +888,7 @@ def s37():
         pygame.display.update()
 def s38():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         MOKNO_BUTTONN     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -929,7 +905,6 @@ def s38():
 def s39():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                             
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083, (Height/100)*27.77))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -943,7 +918,7 @@ def s39():
         pygame.display.update()
 def s40():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         MOKNO_BUTTONPB     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -959,7 +934,7 @@ def s40():
         pygame.display.update()
 def s41():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
         MOKNO_BUTTONN     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -976,7 +951,6 @@ def s41():
 def s42():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                             
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083, (Height/100)*27.77))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -991,7 +965,7 @@ def s42():
         pygame.display.update()
 def s43():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
         MOKNO_BUTTONN     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -1007,7 +981,7 @@ def s43():
         pygame.display.update()
 def s44():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         MOKNO_BUTTONPB     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -1029,12 +1003,7 @@ def s45n():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         SCREEN.fill("black")
-        SCREEN.blit(pygame.image.load("pozadi/se1.png"), (0, 0))                                                                                
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON                                                          
-        DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
-        MOKNO_BUTTONPB.update(SCREEN)
-        t45() 
-        t45b()                                                                                              
+        SCREEN.blit(pygame.image.load("pozadi/se1.png"), (0, 0))                                                                                                                                                                                                                            
         for event in pygame.event.get():
             if event.type == pygame.QUIT:pygame.quit();sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -1047,7 +1016,6 @@ def s45():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         SCREEN.fill("black")
         SCREEN.blit(resized_bg5, (0, 0))                                                                                
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*36.4583, (Height/100)*18.518))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -1063,7 +1031,6 @@ def s45():
 def s46():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                               
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*36.4583, (Height/100)*18.518))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -1078,7 +1045,6 @@ def s46():
 def s47():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                               
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*36.4583, (Height/100)*18.518))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -1093,7 +1059,6 @@ def s47():
 def s48():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                               
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*36.4583, (Height/100)*18.518))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -1108,7 +1073,6 @@ def s48():
 def s49():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                               
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*36.4583, (Height/100)*18.518))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -1124,7 +1088,6 @@ def s49():
 def s50():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                               
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*36.4583, (Height/100)*18.518))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -1139,7 +1102,6 @@ def s50():
 def s51():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                               
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*36.4583, (Height/100)*18.518))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -1154,7 +1116,6 @@ def s51():
 def s52():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                               
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*36.4583, (Height/100)*18.518))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -1169,7 +1130,6 @@ def s52():
 def s53():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                               
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*36.4583, (Height/100)*18.518))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -1182,13 +1142,13 @@ def s53():
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):svec()                                                                                    
         pygame.display.update()
 def svec():
+    pygame.mixer.music.stop()
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos()
+        pygame.mouse.get_pos()
         SCREEN.fill("black")
         SCREEN.blit(resized_bg6, (0, 0))  
         for event in pygame.event.get():
             if event.type == pygame.QUIT:pygame.quit();sys.exit()
-
             s54()
         pygame.display.update()
         sleep(3)
@@ -1197,10 +1157,7 @@ def s54():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         SCREEN.fill("black")
         SCREEN.blit(resized_bg6, (0, 0))                                                                                
-        PLAY_BACK   
-        DOKNO_BUTTON
         MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="", font=font_meno, base_color="White", hovering_color="White")     
-        DALSI_BUTTON
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
         MOKNO_BUTTON.update(SCREEN)
         t54() 
@@ -1214,8 +1171,6 @@ def s54():
 def s55():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                                
-        PLAY_BACK   
-        DOKNO_BUTTON
         MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="???", font=font_meno, base_color="White", hovering_color="White")     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/neznam.png').convert()                                                            
@@ -1250,8 +1205,7 @@ def s57():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                                
         PLAY_BACK   
         DOKNO_BUTTON
-        MOKNO_BUTTON= Button(image=None, pos=(425, 725),
-                            text_input="???", font=font_meno, base_color="White", hovering_color="White")     
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="???", font=font_meno, base_color="White", hovering_color="White")     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/neznam.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*36.4583, (Height/100)*18.518))
@@ -1267,7 +1221,6 @@ def s57():
 def s58():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                                
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON
         imp = pygame.image.load('postavy/neznam.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*36.4583, (Height/100)*18.518))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -1284,8 +1237,7 @@ def s59():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                                
         PLAY_BACK   
         DOKNO_BUTTON
-        MOKNO_BUTTON= Button(image=None, pos=(425, 725),
-                            text_input="???", font=font_meno, base_color="White", hovering_color="White")     
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="???", font=font_meno, base_color="White", hovering_color="White")     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/neznam.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*36.4583, (Height/100)*18.518))
@@ -1300,25 +1252,22 @@ def s59():
         pygame.display.update()
 def sls1():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        SCREEN.fill("black")
-        SCREEN.blit(resized_ls, (0, 0))
-        f = open("save1.txt", "w")
-        f.close()
+        pygame.mouse.get_pos();SCREEN.fill("black")
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("asety/ls.png"),(Width,Height)), (0, 0))
+        f = open("save1.txt", "w");f.close()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:pygame.quit();sys.exit()
             s60()
         pygame.display.update()
         sleep(5)
 def s60():
+    pygame.mixer.music.load("songus/usti.wav")
+    pygame.mixer.music.play(loops=0)  
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         SCREEN.fill("black")
         SCREEN.blit(resized_bg1, (0, 0))                                                                                
-        PLAY_BACK   
-        DOKNO_BUTTON
         MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="", font=font_meno, base_color="White", hovering_color="White")     
-        DALSI_BUTTON
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
         MOKNO_BUTTON.update(SCREEN)
         t60()                                                                                                
@@ -1330,9 +1279,8 @@ def s60():
         pygame.display.update()
 def s61():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
         MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="", font=font_meno, base_color="White", hovering_color="White")     
-        DALSI_BUTTON
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
         MOKNO_BUTTON.update(SCREEN)
         t61()                                                                                                
@@ -1343,11 +1291,12 @@ def s61():
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):s62()                                                                                    
         pygame.display.update()
 def s62():
+    pygame.mixer.music.load("songus/songusamogusdruhus.wav")
+    pygame.mixer.music.play(loops=0)  
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         SCREEN.fill("black")
         SCREEN.blit(resized_bg2, (0, 0))                                                                               
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*36.4583, (Height/100)*18.518))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -1362,7 +1311,6 @@ def s62():
 def s63():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                               
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*36.4583, (Height/100)*18.518))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -1376,7 +1324,7 @@ def s63():
         pygame.display.update()
 def s64():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         MOKNO_BUTTONN     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -1402,7 +1350,7 @@ def s64w():
         sleep(1)
 def s65():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
         MOKNO_BUTTONPB     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -1419,7 +1367,6 @@ def s65():
 def s66():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                           
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*26.0416, (Height/100)*18.5185))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -1434,7 +1381,6 @@ def s66():
 def s67():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                           
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*26.0416, (Height/100)*18.5185))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -1448,7 +1394,7 @@ def s67():
         pygame.display.update()
 def s68():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         MOKNO_BUTTONN     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -1464,7 +1410,7 @@ def s68():
         pygame.display.update()
 def s69():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         MOKNO_BUTTONPB     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -1490,7 +1436,7 @@ def s70w():
         sleep(3)
 def s70():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         MOKNO_BUTTONN     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -1507,7 +1453,6 @@ def s70():
 def s71():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                             
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*46.875, (Height/100)*18.518))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -1521,7 +1466,7 @@ def s71():
         pygame.display.update()
 def s72():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
         MOKNO_BUTTONPB     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -1537,7 +1482,7 @@ def s72():
         pygame.display.update()
 def s73():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
         MOKNO_BUTTONN     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -1554,7 +1499,6 @@ def s73():
 def s74():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                          
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*46.875, (Height/100)*18.518))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -1579,7 +1523,7 @@ def s75w():
         sleep(5)
 def s75():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         MOKNO_BUTTONPB     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -1595,7 +1539,7 @@ def s75():
         pygame.display.update()
 def s76():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
         MOKNO_BUTTONN     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -1612,7 +1556,6 @@ def s76():
 def s77():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                               
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*46.875, (Height/100)*18.518))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -1627,7 +1570,6 @@ def s77():
 def s78():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                           
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*46.875, (Height/100)*18.518))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -1642,7 +1584,6 @@ def s78():
 def s79():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                             
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*46.875, (Height/100)*18.518))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -1656,7 +1597,7 @@ def s79():
         pygame.display.update()
 def s80():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         MOKNO_BUTTONN     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -1673,7 +1614,6 @@ def s80():
 def s81():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                             
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*46.875, (Height/100)*18.518))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -1687,7 +1627,7 @@ def s81():
         pygame.display.update()
 def s82():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         MOKNO_BUTTONN     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -1703,7 +1643,7 @@ def s82():
         pygame.display.update()
 def s83():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
         MOKNO_BUTTONN     
         DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -1720,7 +1660,6 @@ def s83():
 def s84():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                          
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*46.875, (Height/100)*18.518))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -1735,7 +1674,6 @@ def s84():
 def s85():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                             
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*46.875, (Height/100)*18.518))
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -1748,11 +1686,11 @@ def s85():
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):s86()                                                                                    
         pygame.display.update()
 def s86():
+    pygame.mixer.music.stop()
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         SCREEN.fill("black")
         SCREEN.blit(resized_bg8, (0, 0))                                                                               
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp = pygame.image.load('postavy/nekolas.png').convert()
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))                                                          
@@ -1769,9 +1707,7 @@ def s86():
 def s87():
     while True:
         SCREEN.blit(resized_bg8, (0, 0))
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
-        MOKNO_BUTTONC     
-        DALSI_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         imp = pygame.image.load('postavy/nekolas.png').convert()
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740))
@@ -1789,9 +1725,8 @@ def s88():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         SCREEN.blit(resized_bg8, (0, 0))                                                             
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp2 = pygame.image.load('postavy/cednik.png').convert() 
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083, (Height/100)*15.740))
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518)) 
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -1807,15 +1742,12 @@ def s89():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         SCREEN.blit(resized_bg8, (0, 0))                                                                     
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON;DALSI_BUTTON.update(SCREEN)
+        DALSI_BUTTON.update(SCREEN)
         imp2 = pygame.image.load('postavy/cednik.png').convert() 
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083,(Height/100)*18.518 ))
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518)) 
-        PLAY_BACK.changeColor(PLAY_MOUSE_POS)
-        PLAY_BACK.update(SCREEN)
-        DOKNO_BUTTON.update(SCREEN)
-        MOKNO_BUTTONPB.update(SCREEN)
+        PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN);MOKNO_BUTTONPB.update(SCREEN)
         t89()                                                                                                
         for event in pygame.event.get():
             if event.type == pygame.QUIT:pygame.quit();sys.exit()
@@ -1827,8 +1759,7 @@ def s90():
     while True:
         SCREEN.blit(resized_bg8, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                   
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONC;DALSI_BUTTON
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083,(Height/100)*18.518 ))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740))
@@ -1844,10 +1775,10 @@ def s90():
 def s91():
     while True:
         SCREEN.blit(resized_bg8, (0, 0))
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         MOKNO_BUTTONC     
         DALSI_BUTTON
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083,(Height/100)*18.518 ))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740))
@@ -1863,8 +1794,8 @@ def s91():
 def s92():
     while True:
         SCREEN.blit(resized_bg8, (0, 0))
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518)) 
@@ -1881,8 +1812,7 @@ def s93():
     while True:
         SCREEN.blit(resized_bg8, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                         
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083,(Height/100)*18.518 ))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))                                                    
@@ -1900,7 +1830,7 @@ def s94():
         SCREEN.blit(resized_bg8, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                           
         PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONC;DALSI_BUTTON
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083,(Height/100)*18.518 ))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740))
@@ -1920,7 +1850,7 @@ def s95():
         SCREEN.blit(resized_bg8, (0, 0))                                                                               
         PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONC;DALSI_BUTTON
         SCREEN.blit(resized_bg8, (0, 0))
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083,(Height/100)*18.518 ))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740))
@@ -1936,10 +1866,10 @@ def s95():
 def s96():
     while True:
         SCREEN.blit(resized_bg8, (0, 0))
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         MOKNO_BUTTONN     
         DALSI_BUTTON
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518)) 
@@ -1957,7 +1887,7 @@ def s97():
         SCREEN.blit(resized_bg8, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                             
         PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONC;DALSI_BUTTON
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083,(Height/100)*18.518 ))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740))
@@ -1973,10 +1903,10 @@ def s97():
 def s98():
     while True:
         SCREEN.blit(resized_bg8, (0, 0))
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         MOKNO_BUTTONPB     
         DALSI_BUTTON
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083,(Height/100)*18.518 ))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))                                               
@@ -1993,8 +1923,7 @@ def s99():
     while True:
         SCREEN.blit(resized_bg8, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                           
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518)) 
@@ -2012,7 +1941,7 @@ def s100():
         SCREEN.blit(resized_bg8, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                             
         PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONC;DALSI_BUTTON
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083,(Height/100)*18.518 ))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740))
@@ -2028,10 +1957,10 @@ def s100():
 def s101():
     while True:
         SCREEN.blit(resized_bg8, (0, 0))
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
         MOKNO_BUTTONN     
         DALSI_BUTTON
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518)) 
@@ -2061,42 +1990,26 @@ def s102():
                     flashback()                                                                                   
         pygame.display.update()
 def flashback():
+    SCREEN.blit(resized_bg8, (0, 0))
+    pygame.mixer.music.stop()
+    vid = Video("zabniju.mp4")
     while True:
-        SCREEN.blit(resized_bg8, (0, 0))
-        pygame.mixer.music.stop()
-        pygame.mixer.music.load("songus/zabniju.wav")
-        pygame.mixer.music.play(loops=0)
-        file_name = "vid/zabniju.mp4"
-        window_name = "window"
-        interframe_wait_ms = 24
-        cap = cv2.VideoCapture(file_name)
-        if not cap.isOpened():
-
-            exit()
-
-        cv2.namedWindow(window_name, cv2.WND_PROP_FULLSCREEN)
-        cv2.setWindowProperty(window_name, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
-
-        while (True):
-            ret, frame = cap.read()
-            if not ret:
-                break
-            cv2.imshow(window_name, frame)
-            if cv2.waitKey(interframe_wait_ms) & 0x7F == ord("q"):
-                break
-
-        cap.release()
-        cv2.destroyAllWindows()
-        s103()                      
+        clock.tick(60)
+        for event in pygame.event.get():
+            if event.type ==pygame.MOUSEBUTTONDOWN:
+                vid.close()
+                s103()
+        vid.draw(SCREEN, (0, 0), force_draw=False)
+        pygame.display.update()             
 def s103():
     while True:
         pygame.mixer.music.load("songus/songusamogusdruhus.wav")
         pygame.mixer.music.load("songus/songusamongus.wav")
         SCREEN.blit(resized_bg8, (0, 0))
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         MOKNO_BUTTONC   
         DALSI_BUTTON
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083,(Height/100)*18.518 ))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740))                                            
@@ -2112,10 +2025,10 @@ def s103():
 def s104():
     while True:
         SCREEN.blit(resized_bg8, (0, 0))
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         MOKNO_BUTTONN  
         DALSI_BUTTON
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))                                                   
@@ -2131,10 +2044,10 @@ def s104():
 def s105():
     while True:
         SCREEN.blit(resized_bg8, (0, 0))
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         MOKNO_BUTTONC 
         DALSI_BUTTON
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083,(Height/100)*18.518 ))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740))                                           
@@ -2150,10 +2063,10 @@ def s105():
 def s106():
     while True:
         SCREEN.blit(resized_bg8, (0, 0))
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         MOKNO_BUTTONC 
         DALSI_BUTTON
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083,(Height/100)*18.518 ))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740))                                              
@@ -2169,11 +2082,11 @@ def s106():
 def s107():
     while True:
         SCREEN.blit(resized_bg8, (0, 0))
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
         MOKNO_BUTTONPB
         DALSI_BUTTON                                                   
         DALSI_BUTTON.update(SCREEN)
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083,(Height/100)*18.518 ))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518)) 
@@ -2196,7 +2109,7 @@ def s108():
         DOKNO_BUTTON
         MOKNO_BUTTONN
         DALSI_BUTTON
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))                                               
@@ -2212,12 +2125,8 @@ def s108():
 def s109():
     while True:
         SCREEN.blit(resized_bg8, (0, 0))
-        PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                             
-        PLAY_BACK   
-        DOKNO_BUTTON
-        MOKNO_BUTTONC 
-        DALSI_BUTTON
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                            
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083,(Height/100)*18.518 ))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740))                                                 
@@ -2228,14 +2137,141 @@ def s109():
             if event.type == pygame.QUIT:pygame.quit();sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
-                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):s110()                                                                                    
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss1()                                                                                    
+        pygame.display.update()
+
+def ss1():
+    while True:
+        SCREEN.blit(resized_bg8, (0, 0)) 
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083,(Height/100)*18.518 ))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*15.740)) 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(dd110,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss2()
+        pygame.display.update()
+def ss2():
+    while True:
+        SCREEN.blit(resized_bg8, (0, 0)) 
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083,(Height/100)*18.518 ))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*15.740)) 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(dd111,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        dia2 = font.render(dd111b,True,"Black");SCREEN.blit(dia2,((Width/100)*14.322916,(Height/100)*76.851851851852)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss3()
+        pygame.display.update()
+def ss3():
+    while True:
+        SCREEN.blit(resized_bg8, (0, 0)) 
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083,(Height/100)*15.740))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*18.5180)) 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(dd112,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss4()
+        pygame.display.update()
+def ss4():
+    while True:
+        SCREEN.blit(resized_bg8, (0, 0)) 
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083,(Height/100)*18.518 ))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*15.740)) 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(dd113,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss5()
+        pygame.display.update()
+def ss5():
+    while True:
+        SCREEN.blit(resized_bg8, (0, 0)) 
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083,(Height/100)*18.518 ))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*15.740)) 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(dd114,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss6()
+        pygame.display.update()
+def ss6():
+    while True:
+        SCREEN.blit(resized_bg8, (0, 0)) 
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083,(Height/100)*15.740))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*18.5180)) 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(dd115,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        dia2 = font.render(dd115b,True,"Black");SCREEN.blit(dia2,((Width/100)*14.322916,(Height/100)*76.851851851852)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss7()
+        pygame.display.update()
+def ss7():
+    while True:
+        SCREEN.blit(resized_bg8, (0, 0)) 
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083,(Height/100)*18.518 ))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*15.740)) 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(dd116,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss8()
+        pygame.display.update()
+def ss8():
+    while True:
+        SCREEN.blit(resized_bg8, (0, 0)) 
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083,(Height/100)*15.740))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*18.5180)) 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(dd117,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss9()
+        pygame.display.update()
+def ss9():
+    while True:
+        SCREEN.blit(resized_bg8, (0, 0)) 
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083,(Height/100)*18.518 ))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*15.740)) 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(dd118,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):s110()
         pygame.display.update()
 def s110():
     while True:
         SCREEN.blit(resized_bg8, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                             
-        PLAY_BACK   
-        DALSI_BUTTON
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740))                                                 
         DALSI_BUTTON.update(SCREEN)
@@ -2252,11 +2288,7 @@ def s111():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         SCREEN.fill("black")
         SCREEN.blit(resized_bg7, (0, 0))                                                                               
-        PLAY_BACK   
-        DOKNO_BUTTON
-        MOKNO_BUTTONN
-        DALSI_BUTTON
-        imp = pygame.image.load('postavy/Nekolas.png').convert()  
+        imp = pygame.image.load('postavy/nekolas.png').convert()  
         SCREEN.blit(imp, ((Width/100)*46.875, (Height/100)*18.518))                                                 
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
         MOKNO_BUTTONN.update(SCREEN)
@@ -2270,10 +2302,8 @@ def s111():
         pygame.display.update()
 def s112():
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
-        MOKNO_BUTTONN
-        DALSI_BUTTON
-        imp = pygame.image.load('postavy/Nekolas.png').convert()  
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
+        imp = pygame.image.load('postavy/nekolas.png').convert()  
         SCREEN.blit(imp, ((Width/100)*46.875, (Height/100)*18.518))                                                 
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
         MOKNO_BUTTONN.update(SCREEN) 
@@ -2283,25 +2313,2701 @@ def s112():
             if event.type == pygame.QUIT:pygame.quit();sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
-                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):s113()                                                                                    
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss10()                                                                                    
         pygame.display.update()
-def s113():
+def ss10():
+    while True:
+        SCREEN.blit(resized_bg7, (0, 0)) 
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*46.875,(Height/100)*18.518)) 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN) 
+        dia1 = font.render(p10,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss11()
+        pygame.display.update()
+def ss11():
+    while True:
+        pygame.image.load('postavy/nekolas.png').convert()
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p11,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss12()
+        pygame.display.update()
+def ss12():
+    while True:
+        pygame.image.load('postavy/nekolas.png').convert()
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN) 
+        dia1 = font.render(p12,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss13()
+        pygame.display.update()
+def ss13():
+    while True: 
+        pygame.image.load('postavy/nekolas.png').convert()
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p13,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss14n()
+        pygame.display.update()
+def ss14n():
+    pygame.mixer.music.load("songus/les.mp3")
+    pygame.mixer.music.play(loops=-1)
+    while True:
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0)) 
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*35,(Height/100)*18.518))                                                                                                                                                                                                                           
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss14()                                                                                    
+        pygame.display.update()
+def ss14():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*35,(Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p14,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss15()
+        pygame.display.update()
+def ss15():
+    while True:
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN) 
+        dia1 = font.render(p15,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss16()
+        pygame.display.update()
+def ss16():
+    while True:
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p16,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        dia2 = font.render(p16b,True,"Black");SCREEN.blit(dia2,((Width/100)*14.322916,(Height/100)*76.851851851852)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss17()
+        pygame.display.update()
+def ss17():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p17,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss18()
+        pygame.display.update()
+def ss18():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740)) 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Čaroděj Dobroděj", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p18,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss19()
+        pygame.display.update()
+def ss19():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p19,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss20()
+        pygame.display.update()
+def ss20():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740)) 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Čaroděj Dobroděj", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p20,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss21()
+        pygame.display.update()
+def ss21():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p21,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss22()
+        pygame.display.update()
+def ss22():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p22,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss23()
+        pygame.display.update()
+def ss23():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p23,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss24()
+        pygame.display.update()
+def ss24():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740)) 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Čaroděj Dobroděj", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p24,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss25()
+        pygame.display.update()
+def ss25():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p25,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss26()
+        pygame.display.update()
+def ss26():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740)) 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Čaroděj Dobroděj", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p26,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss27()
+        pygame.display.update()
+def ss27():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p27,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss28()
+        pygame.display.update()
+def ss28():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740)) 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Čaroděj Dobroděj", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p28,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss29()
+        pygame.display.update()
+def ss29():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p29,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss30()
+        pygame.display.update()
+def ss30():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740)) 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Čaroděj Dobroděj", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p30,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss31()
+        pygame.display.update()
+def ss31():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p31,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss32()
+        pygame.display.update()
+def ss32():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740)) 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Čaroděj Dobroděj", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p32,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss33()
+        pygame.display.update()
+def ss33():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740)) 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Čaroděj Dobroděj", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p33,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss34()
+        pygame.display.update()
+def ss34():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p34,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss35()
+        pygame.display.update()
+def ss35():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740)) 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Čaroděj Dobroděj", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p35,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss36()
+        pygame.display.update()
+def ss36():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740)) 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Čaroděj Dobroděj", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p36,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss37()
+        pygame.display.update()
+def ss37():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518)) 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN)
+        dia1 = font.render(p37,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss38()
+        pygame.display.update()
+def ss38():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p38,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss39()
+        pygame.display.update()
+def ss39():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p39,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss40()
+        pygame.display.update()
+def ss40():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740)) 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Čaroděj Dobroděj", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p40,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss41()
+        pygame.display.update()
+def ss41():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740)) 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Čaroděj Dobroděj", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p41,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        dia2 = font.render(p41b,True,"Black");SCREEN.blit(dia2,((Width/100)*14.322916,(Height/100)*76.851851851852)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss42()
+        pygame.display.update()
+def ss42():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p42,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss43()
+        pygame.display.update()
+def ss43():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518)) 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN)
+        dia1 = font.render(p43,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss44()
+        pygame.display.update()
+def ss44():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p44,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss45()
+        pygame.display.update()
+def ss45():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518)) 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN)
+        dia1 = font.render(p45,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss46()
+        pygame.display.update()
+def ss46():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p46,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss47()
+        pygame.display.update()
+def ss47():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740)) 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Čaroděj Dobroděj", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p47,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss48()
+        pygame.display.update()
+def ss48():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518)) 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN)
+        dia1 = font.render(p48,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss49()
+        pygame.display.update()
+def ss49():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/les.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*54,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/mago.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p49,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss50n()
+        pygame.display.update()
+def ss50n():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("asety/tc1.png"),(Width,Height)), (0, 0))
+        for event in pygame.event.get():
+            if event.type==pygame.MOUSEBUTTONDOWN:ss50()
+        pygame.display.update()
+def ss50():
     pygame.mixer.music.stop()
-    pygame.mixer.music.load("songus/prenescasu.wav")
-    pygame.mixer.music.play(loops=0)
     while True:
-        pygame.mouse.get_pos()
-        SCREEN.fill("black");SCREEN.blit(pygame.image.load("pozadi/pd1.png"), (0, 0))
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/predlice.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/ptacek.png').convert();SCREEN.blit(imp,((Width/100)*60,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*1, (Height/100)*15.740))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(p50,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
         for event in pygame.event.get():
-            if event.type == pygame.MOUSEBUTTONDOWN:s113b()                                                                                  
-        pygame.display.update() 
-def s113b():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss51()
+        pygame.display.update()
+def ss51():
+    pygame.mixer.music.stop()
     while True:
-        pygame.mouse.get_pos()
-        SCREEN.fill("black");SCREEN.blit(pygame.image.load("pozadi/pd2.png"), (0, 0))
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/predlice.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/ptacek.png').convert();SCREEN.blit(imp,((Width/100)*60,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*1, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Ptáček", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p51,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
         for event in pygame.event.get():
-            if event.type == pygame.MOUSEBUTTONDOWN:s114()                                                                                  
-        pygame.display.update()                                                                      
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss52()
+        pygame.display.update()
+def ss52():
+    pygame.mixer.music.stop()
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/predlice.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/ptacek.png').convert();SCREEN.blit(imp,((Width/100)*60,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*1, (Height/100)*15.740))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(p52,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss53()
+        pygame.display.update()
+def ss53():
+    pygame.mixer.music.stop()
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/predlice.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/ptacek.png').convert();SCREEN.blit(imp,((Width/100)*60,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*1, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Ptáček", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p53,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss54()
+        pygame.display.update()
+def ss54():
+    pygame.mixer.music.stop()
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/predlice.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/ptacek.png').convert();SCREEN.blit(imp,((Width/100)*60,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*1, (Height/100)*15.740))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(p54,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss55()
+        pygame.display.update()
+def ss55():
+    pygame.mixer.music.stop()
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/predlice.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/ptacek.png').convert();SCREEN.blit(imp,((Width/100)*60,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*1, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Ptáček", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p55,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss56()
+        pygame.display.update()
+def ss56():
+    pygame.mixer.music.stop()
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/predlice.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/ptacek.png').convert();SCREEN.blit(imp,((Width/100)*60,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*1, (Height/100)*15.740))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(p56,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss57()
+        pygame.display.update()
+def ss57():
+    pygame.mixer.music.stop()
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/predlice.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/ptacek.png').convert();SCREEN.blit(imp,((Width/100)*60,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*1, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Ptáček", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p57,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss58()
+        pygame.display.update()
+def ss58():
+    pygame.mixer.music.stop()
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/predlice.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/ptacek.png').convert();SCREEN.blit(imp,((Width/100)*60,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*1, (Height/100)*15.740))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(p58,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss59()
+        pygame.display.update()
+def ss59():
+    pygame.mixer.music.stop()
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/predlice.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/ptacek.png').convert();SCREEN.blit(imp,((Width/100)*60,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*1, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Ptáček", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p59,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss60()
+        pygame.display.update()
+def ss60():
+    pygame.mixer.music.stop()
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/predlice.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/ptacek.png').convert();SCREEN.blit(imp,((Width/100)*60,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*1, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Ptáček", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p60,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss61()
+        pygame.display.update()
+def ss61():
+    pygame.mixer.music.stop()
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/predlice.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/ptacek.png').convert();SCREEN.blit(imp,((Width/100)*60,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*1, (Height/100)*15.740))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(p61,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):sss1n()
+        pygame.display.update()
+def sss1n():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/vlakac.png"),(Width,Height)), (0, 0))
+        f = open("sejv1.txt", "w");f.close()
+        for event in pygame.event.get():
+            if event.type==pygame.MOUSEBUTTONDOWN:sss1()
+        pygame.display.update()
+def sss1():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/vlakac.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*50,(Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(pp1,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):sss2()
+        pygame.display.update()
+def sss2():
+    while True:  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN) 
+        dia1 = font.render(pp2,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):sss3()
+        pygame.display.update()
+def sss3():
+    while True:  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(pp3,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):sss4()
+        pygame.display.update()
+def sss4():
+    while True:  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(pp4,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):sssvyb()
+        pygame.display.update()
+def sssvyb():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/vlakac.png"),(Width,Height)), (0, 0))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        SAKON1_BUTTON= Button(image=(pygame.image.load("asety/tomas.png")),pos=((Width/100)*26.0416,(Height/100)*55.55), text_input="", font=font_vyber, base_color="White", hovering_color="#4e61de")
+        SAKON2_BUTTON= Button(image=(pygame.transform.scale(pygame.image.load("asety/vurak.png"),((Width/100)*37,(Height/100)*70))),pos=((Width/100)*70,(Height/100)*55.55), text_input="", font=font_vyber, base_color="White", hovering_color="#4e61de")
+        SAKON1_BUTTON.changeColor(PLAY_MOUSE_POS);SAKON2_BUTTON.changeColor(PLAY_MOUSE_POS);SAKON1_BUTTON.update(SCREEN);SAKON2_BUTTON.update(SCREEN)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if SAKON1_BUTTON.checkForInput(PLAY_MOUSE_POS):
+                    f = open("vlak.txt", "w");f.close()
+                    sss5()
+                if SAKON2_BUTTON.checkForInput(PLAY_MOUSE_POS):
+                    f = open("vlak1.txt", "w");f.close()
+                    sss20()
+        pygame.display.update()
+def sss5():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/vlakac.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*50,(Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(pp5,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):sss6()
+        pygame.display.update()
+def sss20():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/vlakac.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*50,(Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(pp20,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):sss21()
+        pygame.display.update()
+def sss21():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/vlak.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(pp21,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):sss22()
+        pygame.display.update()
+def sss22():
+    while True:
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN) 
+        dia1 = font.render(pp22,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):sss23()
+        pygame.display.update()
+def sss23():
+    while True:
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(pp23,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):sss24()
+        pygame.display.update()
+def sss24():
+    while True: 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(pp24,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):sss11()
+        pygame.display.update()
+def sss6():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/vlak.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(pp6,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):sss7()
+        pygame.display.update()
+def sss7():
+    while True:
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(pp7,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):sss8()
+        pygame.display.update()
+def sss8():
+    while True: 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(pp8,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):sss9()
+        pygame.display.update()
+def sss9():
+    while True: 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(pp9,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):sss10()
+        pygame.display.update()
+def sss10():
+    while True: 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN) 
+        dia1 = font.render(pp10,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):sss11()
+        pygame.display.update()
+def sss11():
+    while True: 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(pp11,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):sss12()
+        pygame.display.update()
+def sss12():
+    while True: 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN) 
+        dia1 = font.render(pp12,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):sss13()
+        pygame.display.update()
+def sss13():
+    while True: 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(pp13,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):sss14()
+        pygame.display.update()
+def sss14():
+    while True: 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN) 
+        dia1 = font.render(pp14,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):sss15()
+        pygame.display.update()
+def sss15():
+    while True: 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(pp15,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):sss16()
+        pygame.display.update()
+def sss16():
+    while True: 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(pp16,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        dia2 = font.render(pp16b,True,"Black") ;SCREEN.blit(dia2,((Width/100)*14.322916,(Height/100)*76.851851851852)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):sss17()
+        pygame.display.update()
+def sss17():
+    while True: 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN) 
+        dia1 = font.render(pp17,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):sss18()
+        pygame.display.update()
+def sss18():
+    while True: 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(pp18,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):
+                    if os.path.exists("vlak1.txt"):
+                        os.remove("vlak1.txt")
+                        sss25()
+                    if os.path.exists("vlak.txt"):
+                        os.remove("vlak.txt")
+                        sss19()
+        pygame.display.update()
+def sss19():
+    while True: 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN) 
+        dia1 = font.render(pp19,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):sssend()
+        pygame.display.update()
+def sssend():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("asety/auskonec.png"),(Width,Height)), (0, 0))
+        for event in pygame.event.get():
+            if event.type==pygame.MOUSEBUTTONDOWN:POMOC()
+        pygame.display.update()
+def sss25():
+    while True: 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN) 
+        dia1 = font.render(pp25,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):sss26()
+        pygame.display.update()
+def sss26():
+    while True: 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(pp26,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss62n()
+        pygame.display.update()
+def ss62n():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/polsko.png"),(Width,Height)), (0, 0))
+        for event in pygame.event.get():
+            if event.type==pygame.MOUSEBUTTONDOWN:ss62()
+        pygame.display.update()
+def ss62():
+    while True:
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*35,(Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p62,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        dia2 = font.render(p62b,True,"Black");SCREEN.blit(dia2,((Width/100)*14.322916,(Height/100)*76.851851851852))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss63()
+        pygame.display.update()
+def ss63():
+    while True:  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN) 
+        dia1 = font.render(p63,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss64()
+        pygame.display.update()
+def ss64():
+    while True:  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p64,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss65()
+        pygame.display.update()
+def ss65():
+    while True:  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p65,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss66()
+        pygame.display.update()
+def ss66():
+    while True:  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p66,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss67()
+        pygame.display.update()
+def ss67():
+    while True:  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN) 
+        dia1 = font.render(p67,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss68()
+        pygame.display.update()
+def ss68():
+    while True:
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p68,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        dia2 = font.render(p68b,True,"Black");SCREEN.blit(dia2,((Width/100)*14.322916,(Height/100)*76.851851851852))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss69()
+        pygame.display.update()
+def ss69():
+    while True:  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN) 
+        dia1 = font.render(p69,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss70()
+        pygame.display.update()
+def ss70():
+    while True:  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p70,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss71()
+        pygame.display.update()
+def ss71():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/polsko.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*50,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/gregor.png').convert();SCREEN.blit(imp2, ((Width/100)*1, (Height/100)*24))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN)
+        dia1 = font.render(p71,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss72()
+        pygame.display.update()
+def ss72():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/polsko.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*50,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/gregor.png').convert();SCREEN.blit(imp2, ((Width/100)*1, (Height/100)*23))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 715),text_input="Grzegorz", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTONb= Button(image=None, pos=(425, 735),text_input="Brzęczyszczykiewicz", font=font_meno, base_color="White", hovering_color="White")
+        MOKNO_BUTTON.update(SCREEN);MOKNO_BUTTONb.update(SCREEN)
+        dia1 = font.render(p72,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss73()
+        pygame.display.update()
+def ss73():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/polsko.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*50,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/gregor.png').convert();SCREEN.blit(imp2, ((Width/100)*1, (Height/100)*24))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN)
+        dia1 = font.render(p73,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss74()
+        pygame.display.update()
+def ss74():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/polsko.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*50,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/gregor.png').convert();SCREEN.blit(imp2, ((Width/100)*1, (Height/100)*23))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 715),text_input="Grzegorz", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTONb= Button(image=None, pos=(425, 735),text_input="Brzęczyszczykiewicz", font=font_meno, base_color="White", hovering_color="White")
+        MOKNO_BUTTON.update(SCREEN);MOKNO_BUTTONb.update(SCREEN)
+        dia1 = font.render(p74,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss75()
+        pygame.display.update()
+def ss75():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/polsko.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*50,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/gregor.png').convert();SCREEN.blit(imp2, ((Width/100)*1, (Height/100)*24))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN)
+        dia1 = font.render(p75,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss76n()
+        pygame.display.update()
+def ss76n():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("asety/tc1.png"),(Width,Height)), (0, 0))
+        for event in pygame.event.get():
+            if event.type==pygame.MOUSEBUTTONDOWN:ss76()
+        pygame.display.update()
+def ss76():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/namesti.png"),(Width,Height)), (0, 0))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*23, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(p76,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss77()
+        pygame.display.update()
+def ss77():
+    while True:
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*23, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(p77,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss78()
+        pygame.display.update()
+def ss78():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/namesti.png"),(Width,Height)), (0, 0))  
+        imp = pygame.image.load('postavy/travnas.png').convert();SCREEN.blit(imp,((Width/100)*85,(Height/100)*17)) 
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*23, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Trávňas", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p78,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss79()
+        pygame.display.update()
+def ss79():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/namesti.png"),(Width,Height)), (0, 0))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*23, (Height/100)*18.518))
+        imp = pygame.image.load('postavy/travnas.png').convert();SCREEN.blit(imp,((Width/100)*85,(Height/100)*20))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(p79,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss80()
+        pygame.display.update()
+def ss80():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/namesti.png"),(Width,Height)), (0, 0))  
+        imp = pygame.image.load('postavy/travnas.png').convert();SCREEN.blit(imp,((Width/100)*85,(Height/100)*17)) 
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*23, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Trávňas", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p80,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss81()
+        pygame.display.update()
+def ss81():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/namesti.png"),(Width,Height)), (0, 0))  
+        imp = pygame.image.load('postavy/travnas.png').convert();SCREEN.blit(imp,((Width/100)*85,(Height/100)*17)) 
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*23, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Trávňas", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p81,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss82()
+        pygame.display.update()
+def ss82():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/namesti.png"),(Width,Height)), (0, 0))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*23, (Height/100)*18.518))
+        imp = pygame.image.load('postavy/travnas.png').convert();SCREEN.blit(imp,((Width/100)*85,(Height/100)*20))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(p82,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss83()
+        pygame.display.update()
+def ss83():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/namesti.png"),(Width,Height)), (0, 0))  
+        imp = pygame.image.load('postavy/travnas.png').convert();SCREEN.blit(imp,((Width/100)*85,(Height/100)*17)) 
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*23, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Trávňas", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p83,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss84()
+        pygame.display.update()
+def ss84():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/namesti.png"),(Width,Height)), (0, 0))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*23, (Height/100)*18.518))
+        imp = pygame.image.load('postavy/travnas.png').convert();SCREEN.blit(imp,((Width/100)*85,(Height/100)*20))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(p84,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss85()
+        pygame.display.update()
+def ss85():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/namesti.png"),(Width,Height)), (0, 0))  
+        imp = pygame.image.load('postavy/travnas.png').convert();SCREEN.blit(imp,((Width/100)*85,(Height/100)*20)) 
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*23, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Hradec", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p85,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss86()
+        pygame.display.update()
+def ss86():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/namesti.png"),(Width,Height)), (0, 0))  
+        imp = pygame.image.load('postavy/travnas.png').convert();SCREEN.blit(imp,((Width/100)*85,(Height/100)*17)) 
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*23, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Trávňas", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p86,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss86r()
+        pygame.display.update()
+def ss86r():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/namesti.png"),(Width,Height)), (0, 0))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*23, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss87n()
+        pygame.display.update()
+def ss87n():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/posta.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*50,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/mlik.png').convert_alpha();SCREEN.blit(imp2, ((Width/100)*15, (Height/100)*22))
+        DOKNO_BUTTON.update(SCREEN)
+        for event in pygame.event.get():
+            if event.type==pygame.MOUSEBUTTONDOWN:ss87()
+        pygame.display.update()
+def ss87():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/posta.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*50,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/mlik.png').convert_alpha();SCREEN.blit(imp2, ((Width/100)*15, (Height/100)*22))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN)
+        dia1 = font.render(p87,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss88()
+        pygame.display.update()
+def ss88():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/posta.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*50,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/mlik.png').convert_alpha();SCREEN.blit(imp2, ((Width/100)*15, (Height/100)*20))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Milkyray", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p88,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss89()
+        pygame.display.update()
+def ss89():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/posta.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*50,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/mlik.png').convert_alpha();SCREEN.blit(imp2, ((Width/100)*15, (Height/100)*22))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN)
+        dia1 = font.render(p89,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss90()
+        pygame.display.update()
+def ss90():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/posta.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*50,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/mlik.png').convert_alpha();SCREEN.blit(imp2, ((Width/100)*15, (Height/100)*22))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN)
+        dia1 = font.render(p90,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss91()
+        pygame.display.update()
+def ss91():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/posta.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*50,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/mlik.png').convert_alpha();SCREEN.blit(imp2, ((Width/100)*15, (Height/100)*20))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Milkyray", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p91,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss92()
+        pygame.display.update()
+def ss92():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/posta.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*50,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/mlik.png').convert_alpha();SCREEN.blit(imp2, ((Width/100)*15, (Height/100)*22))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN)
+        dia1 = font.render(p92,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss93()
+        pygame.display.update()
+def ss93():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/posta.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*50,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/mlik.png').convert_alpha();SCREEN.blit(imp2, ((Width/100)*15, (Height/100)*22))
+        impa = pygame.image.load('asety/bagl.png').convert_alpha();SCREEN.blit(impa, ((Width/100)*25, (Height/100)*30))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN)
+        dia1 = font.render(p93,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss94()
+        pygame.display.update()
+def ss94():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/posta.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*50,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/mlik.png').convert_alpha();SCREEN.blit(imp2, ((Width/100)*15, (Height/100)*22))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN)
+        dia1 = font.render(p94,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss95n()
+        pygame.display.update()
+def ss95n():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/posta.png"),(Width,Height)), (0, 0))
+        imp2 = pygame.image.load('postavy/mlik.png').convert_alpha();SCREEN.blit(imp2, ((Width/100)*15, (Height/100)*22))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss95nn()
+        pygame.display.update()
+def ss95nn():
+    while True: 
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/polsko.png"),(Width,Height)), (0, 0)) 
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*50,(Height/100)*15.740)) 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss95()
+        pygame.display.update()
+def ss95():
+    while True: 
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/polsko.png"),(Width,Height)), (0, 0)) 
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*50,(Height/100)*15.740)) 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p95,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss96()
+        pygame.display.update()
+def ss96():
+    while True: 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p96,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss97()
+        pygame.display.update()
+def ss97():
+    while True: 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p97,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss98()
+        pygame.display.update()
+def ss98():
+    while True: 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN) 
+        dia1 = font.render(p98,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss99()
+        pygame.display.update()
+def ss99():
+    while True: 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p99,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss100()
+        pygame.display.update()
+def ss100():
+    while True: 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p100,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss101()
+        pygame.display.update()
+def ss101():
+    while True: 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p101,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss102()
+        pygame.display.update()
+def ss102():
+    while True: 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN) 
+        dia1 = font.render(p102,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss103()
+        pygame.display.update()
+def ss103():
+    while True: 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p103,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss104()
+        pygame.display.update()
+def ss104():
+    while True: 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p104,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss105()
+        pygame.display.update()
+def ss105():
+    while True: 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p105,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        dia2 = font.render(p105b,True,"Black") ;SCREEN.blit(dia2,((Width/100)*14.322916,(Height/100)*76.851851851852))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss106()
+        pygame.display.update()
+def ss106():
+    while True: 
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/polsko.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/pistolnik.png').convert_alpha();SCREEN.blit(imp2,((Width/100)*15, (Height/100)*9))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Ozbrojený Polák", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p106,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss107()
+        pygame.display.update()
+def ss107():
+    while True: 
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/polsko.png"),(Width,Height)), (0, 0))
+        imp2 = pygame.image.load('postavy/pistolnik.png').convert_alpha();SCREEN.blit(imp2,((Width/100)*15, (Height/100)*10))
+        impa = pygame.image.load('asety/gun.png').convert_alpha();SCREEN.blit(impa, ((Width/100)*25, (Height/100)*30))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*15.740))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN)
+        dia1 = pygame.font.Font("asety/fontuss.ttf", (Height//100)*3).render(p107,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss108()
+        pygame.display.update()
+def ss108():
+    while True: 
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/polsko.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/pistolnik.png').convert_alpha();SCREEN.blit(imp2,((Width/100)*15, (Height/100)*9))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Ozbrojený Polák", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p108,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss109()
+        pygame.display.update()
+def ss109():
+    while True: 
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/polsko.png"),(Width,Height)), (0, 0))
+        imp2 = pygame.image.load('postavy/pistolnik.png').convert_alpha();SCREEN.blit(imp2,((Width/100)*15, (Height/100)*10))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*15.740))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN)
+        dia1 = font.render(p109,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss110()
+        pygame.display.update()
+def ss110():
+    while True: 
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/polsko.png"),(Width,Height)), (0, 0))
+        imp2 = pygame.image.load('postavy/pistolnik.png').convert_alpha();SCREEN.blit(imp2,((Width/100)*15, (Height/100)*10))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*15.740))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN)
+        dia1 = font.render(p110,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss111()
+        pygame.display.update()
+def ss111():
+    while True: 
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/polsko.png"),(Width,Height)), (0, 0))
+        imp2 = pygame.image.load('postavy/pistolnik.png').convert_alpha();SCREEN.blit(imp2,((Width/100)*15, (Height/100)*10))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*15.740))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN)
+        dia1 = font.render(p111,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss112()
+        pygame.display.update()
+def ss112():
+    while True: 
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/polsko.png"),(Width,Height)), (0, 0))
+        imp2 = pygame.image.load('postavy/pistolnik.png').convert_alpha();SCREEN.blit(imp2,((Width/100)*15, (Height/100)*10))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*15.740))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN)
+        dia1 = font.render(p112,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        dia2 = font.render(p112b,True,"Black") ;SCREEN.blit(dia2,((Width/100)*14.322916,(Height/100)*76.851851851852))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss113()
+        pygame.display.update()
+def ss113():
+    while True: 
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/polsko.png"),(Width,Height)), (0, 0))
+        imp2 = pygame.image.load('postavy/pistolnik.png').convert_alpha();SCREEN.blit(imp2,((Width/100)*15, (Height/100)*10))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*15.740))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN)
+        dia1 = font.render(p113,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss114()
+        pygame.display.update()
+def ss114():
+    while True: 
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/polsko.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/pistolnik.png').convert_alpha();SCREEN.blit(imp2,((Width/100)*15, (Height/100)*9))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Ozbrojený Polák", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p114,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss115()
+        pygame.display.update()
+def ss115():
+    while True: 
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/polsko.png"),(Width,Height)), (0, 0))
+        imp2 = pygame.image.load('postavy/pistolnik.png').convert_alpha();SCREEN.blit(imp2,((Width/100)*15, (Height/100)*10))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*15.740))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN)
+        dia1 = font.render(p115,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss116()
+        pygame.display.update()
+def ss116():
+    while True: 
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/polsko.png"),(Width,Height)), (0, 0))
+        imp2 = pygame.image.load('postavy/pistolnik.png').convert_alpha();SCREEN.blit(imp2,((Width/100)*15, (Height/100)*10))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*15.740))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN)
+        dia1 = font.render(p116,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss117()
+        pygame.display.update()
+def ss117():
+    while True: 
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/polsko.png"),(Width,Height)), (0, 0))
+        imp2 = pygame.image.load('postavy/pistolnik.png').convert_alpha();SCREEN.blit(imp2,((Width/100)*15, (Height/100)*10))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*15.740))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN)
+        dia1 = font.render(p117,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss118()
+        pygame.display.update()
+def ss118():
+    while True: 
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/polsko.png"),(Width,Height)), (0, 0))
+        imp2 = pygame.image.load('postavy/pistolnik.png').convert_alpha();SCREEN.blit(imp2,((Width/100)*15, (Height/100)*10))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN)
+        dia1 = font.render(p118,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss119()
+        pygame.display.update()
+def ss119():
+    while True: 
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/polsko.png"),(Width,Height)), (0, 0))
+        imp2 = pygame.image.load('postavy/pistolnik.png').convert_alpha();SCREEN.blit(imp2,((Width/100)*15, (Height/100)*10))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*15.740))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN)
+        dia1 = font.render(p119,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss120()
+        pygame.display.update()
+def ss120():
+    while True: 
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/polsko.png"),(Width,Height)), (0, 0))
+        imp2 = pygame.image.load('postavy/pistolnik.png').convert_alpha();SCREEN.blit(imp2,((Width/100)*15, (Height/100)*10))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN)
+        dia1 = font.render(p120,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss121n()
+        pygame.display.update()
+def ss121n():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("asety/tc2.png"),(Width,Height)), (0, 0))
+        for event in pygame.event.get():
+            if event.type==pygame.MOUSEBUTTONDOWN:ss121()
+        pygame.display.update()
+def ss121():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*25, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(p121,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss122()
+        pygame.display.update()
+def ss122():
+    while True:
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(p122,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss123()
+        pygame.display.update()
+def ss123():
+    while True:
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(p123,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss124()
+        pygame.display.update()
+def ss124():
+    while True:
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(p124,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss125()
+        pygame.display.update()
+def ss125():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p125,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss126()
+        pygame.display.update()
+def ss126():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20, (Height/100)*15.740))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(p126,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss127()
+        pygame.display.update()
+def ss127():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p127,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss128()
+        pygame.display.update()
+def ss128():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN) 
+        dia1 = font.render(p128,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss129()
+        pygame.display.update()
+def ss129():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p129,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss130()
+        pygame.display.update()
+def ss130():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20, (Height/100)*15.740))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(p130,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss131()
+        pygame.display.update()
+def ss131():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p131,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss132()
+        pygame.display.update()
+def ss132():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20, (Height/100)*15.740))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(p132,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss133()
+        pygame.display.update()
+def ss133():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p133,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss134()
+        pygame.display.update()
+def ss134():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20, (Height/100)*15.740))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(p134,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss135()
+        pygame.display.update()
+def ss135():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p135,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss136()
+        pygame.display.update()
+def ss136():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20, (Height/100)*15.740))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(p136,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss137()
+        pygame.display.update()
+def ss137():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p137,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss138()
+        pygame.display.update()
+def ss138():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20, (Height/100)*15.740))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(p138,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss139()
+        pygame.display.update()
+def ss139():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p139,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss140()
+        pygame.display.update()
+def ss140():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20, (Height/100)*15.740))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(p140,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss141()
+        pygame.display.update()
+def ss141():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p141,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss142()
+        pygame.display.update()
+def ss142():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN) 
+        dia1 = font.render(p142,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss143()
+        pygame.display.update()
+def ss143():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p143,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss144()
+        pygame.display.update()
+def ss144():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p144,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):dntn()
+        pygame.display.update()
+def dntn():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("asety/tc3.png"),(Width,Height)), (0, 0))
+        for event in pygame.event.get():
+            if event.type==pygame.MOUSEBUTTONDOWN:dnt()
+        pygame.display.update()
+def dnt():
+    while True:
+        pygame.mixer.music.load("songus/donejt.mp3")
+        pygame.mixer.music.play(loops=-1)
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("asety/dnt1.png"),(Width,Height)), (0, 0))                                                                                                                                                                                                                                                       
+        pygame.display.update()
+        sleep(3)
+        dnt2()
+def dnt2():
+    while True:
+        PLAY_MOUSE_POS=pygame.mouse.get_pos()
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("asety/dnt2.png"),(Width,Height)), (0, 0))                                                                                                                                                                                                                                                           
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):pygame.mixer.music.stop();ss145()
+def ss145():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN) 
+        dia1 = font.render(p145,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss146()
+        pygame.display.update()
+def ss146():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20, (Height/100)*15.740))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(p146,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss147()
+        pygame.display.update()
+def ss147():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p147,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss148()
+        pygame.display.update()
+def ss148():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*18.518))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20, (Height/100)*15.740))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(p148,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss149()
+        pygame.display.update()
+def ss149():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p149,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss149a()
+        pygame.display.update()
+def ss149a():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20, (Height/100)*18.518))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:ss150n()
+        pygame.display.update()
+def ss150n():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/varnavecer.png"),(Width,Height)), (0, 0))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:ss150()
+        pygame.display.update()
+def ss150():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/varnavecer.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*21,(Height/100)*15.740))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p150,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss151()
+        pygame.display.update()
+def ss151():
+    while True:  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p151,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        dia2 = font.render(p151b,True,"Black") ;SCREEN.blit(dia2,((Width/100)*14.322916,(Height/100)*76.851851851852))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss152()
+        pygame.display.update()
+def ss152():
+    while True:  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p152,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss159()
+        pygame.display.update()
+def ss159():
+    while True:  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p159,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss159a()
+        pygame.display.update()
+def ss159a():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/varnavecer.png"),(Width,Height)), (0, 0))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:ss160n()
+        pygame.display.update()
+def ss160n():
+    while True:
+        f = open("sejv2.txt", "w");f.close()
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/s1.png"),(Width,Height)), (0, 0))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:ss160()
+        pygame.display.update()
+def ss160():
+    while True:
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*34,(Height/100)*15.740))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p160,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss161()
+        pygame.display.update()
+def ss161():
+    while True: 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN) 
+        dia1 = font.render(p161,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss162()
+        pygame.display.update()
+def ss162():
+    while True: 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p162,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss163()
+        pygame.display.update()
+def ss163():
+    while True: 
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p163,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss164()
+        pygame.display.update()
+def ss164():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/s1.png"),(Width,Height)), (0, 0))  
+        imp = pygame.image.load('postavy/travnas.png').convert();SCREEN.blit(imp,((Width/100)*85,(Height/100)*17)) 
+        imp2 = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp2, ((Width/100)*34, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Trávňas", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p164,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss165()
+        pygame.display.update()
+def ss165():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/s1.png"),(Width,Height)), (0, 0))  
+        imp = pygame.image.load('postavy/travnas.png').convert();SCREEN.blit(imp,((Width/100)*85,(Height/100)*18.518)) 
+        imp2 = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp2, ((Width/100)*34, (Height/100)*15.740))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN)
+        dia1 = font.render(p165,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss166()
+        pygame.display.update()
+def ss166():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/s1.png"),(Width,Height)), (0, 0))  
+        imp = pygame.image.load('postavy/travnas.png').convert();SCREEN.blit(imp,((Width/100)*85,(Height/100)*17)) 
+        imp2 = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp2, ((Width/100)*34, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Trávňas", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p166,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss167()
+        pygame.display.update()
+def ss167():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/s1.png"),(Width,Height)), (0, 0))  
+        imp = pygame.image.load('postavy/travnas.png').convert();SCREEN.blit(imp,((Width/100)*85,(Height/100)*18.518)) 
+        imp2 = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp2, ((Width/100)*34, (Height/100)*15.740))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN)
+        dia1 = font.render(p167,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss168()
+        pygame.display.update()
+def ss168():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/s1.png"),(Width,Height)), (0, 0))  
+        imp = pygame.image.load('postavy/travnas.png').convert();SCREEN.blit(imp,((Width/100)*85,(Height/100)*17)) 
+        imp2 = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp2, ((Width/100)*34, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Trávňas", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p168,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss169()
+        pygame.display.update()
+def ss169():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/s1.png"),(Width,Height)), (0, 0))  
+        imp = pygame.image.load('postavy/travnas.png').convert();SCREEN.blit(imp,((Width/100)*85,(Height/100)*18.518)) 
+        imp2 = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp2, ((Width/100)*34, (Height/100)*15.740))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN)
+        dia1 = font.render(p169,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        dia2 = font.render(p169b,True,"Black") ;SCREEN.blit(dia2,((Width/100)*14.322916,(Height/100)*76.851851851852))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss170()
+        pygame.display.update()
+def ss170():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/s1.png"),(Width,Height)), (0, 0))  
+        imp = pygame.image.load('postavy/travnas.png').convert();SCREEN.blit(imp,((Width/100)*85,(Height/100)*17)) 
+        imp2 = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp2, ((Width/100)*34, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTON= Button(image=None, pos=(425, 725),text_input="Trávňas", font=font_meno, base_color="White", hovering_color="White");MOKNO_BUTTON.update(SCREEN)
+        dia1 = font.render(p170,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss171()
+        pygame.display.update()
+def ss171():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/s1.png"),(Width,Height)), (0, 0))  
+        imp2 = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp2, ((Width/100)*34, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss172()
+        pygame.display.update()
+def ss172():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/s1.png"),(Width,Height)), (0, 0))  
+        imp1 = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp1, ((Width/100)*34, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN)
+        dia1 = font.render(p172,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss173()
+        pygame.display.update()
+def ss173():
+    while True:
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN)
+        dia1 = font.render(p173,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss174()
+        pygame.display.update()
+def ss174():
+    while True:
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN)
+        dia1 = font.render(p174,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        dia2 = font.render(p174b,True,"Black") ;SCREEN.blit(dia2,((Width/100)*14.322916,(Height/100)*76.851851851852))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss175()
+        pygame.display.update()
+def ss175():
+    while True:
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN)
+        dia1 = font.render(p175,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss176n()
+        pygame.display.update()
+def ss176n():
+    while True:
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
+        SCREEN.blit(pygame.image.load("pozadi/se1.png"), (0, 0))                                                                                                                                                                                                                            
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss176()                                                                                    
+        pygame.display.update()
+def ss176():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/s1.png"),(Width,Height)), (0, 0))  
+        imp1 = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp1, ((Width/100)*34, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN)
+        dia1 = font.render(p176,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss177()
+        pygame.display.update()
+def ss177():
+    while True:
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN)
+        dia1 = font.render(p177,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss178()
+        pygame.display.update()
+def ss178():
+    while True:
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN)
+        dia1 = font.render(p178,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        dia2 = font.render(p178b,True,"Black") ;SCREEN.blit(dia2,((Width/100)*14.322916,(Height/100)*76.851851851852))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss179()
+        pygame.display.update()
+def ss179():
+    while True:
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN)
+        dia1 = font.render(p179,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss180()
+        pygame.display.update()
+def ss180():
+    while True:
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN)
+        dia1 = font.render(p180,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):ss181()
+        pygame.display.update()
+def ss181():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*55,(Height/100)*15.740))  
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20, (Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(p181,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):s114()
+        pygame.display.update()                                                                    
 def s114():
     while True:
         pygame.mixer.music.load("songus/songusamogusdruhus.wav")
@@ -2310,14 +5016,8 @@ def s114():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         SCREEN.fill("black")
         SCREEN.blit(resized_bg8, (0, 0))                                                                               
-        PLAY_BACK   
-        DOKNO_BUTTON
-        MOKNO_BUTTONC
-        DALSI_BUTTON
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
-        SCREEN.blit(imp, ((Width/100)*52.083,(Height/100)*18.518 ))
-        imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
-        SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740))                                                
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp, ((Width/100)*52.083,(Height/100)*18.518 ))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740))                                                
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
         MOKNO_BUTTONC.update(SCREEN) 
         t114()                                                                                           
@@ -2330,15 +5030,11 @@ def s114():
 def s115():
     while True:
         SCREEN.blit(resized_bg8, (0, 0))
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
-        MOKNO_BUTTONN
-        DALSI_BUTTON
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
-        SCREEN.blit(imp, ((Width/100)*52.083, (Height/100)*15.740))
-        imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
-        SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))                                                   
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp, ((Width/100)*52.083,(Height/100)*18.518 ))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740))                                                    
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
-        MOKNO_BUTTONN.update(SCREEN) 
+        MOKNO_BUTTONC.update(SCREEN) 
         t115()                                                                                           
         for event in pygame.event.get():
             if event.type == pygame.QUIT:pygame.quit();sys.exit()
@@ -2349,13 +5045,9 @@ def s115():
 def s116():
     while True:
         SCREEN.blit(resized_bg8, (0, 0))
-        PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                             
-        PLAY_BACK   
-        DOKNO_BUTTON
-        MOKNO_BUTTONPB
-        DALSI_BUTTON                                               
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                                                                        
         DALSI_BUTTON.update(SCREEN)
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083,(Height/100)*18.518 ))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))   
@@ -2374,11 +5066,7 @@ def s117():
     while True:
         SCREEN.blit(resized_bg8, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                             
-        PLAY_BACK   
-        DOKNO_BUTTON
-        MOKNO_BUTTONN
-        DALSI_BUTTON
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))                                                    
@@ -2394,10 +5082,8 @@ def s117():
 def s118():
     while True:
         SCREEN.blit(resized_bg8, (0, 0))
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
-        MOKNO_BUTTONC
-        DALSI_BUTTON
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083,(Height/100)*18.518 ))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740))                                                  
@@ -2413,10 +5099,8 @@ def s118():
 def s119():
     while True:
         SCREEN.blit(resized_bg8, (0, 0))
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
-        MOKNO_BUTTONN
-        DALSI_BUTTON
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))                                                  
@@ -2434,7 +5118,7 @@ def s120():
         SCREEN.blit(resized_bg8, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                             
         PLAY_BACK;SAKON1_BUTTON;SAKON2_BUTTON
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083,(Height/100)*18.518 ))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))                                                    
@@ -2448,16 +5132,13 @@ def s120():
                 if SAKON2_BUTTON.checkForInput(PLAY_MOUSE_POS):sakon1()                                                                              
         pygame.display.update()
 def sakon1():
+    pygame.mixer.music.stop()
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         SCREEN.fill("black")
-        SCREEN.blit(resized_bg8, (0, 0))                                                                               
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB                                                 
+        SCREEN.blit(resized_bg8, (0, 0))                                                                                                                               
         PLAY_BACK.changeColor(PLAY_MOUSE_POS)
-        PLAY_BACK.update(SCREEN)
-        DOKNO_BUTTON.update(SCREEN)
-        MOKNO_BUTTONPB.update(SCREEN) 
-        sakondd1()                                                                                      
+        PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN);MOKNO_BUTTONPB.update(SCREEN);sakondd1()                                                                                      
         for event in pygame.event.get():
             if event.type == pygame.QUIT:pygame.quit();sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -2465,15 +5146,14 @@ def sakon1():
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):sakon2()                                                                          
         pygame.display.update()
 def sakon2():
-    while True:
+    while True: 
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         SCREEN.fill("black")
         SCREEN.blit(resized_bg8, (0, 0))                                                                               
         PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN                                               
         PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN);MOKNO_BUTTONN.update(SCREEN)
-        imp = pygame.image.load('postavy/Nekolas.png').convert()
-        SCREEN.blit(imp, ((Width/100)*46.875, (Height/100)*18.518))    
-        sakondd2() 
+        imp = pygame.image.load('postavy/nekolas.png').convert()
+        SCREEN.blit(imp, ((Width/100)*46.875, (Height/100)*18.518));sakondd2() 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:pygame.quit();sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -2481,49 +5161,26 @@ def sakon2():
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):pbdole()                                                                          
         pygame.display.update()
 def pbdole():
+    pygame.mixer.music.stop()
+    vid = Video("pbdole.mp4")
     while True:
-        pygame.mixer.music.stop()
-        pygame.mixer.music.load("songus/lacrimosa.wav")
-        pygame.mixer.music.play(loops=0)    
-        file_name = "vid/pbdole.mp4"
-        window_name = "window"
-        interframe_wait_ms = 30
-        cap = cv2.VideoCapture(file_name)
-        if not cap.isOpened():exit()
-        cv2.namedWindow(window_name, cv2.WND_PROP_FULLSCREEN)
-        cv2.setWindowProperty(window_name, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
-        while (True):
-            ret, frame = cap.read()
-            if not ret:break
-            cv2.imshow(window_name, frame)
-            if cv2.waitKey(interframe_wait_ms) & 0x7F == ord("q"):break
-        cap.release()
-        cv2.destroyAllWindows()
-        sakon3()
-def sakon3():
-    while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        SCREEN.fill("black")
-        sakondd3() 
+        clock.tick(60)
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:pygame.quit();sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()   
-                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):pygame.quit();sys.exit()                                                                       
+            if event.type ==pygame.MOUSEBUTTONDOWN:
+                vid.close()
+                POMOC()
+        vid.draw(SCREEN, (0, 0), force_draw=False)
         pygame.display.update()
 def s121():
     while True:
         SCREEN.blit(resized_bg8, (0, 0))
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
-        MOKNO_BUTTONPB;DALSI_BUTTON;DALSI_BUTTON.update(SCREEN)
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083,(Height/100)*18.518 ))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))   
         PLAY_BACK.changeColor(PLAY_MOUSE_POS)
-        PLAY_BACK.update(SCREEN)
-        DOKNO_BUTTON.update(SCREEN)
-        MOKNO_BUTTONPB.update(SCREEN) 
+        PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN);MOKNO_BUTTONPB.update(SCREEN) 
         t120()                                                                                           
         for event in pygame.event.get():
             if event.type == pygame.QUIT:pygame.quit();sys.exit()
@@ -2534,8 +5191,8 @@ def s121():
 def s122():
     while True:
         SCREEN.blit(resized_bg8, (0, 0))
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONC;DALSI_BUTTON
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;MOKNO_BUTTONC;DALSI_BUTTON
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083,(Height/100)*18.518 ))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*15.740))                                                  
@@ -2552,7 +5209,7 @@ def s123():
     while True:
         SCREEN.blit(resized_bg8, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK   ;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))                                                 
@@ -2568,8 +5225,8 @@ def s123():
 def s124():
     while True:
         SCREEN.blit(resized_bg8, (0, 0))
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
-        imp = pygame.image.load('postavy/Nekolas.png').convert()                                                            
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
+        imp = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))                                                  
@@ -2585,10 +5242,9 @@ def s124():
 def s125():
     while True:
         SCREEN.blit(resized_bg8, (0, 0))
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
-        MOKNO_BUTTONN
-        DALSI_BUTTON
-        imp = pygame.image.load('postavy/Nekolas.png').convert();SCREEN.blit(imp, ((Width/100)*52.083, (Height/100)*15.740))
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
+        MOKNO_BUTTONN;DALSI_BUTTON
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*20.83, (Height/100)*18.518))                                                   
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN);MOKNO_BUTTONN.update(SCREEN) 
         t124()  
@@ -2597,15 +5253,377 @@ def s125():
             if event.type == pygame.QUIT:pygame.quit();sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
-                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):sls2()                                                                                    
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):l1()                                                                                    
         pygame.display.update()
+def l1():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083, (Height/100)*15.740))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(k1,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):l2()
+        pygame.display.update()
+def l2():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083, (Height/100)*18.518))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*15.740))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(k2,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):l3()
+        pygame.display.update()
+def l3():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083, (Height/100)*15.740))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(k3,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):l4()
+        pygame.display.update()
+def l4():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083, (Height/100)*15.740))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(k4,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):l5()
+        pygame.display.update()
+def l5():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083, (Height/100)*18.518))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*15.740))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(k5,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):l6()
+        pygame.display.update()
+def l6():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083, (Height/100)*15.740))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(k6,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):l7()
+        pygame.display.update()
+def l7():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083, (Height/100)*15.740))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(k7,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        dia2 = font.render(k7b,True,"Black") ;SCREEN.blit(dia2,((Width/100)*14.322916,(Height/100)*76.851851851852))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):l8()
+        pygame.display.update()
+def l8():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083, (Height/100)*18.518))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*15.740))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONC.update(SCREEN) 
+        dia1 = font.render(k8,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):l9()
+        pygame.display.update()
+def l9():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083, (Height/100)*15.740))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(k9,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        dia2 = font.render(k9n,True,"Black") ;SCREEN.blit(dia2,((Width/100)*14.322916,(Height/100)*76.851851851852))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):l10()
+        pygame.display.update()
+def l10():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083, (Height/100)*18.518))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN) 
+        dia1 = font.render(k10,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):l11()
+        pygame.display.update()
+def l11():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083, (Height/100)*15.740))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(k11,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):l12()
+        pygame.display.update()
+def l12():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083, (Height/100)*15.740))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(k12,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):l13()
+        pygame.display.update()
+def l13():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083, (Height/100)*15.740))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(k13,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):l14()
+        pygame.display.update()
+def l14():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083, (Height/100)*18.518))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONS.update(SCREEN) 
+        dia1 = font.render(k14,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):l15()
+        pygame.display.update()
+def l15():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083, (Height/100)*15.740))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(k15,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):l16()
+        pygame.display.update()
+def l16():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083, (Height/100)*18.518))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONS.update(SCREEN) 
+        dia1 = font.render(k16,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):l17()
+        pygame.display.update()
+def l17():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083, (Height/100)*15.740))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(k17,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):l18()
+        pygame.display.update()
+def l18():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083, (Height/100)*18.518))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONS.update(SCREEN) 
+        dia1 = font.render(k18,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):l19()
+        pygame.display.update()
+def l19():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083, (Height/100)*15.740))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(k19,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):l20()
+        pygame.display.update()
+def l20():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083, (Height/100)*18.518))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONS.update(SCREEN) 
+        dia1 = font.render(k20,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):l21()
+        pygame.display.update()
+def l21():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083, (Height/100)*15.740))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(k21,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):l22()
+        pygame.display.update()
+def l22():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083, (Height/100)*18.518))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONS.update(SCREEN) 
+        dia1 = font.render(k22,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):l23()
+        pygame.display.update()
+def l23():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083, (Height/100)*15.740))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(k23,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):l24()
+        pygame.display.update()
+def l24():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083, (Height/100)*18.518))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONPB.update(SCREEN) 
+        dia1 = font.render(k24,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):l25()
+        pygame.display.update()
+def l25():
+    while True:
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("pozadi/office.png"),(Width,Height)), (0, 0))
+        imp = pygame.image.load('postavy/nekolas.png').convert();SCREEN.blit(imp,((Width/100)*52.083, (Height/100)*15.740))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2,((Width/100)*20.83, (Height/100)*18.518))  
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();DOKNO_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN)
+        MOKNO_BUTTONN.update(SCREEN) 
+        dia1 = font.render(k25,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):l25()
+        pygame.display.update()
+
+
+
+
+
+
+
+
+
 def sls2():
     if os.path.exists("save1.txt"):os.remove("save1.txt")
     if os.path.exists("save3.txt"):os.remove("save3.txt")
     if os.path.exists("save4.txt"):os.remove("save4.txt")
     if os.path.exists("save5.txt"):os.remove("save5.txt")
     while True:
-        SCREEN.blit(resized_ls, (0, 0));f = open("save2.txt", "w");f.close()
+        SCREEN.blit(pygame.transform.scale(pygame.image.load("asety/ls2.png"),(Width,Height)), (0, 0))
+        f = open("save2.txt", "w");f.close()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit();sys.exit()
@@ -2618,9 +5636,7 @@ def sls2():
 def s126():
     while True:
         SCREEN.blit(resized_bg9, (0, 0))
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
-        MOKNO_BUTTONC
-        DALSI_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*31.25,(Height/100)*18.518))                                                  
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -2635,9 +5651,7 @@ def s126():
 def s127():
     while True:
         SCREEN.blit(resized_bg9, (0, 0))
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
-        MOKNO_BUTTONN
-        DALSI_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
         imp2 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*31.25,(Height/100)*18.518))                                                  
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -2652,9 +5666,7 @@ def s127():
 def s128():
     while True:
         SCREEN.blit(resized_bg9, (0, 0))
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
-        MOKNO_BUTTONŠ
-        DALSI_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
         imp2 = pygame.image.load('postavy/prozatimnistepan.png').convert()                                                           
         SCREEN.blit(imp2, ((Width/100)*31.25,(Height/100)*18.518))                                                  
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -2669,7 +5681,7 @@ def s128():
 def s129():
     while True:
         SCREEN.blit(resized_bg9, (0, 0))
-        PLAY_MOUSE_POS = pygame.mouse.get_pos() ;PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos() 
         MOKNO_BUTTONPB
         DALSI_BUTTON                                             
         PLAY_BACK.changeColor(PLAY_MOUSE_POS)
@@ -2687,7 +5699,7 @@ def s129():
 def s130():
     while True:
         SCREEN.blit(resized_bg9, (0, 0))
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
         MOKNO_BUTTONC
         DALSI_BUTTON
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
@@ -2704,7 +5716,7 @@ def s130():
 def s131():
     while True:
         SCREEN.blit(resized_bg9, (0, 0))
-        PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK;DOKNO_BUTTON
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
         MOKNO_BUTTONN
         DALSI_BUTTON
         imp2 = pygame.image.load('postavy/nekolas.png').convert()                                                            
@@ -2721,8 +5733,7 @@ def s131():
 def s132():
     while True:
         SCREEN.blit(resized_bg9, (0, 0))
-        PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                               
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON                                             
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                                                                            
         PLAY_BACK.changeColor(PLAY_MOUSE_POS)
         PLAY_BACK.update(SCREEN)
         DALSI_BUTTON.update(SCREEN)
@@ -2739,7 +5750,6 @@ def s133():
     while True:
         SCREEN.blit(resized_bg9, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                               
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp2 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*33.85416, (Height/100)*18.518))                                                  
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -2770,8 +5780,7 @@ def s134():
 def s135():
     while True:
         SCREEN.blit(resized_bg9, (0, 0))
-        PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                              
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON                                               
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                                                                             
         PLAY_BACK.changeColor(PLAY_MOUSE_POS)
         PLAY_BACK.update(SCREEN)
         DALSI_BUTTON.update(SCREEN)
@@ -2788,7 +5797,6 @@ def s136():
     while True:
         SCREEN.blit(resized_bg9, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                               
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp2 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*33.85416, (Height/100)*18.518))                                                  
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -2836,7 +5844,6 @@ def s139():
     while True:
         SCREEN.blit(resized_bg9, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()                                                                               
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp2 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*33.85416, (Height/100)*18.518))                                                  
         DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
@@ -2956,8 +5963,8 @@ def kostel():
             PLAY_BACK.update(SCREEN)
             dia1 = font.render(kmore,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
             dia2 = font.render(kfunguj,True,"Black");SCREEN.blit(dia2,((Width/100)*14.322916,(Height/100)*76.851851851852))
-            dia3=font.render(k3,True,"Black");SCREEN.blit(dia3,((Width/100)*14.322916,(Height/100)*80.55))
-            dia4=font.render(k4,True,"Black");SCREEN.blit(dia4,((Width/100)*14.322916,(Height/100)*84.259))
+            dia3=font.render(ks3,True,"Black");SCREEN.blit(dia3,((Width/100)*14.322916,(Height/100)*80.55))
+            dia4=font.render(ks4,True,"Black");SCREEN.blit(dia4,((Width/100)*14.322916,(Height/100)*84.259))
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:pygame.quit();sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
@@ -2969,7 +5976,7 @@ def mesto():
         SCREEN.blit(resized_bg16, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK
-        DOKNO_BUTTON= Button(image=(resized_mctyri), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON3
         VYB_BUTTONZ =Button(image=(resized_vyberbutton), pos=((Width/100)*21.875,(Height/100)*55.55), text_input="Základka", font=font_vyber, base_color="White", hovering_color="#4e61de")
         VYB_BUTTONPO =Button(image=(resized_vyberbutton), pos=((Width/100)*48.9583,(Height/100)*55.55), text_input="Podšance", font=font_vyber, base_color="White", hovering_color="#4e61de")
         VYB_BUTTONG =Button(image=(resized_vyberbutton), pos=((Width/100)*76.0416,(Height/100)*55.55), text_input="Gympl", font=font_vyber, base_color="White", hovering_color="#4e61de")
@@ -2979,7 +5986,7 @@ def mesto():
         VYB_BUTTONG.update(SCREEN)
         VYB_BUTTONZ.update(SCREEN)
         VYB_BUTTONPO.update(SCREEN)
-        DOKNO_BUTTON.update(SCREEN)
+        DOKNO_BUTTON3.update(SCREEN)
         PLAY_BACK.changeColor(PLAY_MOUSE_POS)
         PLAY_BACK.update(SCREEN)
         dia1 = font.render(m1,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
@@ -3026,7 +6033,7 @@ def pramen():
         SCREEN.blit(resized_bg14, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK
-        DOKNO_BUTTON= Button(image=(resized_mtri), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON2
         VYB_BUTTONZP =Button(image=(resized_vyberbutton), pos=((Width/100)*21.875,(Height/100)*55.55), text_input="Zpět", font=font_vyber, base_color="White", hovering_color="#4e61de")
         VYB_BUTTONAP =Button(image=(resized_vyberbutton), pos=((Width/100)*76.0416,(Height/100)*55.55), text_input="Napít se", font=font_vyber, base_color="White", hovering_color="#4e61de")
         VYB_BUTTONZP.changeColor(PLAY_MOUSE_POS)
@@ -3055,14 +6062,14 @@ def amerika():
     while True:
         SCREEN.blit(resized_bg18, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos();PLAY_BACK
-        DOKNO_BUTTON= Button(image=(resized_mctyri), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON3
         VYB_BUTTONAL =Button(image=(resized_vyberbutton), pos=((Width/100)*21.875,(Height/100)*55.55), text_input="Levá", font=font_vyber, base_color="White", hovering_color="#4e61de")
         VYB_BUTTONAP =Button(image=(resized_vyberbutton), pos=((Width/100)*76.0416,(Height/100)*55.55), text_input="Pravá", font=font_vyber, base_color="White", hovering_color="#4e61de")
         VYB_BUTTONAL.changeColor(PLAY_MOUSE_POS)
         VYB_BUTTONAP.changeColor(PLAY_MOUSE_POS)
         VYB_BUTTONAP.update(SCREEN)
         VYB_BUTTONAL.update(SCREEN)
-        DOKNO_BUTTON.update(SCREEN)
+        DOKNO_BUTTON3.update(SCREEN)
         PLAY_BACK.changeColor(PLAY_MOUSE_POS)
         PLAY_BACK.update(SCREEN)
         dia1 = font.render(a1,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
@@ -3080,14 +6087,14 @@ def zakladka():
         SCREEN.blit(resized_bg15, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK
-        DOKNO_BUTTON= Button(image=(resized_mctyri), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON3
         VYB_BUTTONKOP =Button(image=(resized_vyberbutton), pos=((Width/100)*21.875,(Height/100)*55.55), text_input="Kopeček", font=font_vyber, base_color="White", hovering_color="#4e61de")
         VYB_BUTTONPA =Button(image=(resized_vyberbutton), pos=((Width/100)*76.0416,(Height/100)*55.55), text_input="Park", font=font_vyber, base_color="White", hovering_color="#4e61de")
         VYB_BUTTONKOP.changeColor(PLAY_MOUSE_POS)
         VYB_BUTTONKOP.update(SCREEN)
         VYB_BUTTONPA.changeColor(PLAY_MOUSE_POS)
         VYB_BUTTONPA.update(SCREEN)
-        DOKNO_BUTTON.update(SCREEN)
+        DOKNO_BUTTON3.update(SCREEN)
         PLAY_BACK.changeColor(PLAY_MOUSE_POS)
         PLAY_BACK.update(SCREEN)
         dia1=font.render(z1,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
@@ -3128,7 +6135,7 @@ def podsance():
             SCREEN.blit(resized_bg20, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
             PLAY_BACK
-            DOKNO_BUTTON= Button(image=(resized_mctyri), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+            DOKNO_BUTTON3
             VYB_BUTTONG =Button(image=(resized_vyberbutton), pos=((Width/100)*21.875,(Height/100)*55.55), text_input="Park", font=font_vyber, base_color="White", hovering_color="#4e61de")
             VYB_BUTTONS =Button(image=(resized_vyberbutton), pos=((Width/100)*48.9583,(Height/100)*55.55), text_input="Město", font=font_vyber, base_color="White", hovering_color="#4e61de")
             VYB_BUTTONP =Button(image=(resized_vyberbutton), pos=((Width/100)*76.0416,(Height/100)*55.55), text_input="Amerika", font=font_vyber, base_color="White", hovering_color="#4e61de")
@@ -3138,7 +6145,7 @@ def podsance():
             VYB_BUTTONG.update(SCREEN)
             VYB_BUTTONP.update(SCREEN)
             VYB_BUTTONS.update(SCREEN)
-            DOKNO_BUTTON.update(SCREEN)
+            DOKNO_BUTTON3.update(SCREEN)
             PLAY_BACK.changeColor(PLAY_MOUSE_POS)
             PLAY_BACK.update(SCREEN)
             dia1 = font.render(po1,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
@@ -3227,7 +6234,6 @@ def s142():
     while True:
         SCREEN.blit(resized_bg17, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*15.740))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -3247,7 +6253,6 @@ def s143():
     while True:
         SCREEN.blit(resized_bg17, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*15.740))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -3307,7 +6312,6 @@ def s146():
     while True:
         SCREEN.blit(resized_bg17, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125,(Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -3347,7 +6351,6 @@ def s148():
     while True:
         SCREEN.blit(resized_bg17, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*15.740))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -3443,7 +6446,6 @@ def s153():
     while True:
         SCREEN.blit(resized_bg17, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*15.740))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -3463,7 +6465,6 @@ def s154():
     while True:
         SCREEN.blit(resized_bg17, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*15.740))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -3523,7 +6524,6 @@ def s157():
     while True:
         SCREEN.blit(resized_bg17, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125,(Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -3576,7 +6576,6 @@ def s160():
     while True:
         SCREEN.blit(resized_bg17, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*15.740))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -3596,7 +6595,6 @@ def s161():
     while True:
         SCREEN.blit(resized_bg17, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125,(Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -3632,7 +6630,6 @@ def s163():
     while True:
         SCREEN.blit(resized_bg17, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125,(Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -3652,7 +6649,6 @@ def s164():
     while True:
         SCREEN.blit(resized_bg17, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*15.740))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -3692,7 +6688,6 @@ def s166():
     while True:
         SCREEN.blit(resized_bg17, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*15.740))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -3712,7 +6707,6 @@ def s167():
     while True:
         SCREEN.blit(resized_bg17, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125,(Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -3732,7 +6726,6 @@ def s168():
     while True:
         SCREEN.blit(resized_bg17, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -3752,7 +6745,6 @@ def s169():
     while True:
         SCREEN.blit(resized_bg17, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONPB;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125,(Height/100)*15.740))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -3792,7 +6784,6 @@ def s171():
     while True:
         SCREEN.blit(resized_bg17, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -3812,7 +6803,6 @@ def s172():
     while True:
         SCREEN.blit(resized_bg17, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*15.740))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -3832,7 +6822,6 @@ def s173():
     while True:
         SCREEN.blit(resized_bg17, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -3852,7 +6841,6 @@ def s174():
     while True:
         SCREEN.blit(resized_bg17, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -3872,7 +6860,6 @@ def s175():
     while True:
         SCREEN.blit(resized_bg17, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*15.740))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -3892,7 +6879,6 @@ def s176():
     while True:
         SCREEN.blit(resized_bg17, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*15.740))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -3912,7 +6898,6 @@ def s177():
     while True:
         SCREEN.blit(resized_bg17, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -3932,7 +6917,6 @@ def s178():
     while True:
         SCREEN.blit(resized_bg17, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -3952,7 +6936,6 @@ def s179():
     while True:
         SCREEN.blit(resized_bg17, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*15.740))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -3972,7 +6955,6 @@ def s180():
     while True:
         SCREEN.blit(resized_bg17, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -3993,7 +6975,6 @@ def s181():
     while True:
         SCREEN.blit(resized_bg17, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -4013,7 +6994,6 @@ def s182():
     while True:
         SCREEN.blit(resized_bg17, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*15.740))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -4030,10 +7010,11 @@ def s182():
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):sls3()
         pygame.display.update()
 def s183():
+    pygame.mixer.music.load("songus/usti.wav")
+    pygame.mixer.music.play(0)
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
         DOKNO_BUTTON= Button(image=(resized_mctyri), pos=((Width/100)*40.625,(Height/100)*46.296),text_input="", font=font_meno, base_color="White", hovering_color="Green")
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*15.740))
@@ -4054,13 +7035,12 @@ def s184():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mctyri), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON3
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*5.2083,(Height/100)*15.740))  
-        DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON3.update(SCREEN)
         MOKNO_BUTTONC.update(SCREEN)
         dia1 = font.render(d184,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
         for event in pygame.event.get():
@@ -4073,13 +7053,12 @@ def s185():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mctyri), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON3
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*5.2083,(Height/100)*18.518))  
-        DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON3.update(SCREEN)
         MOKNO_BUTTONS.update(SCREEN)
         dia1 = font.render(d185,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
         for event in pygame.event.get():
@@ -4092,13 +7071,12 @@ def s186():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mctyri), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON3
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*5.2083,(Height/100)*15.740))  
-        DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON3.update(SCREEN)
         MOKNO_BUTTONC.update(SCREEN)
         dia1 = font.render(d186,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
         for event in pygame.event.get():
@@ -4111,13 +7089,12 @@ def s187():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mctyri), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON3
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*5.2083,(Height/100)*18.518))  
-        DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON3.update(SCREEN)
         MOKNO_BUTTONS.update(SCREEN)
         dia1 = font.render(d187,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
         for event in pygame.event.get():
@@ -4130,13 +7107,12 @@ def s188():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mctyri), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON3
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*5.2083,(Height/100)*18.518))  
-        DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON3.update(SCREEN)
         MOKNO_BUTTONS.update(SCREEN)
         dia1 = font.render(d188,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
         dia2 = font.render(d188b,True,"Black") ;SCREEN.blit(dia2,((Width/100)*14.322916,(Height/100)*76.851851851852)) 
@@ -4150,13 +7126,12 @@ def s189():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mctyri), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON3
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*5.2083,(Height/100)*18.518))  
-        DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON3.update(SCREEN)
         MOKNO_BUTTONS.update(SCREEN)
         dia1 = font.render(d189,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
         dia2 = font.render(d189b,True,"Black") ;SCREEN.blit(dia2,((Width/100)*14.322916,(Height/100)*76.851851851852))
@@ -4170,13 +7145,11 @@ def s190():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mctyri), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*5.2083,(Height/100)*18.518))  
-        DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON3.update(SCREEN)
         MOKNO_BUTTONS.update(SCREEN)
         dia1 = font.render(d190,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
         dia2 = font.render(d190b,True,"Black") ;SCREEN.blit(dia2,((Width/100)*14.322916,(Height/100)*76.851851851852))
@@ -4190,13 +7163,11 @@ def s191():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mctyri), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*5.2083,(Height/100)*18.518))  
-        DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON3.update(SCREEN)
         MOKNO_BUTTONS.update(SCREEN)
         dia1 = font.render(d191,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
         dia2 = font.render(d191b,True,"Black") ;SCREEN.blit(dia2,((Width/100)*14.322916,(Height/100)*76.851851851852)) 
@@ -4210,13 +7181,11 @@ def s192():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mctyri), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
         SCREEN.blit(imp2, ((Width/100)*5.2083,(Height/100)*18.518))  
-        DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON3.update(SCREEN)
         MOKNO_BUTTONS.update(SCREEN)
         dia1 = font.render(d193,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
         dia2 = font.render(d193b,True,"Black") ;SCREEN.blit(dia2,((Width/100)*14.322916,(Height/100)*76.851851851852)) 
@@ -4231,7 +7200,6 @@ def s193():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
@@ -4258,7 +7226,7 @@ def strelita():
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*15.740))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -4274,32 +7242,21 @@ def strelita():
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):strelita2()
         pygame.display.update()
 def strelita2():
+    pygame.mixer.music.stop()
+    vid = Video("smrtdva.mp4")
     while True:
-        pygame.mixer.music.stop()
-        pygame.mixer.music.load("songus/smrtdva.wav")
-        pygame.mixer.music.play(loops=0)  
-        file_name = "vid/smrtdva.mp4"
-        window_name = "window"
-        interframe_wait_ms = 20
-        cap = cv2.VideoCapture(file_name)
-        if not cap.isOpened():
-            exit()
-        cv2.namedWindow(window_name, cv2.WND_PROP_FULLSCREEN)
-        cv2.setWindowProperty(window_name, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
-        while (True):
-            ret, frame = cap.read()
-            if not ret:break
-            cv2.imshow(window_name, frame)
-            if cv2.waitKey(interframe_wait_ms) & 0x7F == ord("q"):break
-        cap.release()
-        cv2.destroyAllWindows()
-        POMOC()
+        clock.tick(60)
+        for event in pygame.event.get():
+            if event.type ==pygame.MOUSEBUTTONDOWN:
+                vid.close()
+                POMOC()
+        vid.draw(SCREEN, (0, 0), force_draw=False)
+        pygame.display.update()
 def s194():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                            
@@ -4316,8 +7273,7 @@ def s195():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*15.740))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -4338,7 +7294,9 @@ def sls3():
     if os.path.exists("save4.txt"):os.remove("save4.txt")
     if os.path.exists("save5.txt"):os.remove("save5.txt")
     while True:
-        pygame.mouse.get_pos();SCREEN.fill("black");SCREEN.blit(resized_ls, (0, 0));f = open("save3.txt", "w");f.close();pygame.mixer.music.stop()
+        pygame.mouse.get_pos()
+        SCREEN.fill("black");SCREEN.blit(pygame.transform.scale(pygame.image.load("asety/luna.jpg"),(Width,Height)), (0, 0))
+        f = open("save3.txt", "w");f.close();pygame.mixer.music.stop()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit();sys.exit()
@@ -4352,7 +7310,6 @@ def s196():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                           
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -4372,8 +7329,7 @@ def s197():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                          
@@ -4393,8 +7349,6 @@ def s198():
         while True:
             SCREEN.blit(resized_bg1, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
             imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
             SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*15.740))
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -4414,8 +7368,7 @@ def s199():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                          
@@ -4435,8 +7388,7 @@ def s200():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*15.740))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -4456,8 +7408,7 @@ def s201():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                          
@@ -4477,8 +7428,7 @@ def s202():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                          
@@ -4498,8 +7448,6 @@ def s203():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*15.740))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -4519,7 +7467,6 @@ def s204():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                           
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -4539,8 +7486,7 @@ def s205():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*15.740))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -4560,7 +7506,6 @@ def s206():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;DOKNO_BUTTON;MOKNO_BUTTONN;DALSI_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                           
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*18.518))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -4581,8 +7526,7 @@ def s207():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*15.740))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -4602,8 +7546,7 @@ def s208():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                          
@@ -4623,8 +7566,7 @@ def s209():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*15.740))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -4644,8 +7586,7 @@ def s210():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                          
@@ -4665,8 +7606,7 @@ def s211():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*15.740))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -4686,8 +7626,7 @@ def s212():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON
         imp1 = pygame.image.load('postavy/nekolas.png').convert()                                                            
         SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*15.740))
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -4707,8 +7646,7 @@ def s213():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                          
@@ -4726,8 +7664,6 @@ def s214():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                          
@@ -4747,7 +7683,8 @@ def sls4():
     if os.path.exists("save3.txt"):os.remove("save3.txt")
     if os.path.exists("save5.txt"):os.remove("save5.txt")
     while True:
-        pygame.mouse.get_pos();SCREEN.fill("black");SCREEN.blit(resized_ls, (0, 0));f = open("save4.txt", "w");f.close()
+        pygame.mouse.get_pos();SCREEN.fill("black");SCREEN.blit(pygame.transform.scale(pygame.image.load("asety/ls3.png"),(Width,Height)), (0, 0))
+        f = open("save4.txt", "w");f.close()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit();sys.exit()
@@ -4761,7 +7698,6 @@ def s215n():
     while True:
         SCREEN.blit(resized_bg23, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                          
@@ -4779,8 +7715,6 @@ def s215():
     while True:
         SCREEN.blit(resized_bg23, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                          
@@ -4798,8 +7732,6 @@ def s216():
     while True:
         SCREEN.blit(resized_bg23, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                          
@@ -4817,8 +7749,6 @@ def s217():
     while True:
         SCREEN.blit(resized_bg23, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                          
@@ -4837,33 +7767,18 @@ def smapa():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         PLAY_BACK
         SCREEN.blit(resized_mapa, (0, 0))
-        VYB_BUTTONG =Button(image=(house), pos=((Width/100)*26,(Height/100)*40), 
-                                                text_input="", font=font_vyber, base_color="White", hovering_color="#4e61de")
-        VYB_BUTTONS =Button(image=(house), pos=((Width/100)*44,(Height/100)*40), 
-                                                text_input="", font=font_vyber, base_color="White", hovering_color="#4e61de")
-        VYB_BUTTONP =Button(image=(house), pos=((Width/100)*76.0416,(Height/100)*60), 
-                                                text_input="", font=font_vyber, base_color="White", hovering_color="#4e61de")
-        VYB_BUTTON1 =Button(image=(house), pos=((Width/100)*26,(Height/100)*80), 
-                                                text_input="", font=font_vyber, base_color="White", hovering_color="#4e61de")
-        VYB_BUTTON2 =Button(image=(house), pos=((Width/100)*9,(Height/100)*82), 
-                                                text_input="", font=font_vyber, base_color="White", hovering_color="#4e61de")
-        VYB_BUTTON3 =Button(image=(house), pos=((Width/100)*76,(Height/100)*30), 
-                                                text_input="", font=font_vyber, base_color="White", hovering_color="#4e61de")
-        VYB_BUTTON4 =Button(image=(house), pos=((Width/100)*59,(Height/100)*30), 
-                                                text_input="", font=font_vyber, base_color="White", hovering_color="#4e61de")
-        VYB_BUTTON5 =Button(image=(house), pos=((Width/100)*89,(Height/100)*15), 
-                                                text_input="", font=font_vyber, base_color="White", hovering_color="#4e61de")
+        VYB_BUTTONG =Button(image=(house), pos=((Width/100)*26,(Height/100)*40), text_input="", font=font_vyber, base_color="White", hovering_color="#4e61de")
+        VYB_BUTTONS =Button(image=(house), pos=((Width/100)*44,(Height/100)*40), text_input="", font=font_vyber, base_color="White", hovering_color="#4e61de")
+        VYB_BUTTONP =Button(image=(house), pos=((Width/100)*76.0416,(Height/100)*60), text_input="", font=font_vyber, base_color="White", hovering_color="#4e61de")
+        VYB_BUTTON1 =Button(image=(house), pos=((Width/100)*26,(Height/100)*80), text_input="", font=font_vyber, base_color="White", hovering_color="#4e61de")
+        VYB_BUTTON2 =Button(image=(house), pos=((Width/100)*9,(Height/100)*82), text_input="", font=font_vyber, base_color="White", hovering_color="#4e61de")
+        VYB_BUTTON3 =Button(image=(house), pos=((Width/100)*76,(Height/100)*30), text_input="", font=font_vyber, base_color="White", hovering_color="#4e61de")
+        VYB_BUTTON4 =Button(image=(house), pos=((Width/100)*59,(Height/100)*30), text_input="", font=font_vyber, base_color="White", hovering_color="#4e61de")
+        VYB_BUTTON5 =Button(image=(house), pos=((Width/100)*89,(Height/100)*15), text_input="", font=font_vyber, base_color="White", hovering_color="#4e61de")
         VYB_BUTTONG.changeColor(PLAY_MOUSE_POS)
         VYB_BUTTONP.changeColor(PLAY_MOUSE_POS)
         VYB_BUTTONS.changeColor(PLAY_MOUSE_POS)
-        VYB_BUTTON5.update(SCREEN) 
-        VYB_BUTTON4.update(SCREEN) 
-        VYB_BUTTON3.update(SCREEN) 
-        VYB_BUTTON2.update(SCREEN)        
-        VYB_BUTTON1.update(SCREEN)
-        VYB_BUTTONG.update(SCREEN)
-        VYB_BUTTONP.update(SCREEN)
-        VYB_BUTTONS.update(SCREEN)
+        VYB_BUTTON5.update(SCREEN) ;VYB_BUTTON4.update(SCREEN);VYB_BUTTON3.update(SCREEN);VYB_BUTTON2.update(SCREEN);VYB_BUTTON1.update(SCREEN);VYB_BUTTONG.update(SCREEN);VYB_BUTTONP.update(SCREEN);VYB_BUTTONS.update(SCREEN)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:pygame.quit();sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -4897,7 +7812,7 @@ def sdum11():
             SCREEN.blit(resized_bg24, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
             PLAY_BACK;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mtri), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+            DOKNO_BUTTON2
             DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
             MOKNO_BUTTONUN.update(SCREEN)
             dia1 = font.render(dum11,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
@@ -4912,7 +7827,7 @@ def sdum12():
             SCREEN.blit(resized_bg24, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
             PLAY_BACK;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mtri), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+            DOKNO_BUTTON2
             DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
             MOKNO_BUTTONUNb.update(SCREEN)
             dia1 = font.render(dum12,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
@@ -4927,7 +7842,7 @@ def sdum13():
             SCREEN.blit(resized_bg24, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
             PLAY_BACK;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mtri), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+            DOKNO_BUTTON2
             DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
             MOKNO_BUTTONUNb.update(SCREEN)
             dia1 = font.render(dum13,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
@@ -4943,7 +7858,7 @@ def sdum14():
             SCREEN.blit(resized_bg24, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
             PLAY_BACK;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mtri), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+            DOKNO_BUTTON2
             DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
             MOKNO_BUTTONUN.update(SCREEN)
             dia1 = font.render(dum14,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
@@ -4958,7 +7873,7 @@ def sdum15():
             SCREEN.blit(resized_bg24, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
             PLAY_BACK;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mtri), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+            DOKNO_BUTTON2
             DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
             MOKNO_BUTTONUNb.update(SCREEN)
             dia1 = font.render(dum15,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
@@ -4973,7 +7888,7 @@ def sdum16():
             SCREEN.blit(resized_bg24, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
             PLAY_BACK;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mtri), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+            DOKNO_BUTTON2
             DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
             MOKNO_BUTTONUNb.update(SCREEN)
             dia1 = font.render(dum16,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
@@ -4988,7 +7903,7 @@ def sdum17():
             SCREEN.blit(resized_bg24, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
             PLAY_BACK;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mtri), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+            DOKNO_BUTTON2
             DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
             MOKNO_BUTTONUN.update(SCREEN)
             dia1 = font.render(dum17,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
@@ -5003,7 +7918,7 @@ def sdum18():
             SCREEN.blit(resized_bg24, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
             PLAY_BACK;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mtri), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+            DOKNO_BUTTON2
             DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
             MOKNO_BUTTONUNb.update(SCREEN)
             dia1 = font.render(dum18,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
@@ -5018,7 +7933,7 @@ def sdum19():
             SCREEN.blit(resized_bg24, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
             PLAY_BACK;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mtri), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+            DOKNO_BUTTON2
             DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
             MOKNO_BUTTONUNb.update(SCREEN)
             dia1 = font.render(dum19,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
@@ -5044,7 +7959,6 @@ def sdum20():
     while True:
         SCREEN.blit(resized_bg26, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                          
@@ -5063,8 +7977,7 @@ def sdum21():
     while True:
         SCREEN.blit(resized_bg26, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                          
@@ -5086,8 +7999,7 @@ def sdum22():
     while True:
         SCREEN.blit(resized_bg26, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                          
@@ -5105,8 +8017,7 @@ def sdum23():
     while True:
         SCREEN.blit(resized_bg26, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                          
@@ -5128,7 +8039,6 @@ def sdum232():
     while True:
         SCREEN.blit(resized_bg26, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
         VIK1_BUTTON= Button(image=(resized_vyberbutton), pos=((Width/100)*26.0416,(Height/100)*55.55), text_input="Koupit zbraně", font=font_vyber, base_color="White", hovering_color="#4e61de")
         VIK2_BUTTON= Button(image=(resized_vyberbutton), pos=((Width/100)*65.10416,(Height/100)*55.55), text_input="Hrát war thunder", font=font_vyber, base_color="White", hovering_color="#4e61de")
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -5148,8 +8058,7 @@ def sdum24():
     while True:
         SCREEN.blit(resized_bg26, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                          
@@ -5170,8 +8079,7 @@ def sdum25():
     while True:
         SCREEN.blit(resized_bg26, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                          
@@ -5222,8 +8130,7 @@ def sdum26spatne():
     while True:
         SCREEN.blit(resized_bg26, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                          
@@ -5245,8 +8152,7 @@ def sdum26dobre():
     while True:
         SCREEN.blit(resized_bg26, (0, 0))
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-        DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
+        DOKNO_BUTTON
         imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
         SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
         imp2 = pygame.image.load('postavy/cednik.png').convert()                                                          
@@ -5268,7 +8174,7 @@ def sdum30():
         while True:
             SCREEN.blit(resized_bg27, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
+
             imp1 = pygame.image.load('postavy/viktor.png').convert()                                                            
             SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*15.740))
             DALSI_BUTTON.update(SCREEN)
@@ -5284,8 +8190,6 @@ def sdum31():
         while True:
             SCREEN.blit(resized_bg27, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
             imp1 = pygame.image.load('postavy/viktor.png').convert()                                                           
             SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*15.740))
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -5305,8 +8209,6 @@ def sdum32():
         while True:
             SCREEN.blit(resized_bg27, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
             imp1 = pygame.image.load('postavy/viktor.png').convert()                                                            
             SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*18.518))
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -5326,8 +8228,6 @@ def sdum33():
         while True:
             SCREEN.blit(resized_bg27, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
             imp1 = pygame.image.load('postavy/viktor.png').convert()                                                            
             SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*18.518))
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -5347,8 +8247,6 @@ def sdum34():
         while True:
             SCREEN.blit(resized_bg27, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
             imp1 = pygame.image.load('postavy/viktor.png').convert()                                                            
             SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*15.740))
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -5368,8 +8266,6 @@ def sdum35():
         while True:
             SCREEN.blit(resized_bg27, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
             imp1 = pygame.image.load('postavy/viktor.png').convert()                                                            
             SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*18.518))
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -5389,8 +8285,6 @@ def sdum36():
         while True:
             SCREEN.blit(resized_bg27, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
             imp1 = pygame.image.load('postavy/viktor.png').convert()                                                            
             SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*15.740))
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -5410,8 +8304,6 @@ def sdum37():
         while True:
             SCREEN.blit(resized_bg27, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
             imp1 = pygame.image.load('postavy/viktor.png').convert()                                                            
             SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*18.518))
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -5431,8 +8323,6 @@ def sdum38():
         while True:
             SCREEN.blit(resized_bg27, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
             imp1 = pygame.image.load('postavy/viktor.png').convert()                                                            
             SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*15.740))
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -5452,8 +8342,6 @@ def sdum39():
         while True:
             SCREEN.blit(resized_bg27, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
             imp1 = pygame.image.load('postavy/viktor.png').convert()                                                        
             SCREEN.blit(imp1, ((Width/100)*32.8125, (Height/100)*18.518))
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
@@ -5473,7 +8361,7 @@ def sdum40():
         while True:
             SCREEN.blit(resized_bg27, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
+
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
             SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
             imp2 = pygame.image.load('postavy/cednik.png').convert()                                                           
@@ -5491,7 +8379,7 @@ def sdum41():
         while True:
             SCREEN.blit(resized_bg23, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
+
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
             SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
             imp2 = pygame.image.load('postavy/cednik.png').convert()                                                           
@@ -5509,8 +8397,6 @@ def s218():
         while True:
             SCREEN.blit(resized_bg23, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
             SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
             imp2 = pygame.image.load('postavy/cednik.png').convert()                                                           
@@ -5529,8 +8415,6 @@ def s219():
         while True:
             SCREEN.blit(resized_bg23, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
             SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
             imp2 = pygame.image.load('postavy/cednik.png').convert()                                                           
@@ -5548,8 +8432,6 @@ def s220():
         while True:
             SCREEN.blit(resized_bg23, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
             SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
             imp2 = pygame.image.load('postavy/cednik.png').convert()                                                           
@@ -5566,8 +8448,6 @@ def s221():
         while True:
             SCREEN.blit(resized_bg23, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
             SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
             imp2 = pygame.image.load('postavy/cednik.png').convert()                                                           
@@ -5587,7 +8467,8 @@ def sls5():
     if os.path.exists("save3.txt"):os.remove("save3.txt")
     if os.path.exists("save4.txt"):os.remove("save4.txt")
     while True:
-        pygame.mouse.get_pos();SCREEN.fill("black");SCREEN.blit(resized_ls, (0, 0));f = open("save5.txt", "w");f.close()
+        pygame.mouse.get_pos();SCREEN.fill("black");SCREEN.blit(pygame.transform.scale(pygame.image.load("asety/ls5.png"),(Width,Height)), (0, 0))
+        f = open("save5.txt", "w");f.close()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit();sys.exit()
@@ -5601,7 +8482,6 @@ def s222n():
         while True:
             SCREEN.blit(resized_bg1, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
             SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
             imp2 = pygame.image.load('postavy/cednik.png').convert()                                                           
@@ -5610,36 +8490,29 @@ def s222n():
             PLAY_BACK.changeColor(PLAY_MOUSE_POS)
             PLAY_BACK.update(SCREEN)
             for event in pygame.event.get():
-                if event.type == pygame.QUIT:pygame.quit();sys.exit()
-                if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.type==pygame.QUIT:pygame.quit();sys.exit()
+                if event.type==pygame.MOUSEBUTTONDOWN:
                     if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
                     if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):s222()
             pygame.display.update()
 def s222():
-        while True:
-            SCREEN.blit(resized_bg1, (0, 0))
-            PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296),text_input="", font=font_meno, base_color="White", hovering_color="Green")
-            imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
-            SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
-            imp2 = pygame.image.load('postavy/cednik.png').convert()                                                           
-            SCREEN.blit(imp2, ((Width/100)*5.2083,(Height/100)*18.518))  
-            DALSI_BUTTON.update(SCREEN);PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
-            MOKNO_BUTTONS.update(SCREEN)
-            dia1 = font.render(d222,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:pygame.quit();sys.exit()
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
-                    if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):s223()
-            pygame.display.update()
+    while True:
+        SCREEN.blit(resized_bg1, (0, 0)) 
+        imp3 = pygame.image.load('postavy/strom.png').convert_alpha();SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
+        imp2 = pygame.image.load('postavy/cednik.png').convert();SCREEN.blit(imp2, ((Width/100)*5.2083,(Height/100)*18.518))
+        DALSI_BUTTON.update(SCREEN);PLAY_MOUSE_POS=pygame.mouse.get_pos();PLAY_BACK.changeColor(PLAY_MOUSE_POS);PLAY_BACK.update(SCREEN);DOKNO_BUTTON.update(SCREEN)
+        MOKNO_BUTTONS.update(SCREEN)  
+        dia1 = font.render(d222,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148)) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:pygame.quit();sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
+                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):s223()
+        pygame.display.update()
 def s223():
         while True:
             SCREEN.blit(resized_bg1, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
             SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
             imp2 = pygame.image.load('postavy/cednik.png').convert()                                                           
@@ -5657,8 +8530,6 @@ def s224():
         while True:
             SCREEN.blit(resized_bg1, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
             SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
             imp1 = pygame.image.load('postavy/kanec.png').convert()                                                           
@@ -5682,7 +8553,7 @@ def s225():
         while True:
             SCREEN.blit(resized_bg1, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
+
             DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296),text_input="", font=font_meno, base_color="White", hovering_color="Green")
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
             SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
@@ -5703,7 +8574,7 @@ def s226():
         while True:
             SCREEN.blit(resized_bg1, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
+
             DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296),text_input="", font=font_meno, base_color="White", hovering_color="Green")
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
             SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
@@ -5728,7 +8599,7 @@ def s227():
         while True:
             SCREEN.blit(resized_bg1, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
+
             DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296),text_input="", font=font_meno, base_color="White", hovering_color="Green")
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
             SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
@@ -5749,7 +8620,7 @@ def s228():
         while True:
             SCREEN.blit(resized_bg1, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
+
             DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296),text_input="", font=font_meno, base_color="White", hovering_color="Green")
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
             SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
@@ -5770,7 +8641,7 @@ def s229():
         while True:
             SCREEN.blit(resized_bg1, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
+
             DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296),text_input="", font=font_meno, base_color="White", hovering_color="Green")
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
             SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
@@ -5795,8 +8666,6 @@ def s230():
         while True:
             SCREEN.blit(resized_bg1, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
             SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
             imp1 = pygame.image.load('postavy/kanec.png').convert()                                                           
@@ -5820,8 +8689,6 @@ def s231():
         while True:
             SCREEN.blit(resized_bg1, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
             SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
             imp1 = pygame.image.load('postavy/kanec.png').convert()                                                           
@@ -5845,8 +8712,6 @@ def s232():
         while True:
             SCREEN.blit(resized_bg1, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
             SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
             imp1 = pygame.image.load('postavy/kanec.png').convert()                                                           
@@ -5866,8 +8731,6 @@ def s233():
         while True:
             SCREEN.blit(resized_bg1, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
             SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
             imp1 = pygame.image.load('postavy/kanec.png').convert()                                                           
@@ -5887,8 +8750,6 @@ def s234():
         while True:
             SCREEN.blit(resized_bg1, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
             SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
             imp1 = pygame.image.load('postavy/kanec.png').convert()                                                           
@@ -5908,8 +8769,6 @@ def s235():
         while True:
             SCREEN.blit(resized_bg1, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
             SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
             imp1 = pygame.image.load('postavy/kanec.png').convert()                                                           
@@ -5933,8 +8792,6 @@ def s236():
         while True:
             SCREEN.blit(resized_bg1, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON
-            DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296),text_input="", font=font_meno, base_color="White", hovering_color="Green")
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
             SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*15.740))
             imp1 = pygame.image.load('postavy/kanec.png').convert()                                                           
@@ -5954,7 +8811,6 @@ def s237():
         while True:
             SCREEN.blit(resized_bg1, (0, 0))
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            PLAY_BACK;MOKNO_BUTTONN;DALSI_BUTTON;DOKNO_BUTTON
             imp3 = pygame.image.load('postavy/strom.png').convert_alpha()                                                           
             SCREEN.blit(imp3, ((Width/100)*52.083, (Height/100)*18.518))
             imp1 = pygame.image.load('postavy/kanec.png').convert()                                                           
@@ -6000,33 +8856,30 @@ def autro():
     while True:
         pygame.mixer.music.stop()
         pygame.mixer.music.load("songus/autrosong.mp3")
-        pygame.mixer.music.play(loops=0)  
-        file_name = "vid/autro.mp4"
-        window_name = "window"
-        interframe_wait_ms = 28
-        cap = cv2.VideoCapture(file_name)
-        if not cap.isOpened():exit()
-        cv2.namedWindow(window_name, cv2.WND_PROP_FULLSCREEN)
-        cv2.setWindowProperty(window_name, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
-        while (True):
-            f = open("save6.txt", "w")
-            f.close()
-            ret, frame = cap.read()
-            if not ret:break
-            cv2.imshow(window_name, frame)
-            if cv2.waitKey(interframe_wait_ms) & 0x7F == ord("q"):break
-        cap.release()
-        cv2.destroyAllWindows()
-        exit()                                                                                  
+        pygame.mixer.music.play(loops=0) 
+        if os.path.exists("save1.txt"):os.remove("save1.txt")
+        if os.path.exists("save2.txt"):os.remove("save2.txt")
+        if os.path.exists("save3.txt"):os.remove("save3.txt")
+        if os.path.exists("save4.txt"):os.remove("save4.txt")
+        if os.path.exists("save5.txt"):os.remove("save5.txt")
+        vid = Video("autro.mp4")
+    while True:
+        clock.tick(60)
+        for event in pygame.event.get():
+            if event.type ==pygame.MOUSEBUTTONDOWN:
+                vid.close()
+                exit()
+        vid.draw(SCREEN, (0, 0), force_draw=False)
+        pygame.display.update()                                                                                
 #def buttonu v menu
 xpb=Width/100;xsb=Height*100;ypb=Height/100;yob=Height/100;yqb=Height/100;ysb=Height/100;ypob=Height/100;PLAY_BUTTON = Button(image=pygame.image.load("asety/startus.png"), pos=(xpb*91.18, ypb*27.8), text_input="Nová hra", font=font_vyber, base_color="#732c06", hovering_color="White");OPTIONS_BUTTON = Button(image=pygame.image.load("asety/nastus.png"), pos=(xpb*91.18, yob*64.82), text_input="Nastavení", font=font_vyber, base_color="#732c06", hovering_color="White");QUIT_BUTTON = Button(image=pygame.image.load("asety/koncus.png"), pos=(xpb*91.18,  yqb*83.34 ), text_input="Konec", font=font_vyber, base_color="#732c06", hovering_color="White");POK_BUTTON = Button(image=pygame.image.load("asety/pokus.png"), pos=(xpb*91.18, ypob*46.3), text_input="Pokračovat", font=font_vyber, base_color="#732c06", hovering_color="White")
 def POMOC():
     pygame.mixer.music.load("songus/songusamongus.wav")
     pygame.mixer.music.load("songus/songusamogusdruhus.wav")
     pygame.mixer.music.play(loops=-1)
-    save1 = os.path.exists("save1.txt");save2=os.path.exists("save2.txt");save3=os.path.exists("save3.txt");save4=os.path.exists("save4.txt");save5=os.path.exists("save5.txt");save6=os.path.exists("save6.txt")
+    sejv1 = os.path.exists("sejv1.txt");sejv2= os.path.exists("sejv2.txt") ;save1 = os.path.exists("save1.txt");save2=os.path.exists("save2.txt");save3=os.path.exists("save3.txt");save4=os.path.exists("save4.txt");save5=os.path.exists("save5.txt");save6=os.path.exists("save6.txt")
     if (save6):smrdis()
-    if (save1 or save2 or save3 or save4 or save5):
+    if (save1 or save2 or save3 or save4 or save5 or sejv1 or sejv2):
         def main_menu2():
             while True:
                 SCREEN.blit(resized_BG, (0, 0))
@@ -6067,6 +8920,8 @@ def POMOC():
                             if save3:sls3()
                             if save4:sls4()
                             if save5:sls5()
+                            if sejv1:sss1n()
+                            if sejv2:ss160n()
                 pygame.display.update()
         main_menu2()
     else:
@@ -6075,7 +8930,7 @@ def POMOC():
                 SCREEN.blit(resized_BG, (0, 0))
                 MENU_MOUSE_POS = pygame.mouse.get_pos()
                 MENU_TEXT = get_font(100).render("", True, "#732c06")
-                MENU_RECT = MENU_TEXT.get_rect(center=(640, 100));PLAY_BUTTON;OPTIONS_BUTTON;QUIT_BUTTON;SCREEN.blit(MENU_TEXT, MENU_RECT)
+                MENU_RECT = MENU_TEXT.get_rect(center=(640,100));PLAY_BUTTON;OPTIONS_BUTTON;QUIT_BUTTON;SCREEN.blit(MENU_TEXT, MENU_RECT)
                 def options():
                     while True:
                         OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
@@ -6100,7 +8955,8 @@ def POMOC():
                         if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):pygame.mixer.music.rewind();play()
                         if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):options()
                         if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):pygame.quit();sys.exit()
-                pygame.display.update()
+                pygame.display.update() 
+
         main_menu()
 POMOC()
 """
