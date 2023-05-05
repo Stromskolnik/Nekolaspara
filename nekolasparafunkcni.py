@@ -2,14 +2,88 @@ from time import sleep
 import pygame, sys
 import time
 import pygame
-import cv2
-import numpy as np
 import os.path
 import sys
 from texty import *
 from delark import smrdis
 import random
 from sys import platform
+import pygame 
+import os
+from ffpyplayer.player import MediaPlayer
+from ffpyplayer.tools import set_loglevel
+from pymediainfo import MediaInfo
+from errno import ENOENT
+class Video:
+    def __init__(self, path):
+        if not os.path.exists(path):
+            raise FileNotFoundError(ENOENT, os.strerror(ENOENT), path)
+        set_loglevel("quiet")
+        self.path = path 
+        self.name = os.path.splitext(os.path.basename(path))[0] 
+        self._video = MediaPlayer(path)
+        self._frame_num = 0
+        info = MediaInfo.parse(path).video_tracks[0]
+        self.frame_rate = float(info.frame_rate)
+        self.frame_count = int(info.frame_count)
+        self.frame_delay = 1 / self.frame_rate
+        self.duration = info.duration / 1000
+        self.original_size = (info.width, info.height)
+        self.current_size = self.original_size
+        self.active = True
+        self.frame_surf = pygame.Surface((0, 0))
+        self.alt_resize = pygame.transform.smoothscale
+    def close(self):
+        self._video.close_player()
+    def restart(self):
+        self._video.seek(0, relative=False)
+        self._frame_num = 0
+        self.frame_surf = None
+        self.active = True
+    def set_size(self, size: tuple):
+        self._video.set_size(*size)
+        self.current_size = size
+    def set_volume(self, volume: float): 
+        self._video.set_volume(volume)
+    def get_volume(self) -> float:
+        return self._video.get_volume()       
+    def get_paused(self) -> bool:
+        return self._video.get_pause()       
+    def pause(self):
+        self._video.set_pause(True)      
+    def resume(self):
+        self._video.set_pause(False)
+    def get_pos(self) -> float: 
+        return self._video.get_pts()    
+    def toggle_pause(self):
+        self._video.toggle_pause()
+    def _update(self): 
+        updated = False
+        if self._frame_num + 1 == self.frame_count:
+            self.active = False 
+            return False
+        while self._video.get_pts() > self._frame_num * self.frame_delay:
+            frame = self._video.get_frame()[0]
+            self._frame_num += 1
+            if frame != None:
+                size =  frame[0].get_size()
+                img = pygame.image.frombuffer(frame[0].to_bytearray()[0], size, "RGB")
+                if size != self.current_size:
+                    img = self.alt_resize(img, self.current_size)
+                self.frame_surf = img
+                updated = True  
+        return updated
+    def seek(self, seek_time: int): 
+        vid_time = self._video.get_pts()
+        if vid_time + seek_time < self.duration and self.active:
+            self._video.seek(seek_time)
+            while vid_time + seek_time < self._frame_num * self.frame_delay:
+                self._frame_num -= 1
+    def draw(self, surf: pygame.Surface, pos: tuple, force_draw: bool = True) -> bool:
+        if self.active and (self._update() or force_draw):
+            surf.blit(self.frame_surf, pos)
+            return True   
+        return False
 Width = 0
 Height = 0
 if platform == "linux" or platform == "linux2":
@@ -251,7 +325,8 @@ def t136():dia1 = font.render(d136,True,"Black");SCREEN.blit(dia1,((Width/100)*1
 def t137():dia1 = font.render(d137,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
 def t138():dia1 = font.render(d138,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
 def t139():dia1 = font.render(d139,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
-def t140():dia1 = font.render(d140,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))     
+def t140():dia1 = font.render(d140,True,"Black");SCREEN.blit(dia1,((Width/100)*14.322916,(Height/100)*73.148))
+clock = pygame.time.Clock()
 class Button():
 	def __init__(self, image, pos, text_input, font, base_color, hovering_color):
 		self.image = image
@@ -279,40 +354,18 @@ class Button():
 def get_font(size):
     return pygame.font.Font("asety/fontus.ttf", size)
 def play():
-    while True:
-        pygame.mixer.music.stop()
-        pygame.mixer.music.load("songus/trailer.wav")
-        pygame.mixer.music.play(loops=0)  
-        file_name = "vid/trailer.mp4"
-        window_name = "window"
-        interframe_wait_ms = 28
-        cap = cv2.VideoCapture(file_name)
-        if not cap.isOpened():
-            exit()
-        cv2.namedWindow(window_name, cv2.WND_PROP_FULLSCREEN)
-        cv2.setWindowProperty(window_name, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
-        while (True):
-            ret, frame = cap.read()
-            if not ret:break
-            cv2.imshow(window_name, frame)
-            if cv2.waitKey(interframe_wait_ms) & 0x7F == ord("q"):break
-        cap.release()
-        cv2.destroyAllWindows()
-        new()
-def new():
     pygame.mixer.music.stop()
-    pygame.mixer.music.load("songus/usti.wav")
-    pygame.mixer.music.play(loops=-1)
+    vid = Video("vid/trailer.mp4")
     while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos()
-        SCREEN.fill("black")
-        SCREEN.blit(bg1, (0, 0))
+        clock.tick(60)
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:pygame.quit();sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):POMOC()
-                if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):s1()                                                                                    
+            if event.type ==pygame.MOUSEBUTTONDOWN:
+                vid.close()
+                s1()
+        vid.draw(SCREEN, (0, 0), force_draw=False)
         pygame.display.update()
+        
+
 
 DALSI_BUTTON = Button(image=pygame.image.load("asety/dalsi.png"), pos=((Width/100)*50, (Height/100)*50), text_input="", font=font_meno, base_color="White", hovering_color="White")
 DOKNO_BUTTON= Button(image=(resized_mdva), pos=((Width/100)*40.625,(Height/100)*46.296), text_input="", font=font_meno, base_color="White", hovering_color="Green")
@@ -2012,33 +2065,17 @@ def s102():
                     flashback()                                                                                   
         pygame.display.update()
 def flashback():
+    SCREEN.blit(resized_bg8, (0, 0))
+    pygame.mixer.music.stop()
+    vid = Video("zabniju.mp4")
     while True:
-        SCREEN.blit(resized_bg8, (0, 0))
-        pygame.mixer.music.stop()
-        pygame.mixer.music.load("songus/zabniju.wav")
-        pygame.mixer.music.play(loops=0)
-        file_name = "vid/zabniju.mp4"
-        window_name = "window"
-        interframe_wait_ms = 24
-        cap = cv2.VideoCapture(file_name)
-        if not cap.isOpened():
-
-            exit()
-
-        cv2.namedWindow(window_name, cv2.WND_PROP_FULLSCREEN)
-        cv2.setWindowProperty(window_name, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
-
-        while (True):
-            ret, frame = cap.read()
-            if not ret:
-                break
-            cv2.imshow(window_name, frame)
-            if cv2.waitKey(interframe_wait_ms) & 0x7F == ord("q"):
-                break
-
-        cap.release()
-        cv2.destroyAllWindows()
-        s103()                      
+        clock.tick(60)
+        for event in pygame.event.get():
+            if event.type ==pygame.MOUSEBUTTONDOWN:
+                vid.close()
+                s103()
+        vid.draw(SCREEN, (0, 0), force_draw=False)
+        pygame.display.update()             
 def s103():
     while True:
         pygame.mixer.music.load("songus/songusamogusdruhus.wav")
@@ -5200,24 +5237,15 @@ def sakon2():
         pygame.display.update()
 def pbdole():
     pygame.mixer.music.stop()
-    pygame.mixer.music.load("songus/bum.wav")
-    pygame.mixer.music.play(loops=0)
-    while True:   
-        file_name = "vid/pbdole.mp4"
-        window_name = "window"
-        interframe_wait_ms = 30
-        cap = cv2.VideoCapture(file_name)
-        if not cap.isOpened():exit()
-        cv2.namedWindow(window_name, cv2.WND_PROP_FULLSCREEN)
-        cv2.setWindowProperty(window_name, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
-        while (True):
-            ret, frame = cap.read()
-            if not ret:break
-            cv2.imshow(window_name, frame)
-            if cv2.waitKey(interframe_wait_ms) & 0x7F == ord("q"):break
-        cap.release()
-        cv2.destroyAllWindows()
-        POMOC()
+    vid = Video("pbdole.mp4")
+    while True:
+        clock.tick(60)
+        for event in pygame.event.get():
+            if event.type ==pygame.MOUSEBUTTONDOWN:
+                vid.close()
+                POMOC()
+        vid.draw(SCREEN, (0, 0), force_draw=False)
+        pygame.display.update()
 def s121():
     while True:
         SCREEN.blit(resized_bg8, (0, 0))
@@ -7289,26 +7317,16 @@ def strelita():
                 if DALSI_BUTTON.checkForInput(PLAY_MOUSE_POS):strelita2()
         pygame.display.update()
 def strelita2():
+    pygame.mixer.music.stop()
+    vid = Video("smrtdva.mp4")
     while True:
-        pygame.mixer.music.stop()
-        pygame.mixer.music.load("songus/smrtdva.wav")
-        pygame.mixer.music.play(loops=0)  
-        file_name = "vid/smrtdva.mp4"
-        window_name = "window"
-        interframe_wait_ms = 20
-        cap = cv2.VideoCapture(file_name)
-        if not cap.isOpened():
-            exit()
-        cv2.namedWindow(window_name, cv2.WND_PROP_FULLSCREEN)
-        cv2.setWindowProperty(window_name, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
-        while (True):
-            ret, frame = cap.read()
-            if not ret:break
-            cv2.imshow(window_name, frame)
-            if cv2.waitKey(interframe_wait_ms) & 0x7F == ord("q"):break
-        cap.release()
-        cv2.destroyAllWindows()
-        POMOC()
+        clock.tick(60)
+        for event in pygame.event.get():
+            if event.type ==pygame.MOUSEBUTTONDOWN:
+                vid.close()
+                POMOC()
+        vid.draw(SCREEN, (0, 0), force_draw=False)
+        pygame.display.update()
 def s194():
     while True:
         SCREEN.blit(resized_bg1, (0, 0))
@@ -8910,32 +8928,22 @@ def end3():
             if event.type == pygame.MOUSEBUTTONDOWN:autro()                                                                                  
         pygame.display.update()
 def autro():
+    pygame.mixer.music.stop()
+    if os.path.exists("save1.txt"):os.remove("save1.txt")
+    if os.path.exists("save2.txt"):os.remove("save2.txt")
+    if os.path.exists("save3.txt"):os.remove("save3.txt")
+    if os.path.exists("save4.txt"):os.remove("save4.txt")
+    if os.path.exists("save5.txt"):os.remove("save5.txt")
+    vid = Video("vid/autro.mp4")
     while True:
-        pygame.mixer.music.stop()
-        pygame.mixer.music.load("songus/autrosong.mp3")
-        pygame.mixer.music.play(loops=0) 
-        if os.path.exists("save1.txt"):os.remove("save1.txt")
-        if os.path.exists("save2.txt"):os.remove("save2.txt")
-        if os.path.exists("save3.txt"):os.remove("save3.txt")
-        if os.path.exists("save4.txt"):os.remove("save4.txt")
-        if os.path.exists("save5.txt"):os.remove("save5.txt")
-        file_name = "vid/autro.mp4"
-        window_name = "window"
-        interframe_wait_ms = 28
-        cap = cv2.VideoCapture(file_name)
-        if not cap.isOpened():exit()
-        cv2.namedWindow(window_name,cv2.WND_PROP_FULLSCREEN)
-        cv2.setWindowProperty(window_name, cv2.WND_PROP_FULLSCREEN,cv2.WINDOW_FULLSCREEN)
-        while (True):
-            f = open("save6.txt", "w")
-            f.close()
-            ret, frame = cap.read()
-            if not ret:break
-            cv2.imshow(window_name, frame)
-            if cv2.waitKey(interframe_wait_ms) & 0x7F == ord("q"):break
-        cap.release()
-        cv2.destroyAllWindows()
-        exit()                                                                                  
+        clock.tick(60)
+        for event in pygame.event.get():
+            if event.type ==pygame.MOUSEBUTTONDOWN:
+                vid.close()
+                exit()
+        vid.draw(SCREEN, (0, 0), force_draw=False)
+        pygame.display.update()
+                                                                              
 #def buttonu v menu
 xpb=Width/100;xsb=Height*100;ypb=Height/100;yob=Height/100;yqb=Height/100;ysb=Height/100;ypob=Height/100;PLAY_BUTTON = Button(image=pygame.image.load("asety/startus.png"), pos=(xpb*91.18, ypb*27.8), text_input="Nová hra", font=font_vyber, base_color="#732c06", hovering_color="White");OPTIONS_BUTTON = Button(image=pygame.image.load("asety/nastus.png"), pos=(xpb*91.18, yob*64.82), text_input="Nastavení", font=font_vyber, base_color="#732c06", hovering_color="White");QUIT_BUTTON = Button(image=pygame.image.load("asety/koncus.png"), pos=(xpb*91.18,  yqb*83.34 ), text_input="Konec", font=font_vyber, base_color="#732c06", hovering_color="White");POK_BUTTON = Button(image=pygame.image.load("asety/pokus.png"), pos=(xpb*91.18, ypob*46.3), text_input="Pokračovat", font=font_vyber, base_color="#732c06", hovering_color="White")
 def POMOC():
